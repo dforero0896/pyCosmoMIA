@@ -31,7 +31,7 @@ def read_alpt_vector_field(filename, size):
 
 if __name__ == '__main__':
     import proplot as pplt
-    fig, ax = pplt.subplots(nrows = 1, ncols = 1, share = 0)
+    fig, ax = pplt.subplots(nrows = 1, ncols = 2, share = 0)
     
     displacement = read_alpt_vector_field(DISP_FILES, GRID_SIZE**3)
     dm_particles = read_alpt_vector_field(POS_FILES, GRID_SIZE**3)
@@ -110,7 +110,7 @@ if __name__ == '__main__':
     
     
     print("Enhancing field")
-    param_init = jnp.array([0.7, -10.])
+    param_init = jnp.array([6., -1.])
     smooth, step_size = param_init
     enhance_short_range_3d = jax.jit(jax.vmap(enhance_short_range, in_axes = (3, None, None)))
     interpolate_field_3d = jax.jit(jax.vmap(interpolate_field, in_axes = (0, None, None, None, None, None, None)))
@@ -120,15 +120,16 @@ if __name__ == '__main__':
     psis = enhance_short_range_3d(displacement.reshape(GRID_SIZE, GRID_SIZE, GRID_SIZE, 3), BOX_SIZE[0], smooth)
     print(psis.shape)
     
+    
     #psis = [interpolate_field(psis[i], result['pos'], BOX_MIN[0], BOX_MIN[1], BOX_MIN[2], GRID_SIZE, BOX_SIZE[0])  for i in range(3)]
-    result['pos'] += step_size * interpolate_field_3d(psis, result['pos'], BOX_MIN[0], BOX_MIN[1], BOX_MIN[2], GRID_SIZE, BOX_SIZE[0]).T
+    new_pos = result['pos'] + step_size * interpolate_field_3d(psis, result['pos'], BOX_MIN[0], BOX_MIN[1], BOX_MIN[2], GRID_SIZE, BOX_SIZE[0]).T
     print(psis.shape)
     
     
     delta_cm = jnp.zeros([GRID_SIZE] * 3)
     delta_cm = cic_mas_vec(delta_cm,
-                    result['pos'][:,0], result['pos'][:,1], result['pos'][:,2], jnp.broadcast_to(jnp.array([1.]), result['pos'].shape[0]), 
-                    result['pos'].shape[0], 
+                    new_pos[:,0], new_pos[:,1], new_pos[:,2], jnp.broadcast_to(jnp.array([1.]), new_pos.shape[0]), 
+                    new_pos.shape[0], 
                     0., 0., 0.,
                     BOX_SIZE[0],
                     delta_cm.shape[0],
@@ -151,6 +152,11 @@ if __name__ == '__main__':
     
     k = jnp.fft.fftfreq(GRID_SIZE, d=BOX_SIZE[0]/GRID_SIZE) * 2 * jnp.pi
     rfftn_batch = jax.vmap(jnp.fft.rfftn, in_axes = (0,))
+    psis_k = rfftn_batch(psis)
+    kmod = jnp.sqrt(k[:,None,None]**2 + k[None,:,None]**2 + k[None,None,:GRID_SIZE//2+1]**2)
+    ax[1].scatter(kmod.ravel(), (psis_k * psis_k.conj()).real.sum(axis=0).ravel().real)
+    
+    
     @jax.jit
     def disp_to_divergence(psis):
         psis_k = rfftn_batch(psis)
@@ -163,48 +169,65 @@ if __name__ == '__main__':
     def modify_delta(params, rho):
         smooth, step_size = params
         psis = enhance_short_range_3d(displacement.reshape(GRID_SIZE, GRID_SIZE, GRID_SIZE, 3), BOX_SIZE[0], smooth)
-        rho_prime = rho * (1 - step_size * disp_to_divergence(psis))
+        rho_prime = rho * (1 + step_size * disp_to_divergence(psis))
         delta_prime = rho_prime / rho_prime.mean() - 1
         return delta_prime
+    @jax.jit
+    def modify_pos(params, pos):
+        smooth, step_size = params
+        psis = enhance_short_range_3d(displacement.reshape(GRID_SIZE, GRID_SIZE, GRID_SIZE, 3), BOX_SIZE[0], smooth)
+        new_pos = pos + step_size * interpolate_field_3d(psis, pos, BOX_MIN[0], BOX_MIN[1], BOX_MIN[2], GRID_SIZE, BOX_SIZE[0]).T
+        delta_cm = jnp.zeros([GRID_SIZE] * 3)
+        delta_cm = cic_mas_vec(delta_cm,
+                        new_pos[:,0], new_pos[:,1], new_pos[:,2], jnp.broadcast_to(jnp.array([1.]), new_pos.shape[0]), 
+                        new_pos.shape[0], 
+                        0., 0., 0.,
+                        BOX_SIZE[0],
+                        delta_cm.shape[0],
+                        True)
+
+        delta_cm /= delta_cm.mean()
+        delta_cm -= 1.
+        return delta_cm
     
     delta_cm = modify_delta(param_init, rho_cm_raw)
     k_, pk_ = naive_pk(delta_cm, BOX_SIZE[0], k_edges)
     ax[0].plot(k_, k_ * pk_, label = "CosmoMIA enhanced field")
     
+    delta_cm = modify_pos(param_init, result['pos'])
+    k_, pk_ = naive_pk(delta_cm, BOX_SIZE[0], k_edges)
+    ax[0].plot(k_, k_ * pk_, label = "CosmoMIA enhanced part")
+    
+    
     
     [a.legend(loc = 'top') for a in ax]
     fig.savefig("plots/test_subgrid.png", dpi=300)
+    
+    
     @jax.jit
     def loss_fn(params):
-        delta_cm = modify_delta(params, rho_cm_raw)
-        #new_pos = result['pos'] + step_size * interpolate_field_3d(psis, result['pos'], BOX_MIN[0], BOX_MIN[1], BOX_MIN[2], GRID_SIZE, BOX_SIZE[0]).T
-        #delta_cm = jnp.zeros([GRID_SIZE] * 3)
-        #delta_cm = cic_mas_vec(delta_cm,
-        #                new_pos[:,0], new_pos[:,1], new_pos[:,2], jnp.broadcast_to(jnp.array([1.]), new_pos.shape[0]), 
-        #                new_pos.shape[0], 
-        #                0., 0., 0.,
-        #                BOX_SIZE[0],
-        #                delta_cm.shape[0],
-        #                True)
-#
-        #delta_cm /= delta_cm.mean()
-        #delta_cm -= 1.
-        
-        
-        
+        delta_cm = modify_delta(params, rho_cm_raw)       
         k_, pk_ = naive_pk(delta_cm, BOX_SIZE[0], k_edges)
         log_loss = jnp.mean(jnp.abs(jnp.log10(pk_) - jnp.log10(pk_ref)))
-        direct_loss = jnp.mean(jnp.abs((pk_) - (pk_ref)))
-        return log_loss + k_ * direct_loss
+        #direct_loss = jnp.mean(k_ * (jnp.abs((pk_) - (pk_ref))))
+        return log_loss #+ direct_loss
     
+    @jax.jit
+    def loss_fn(params):
+        delta_cm = modify_pos(params, result['pos'])    
+        k_, pk_ = naive_pk(delta_cm, BOX_SIZE[0], k_edges)
+        log_loss = jnp.mean(jnp.abs(jnp.log10(pk_) - jnp.log10(pk_ref)))
+        #direct_loss = jnp.mean(k_ * (jnp.abs((pk_) - (pk_ref))))
+        return log_loss #+ direct_loss
         
     
     grad_fn = jax.jit(jax.grad(loss_fn))
     print(grad_fn(param_init))
     
     import optax
-    LEARNING_RATE=1e-3
-    optim = optax.adamw(LEARNING_RATE)
+    LEARNING_RATE=0.5e-1
+    
+    optim = optax.adam(LEARNING_RATE)
     
     def train(params, steps, print_every = 5):
         opt_state = optim.init(param_init)
@@ -221,10 +244,11 @@ if __name__ == '__main__':
                     f"{step=}, train_loss={train_loss.item()}, "
                 )
         return params
-    params = train(param_init, 100, print_every = 5)
+    params = train(param_init, 10, print_every = 5)
+    print(f"Final params {params}")
     delta_cm = modify_delta(params, rho_cm_raw)
     k_, pk_ = naive_pk(delta_cm, BOX_SIZE[0], k_edges)
-    ax[0].plot(k_, k_ * pk_, label = "CosmoMIA enhanced field")
+    ax[0].plot(k_, k_ * pk_, label = "CMIA field opt", ls ='--')
     
     
     [a.legend(loc = 'top') for a in ax]

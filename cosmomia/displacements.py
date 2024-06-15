@@ -231,6 +231,44 @@ def aug_lpt(delta, box_size, smooth, interp_smooth):
     return psi_x, psi_y, psi_z
 
 @jax.jit
+def add_interpolated_disp(pos, psi, box_min, box_size, fac = 1.):
+    xmin, ymin, zmin = box_min
+    for i in range(3):
+        pos = pos.at[:,i].add(fac * interpolate_field(psi[i], pos, xmin, ymin, zmin, psi[i].shape[0], box_size[i]))
+    return pos
+
+def eul_aug_lpt(delta, box_size, smooth, interp_smooth, steps, pos, box_min, cosmo):
+    xmin, ymin, zmin = box_min
+    pos0 = pos.copy()
+    D1_steps = jc.background.growth_factor(cosmo, steps)
+    print(D1_steps)
+    delta_D = D1_steps[0]
+    delta_a = jnp.interp(delta_D, D1_steps, steps)
+    D1 = jc.background.growth_factor(cosmo, jnp.atleast_1d(delta_a))
+    pos = add_interpolated_disp(pos0, aug_lpt(delta_D * delta, box_size[0], smooth, interp_smooth), box_min, box_size)
+    
+    
+    for i in range(1, len(D1_steps)):
+        
+        delta = delta.at[:].set(0.)
+        delta = cic_mas_vec(delta,
+                        pos[:,0], pos[:,1], pos[:,2], jnp.broadcast_to(1., pos.shape[0]), 
+                        pos.shape[0], 
+                        xmin, ymin, zmin,
+                        box_size[0],
+                        delta.shape[0],
+                        True)
+        
+        delta /= delta.mean()
+        delta -= 1.
+        delta_D = (D1_steps[i])
+        delta_a = jnp.interp(delta_D, D1_steps, steps)
+        D1 = jc.background.growth_factor(cosmo, jnp.atleast_1d(delta_a))
+        pos = add_interpolated_disp(pos0, aug_lpt(delta / D1_steps[i-1], box_size[0], smooth, interp_smooth), box_min, box_size, fac = delta_D)
+
+    return pos
+
+@jax.jit
 def enhance_short_range(disp, box_size, interp_smooth):
     n_bins = disp.shape[0]
     k = jnp.fft.fftfreq(n_bins, d=box_size/n_bins) * 2 * jnp.pi
@@ -366,7 +404,7 @@ def field_smooth(field, scale, box_size):
 
 
 
-# JAX PM
+# JAX PM #buggy, adapted from flowpm
 def inv_laplacian_k(k):
     n_bins = k.shape[0]
     ksq = k[:,None,None]**2 + k[None,:,None]**2 + k[None,None,:n_bins // 2 + 1]**2
@@ -384,7 +422,7 @@ def gradient_ki(ki, order):
 
 def long_range_k(ksq, r_split):
     
-    return jax.lax.cond(r_split==0, lambda ksq, r: jnp.broadcast_to([1.], ksq.shape), lambda ksq, r: jnp.exp(- ksq * r**2), ksq, r_split)
+    return jax.lax.cond(r_split==0, lambda ksq, r: jnp.broadcast_to(1., ksq.shape), lambda ksq, r: jnp.exp(- ksq * r**2), ksq, r_split)
 
 @jax.jit
 def cic_interpolate(field, particles, box_size, n_bins):
@@ -428,7 +466,7 @@ def force(cosmo, particles, rho, box_size):
     
     n_bins = rho.shape[0]
     rho.at[...].set(0.)
-    w0 = jnp.broadcast_to([1.], particles.shape[0])
+    w0 = jnp.broadcast_to(1., particles.shape[0])
     rho = cic_mas_vec(rho,
                     particles[:,0], particles[:,1], particles[:,2], w0, 
                     particles.shape[0], 
@@ -536,7 +574,8 @@ def lpt_init(cosmo, linear, a, pos_lagrangian, box_size, n_bins):
     del displacements
     
     state['momenta'] = a**2 * f1 * E * psi
-    state['forces' ] = a**2 * E * gf / D1 * psi
+    #state['forces' ] = a**2 * E * gf / D1 * psi
+    state['forces' ] = a**2 * E * gf * psi
     state['positions'] = pos_lagrangian + psi
     state['positions'] += box_size
     state['positions'] %= box_size
@@ -570,8 +609,8 @@ def nbody(cosmo, state, stages, rho, n_bins, box_size):
         p = ah
 
       # Drift step
-        state['positions'] += drift(cosmo, state['momenta'], x, p, a1) + box_size
-        state['positions'] %= box_size
+        state['positions'] += drift(cosmo, state['momenta'], x, p, a1)# + box_size
+        #state['positions'] %= box_size
       # Optional PGD correction step
         
         x = a1
@@ -617,3 +656,24 @@ def nbody(cosmo, state, stages, rho, n_bins, box_size):
     
     return state
 '''
+
+
+def gen_ode_func(rho, mesh_shape):
+    
+    def nbody_ode(state, a, cosmo):
+        """
+        state is a tuple (position, velocities)
+        """
+        pos, vel = state
+
+        forces = force(cosmo, pos, rho, mesh_shape[0]) * 1.5 * cosmo.Omega_m
+
+        # Computes the update of position (drift)
+        dpos = 1. / (a**3 * jnp.sqrt(jc.background.Esqr(cosmo, a))) * vel
+        
+        # Computes the update of velocity (kick)
+        dvel = 1. / (a**2 * jnp.sqrt(jc.background.Esqr(cosmo, a))) * forces
+        
+        return dpos, dvel
+
+    return nbody_ode

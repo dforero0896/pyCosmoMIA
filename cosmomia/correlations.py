@@ -774,10 +774,10 @@ def naive_rcoeff(delta1, delta2, box_size, k_edges):
     modes, bins = jnp.histogram(k.ravel(), weights = jnp.ones_like(delta1_k.ravel().real), bins = bins)
     
     
-    counts_auto_1, _ = jnp.histogram(k.ravel(), weights = (delta1_k * delta1_k.conj()).real.ravel().real, bins = 200)
+    counts_auto_1, _ = jnp.histogram(k.ravel(), weights = (delta1_k * delta1_k.conj()).real.ravel().real, bins = k_edges)
     modes_auto_1, bins = jnp.histogram(k.ravel(), weights = jnp.ones_like(delta1_k.ravel().real), bins = bins)
     
-    counts_auto_2, _ = jnp.histogram(k.ravel(), weights = (delta2_k * delta2_k.conj()).real.ravel().real, bins = 200)
+    counts_auto_2, _ = jnp.histogram(k.ravel(), weights = (delta2_k * delta2_k.conj()).real.ravel().real, bins = k_edges)
     modes_auto_2, bins = jnp.histogram(k.ravel(), weights = jnp.ones_like(delta2_k.ravel().real), bins = bins)
     
     xpk = counts / modes * (box_size / dims**2)**3
