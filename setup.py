@@ -11,7 +11,8 @@ extensions = [
         sources=["cosmomia/subgrid.pyx"],#, "cosmomia/src/subgrid.cpp"],
         language="c++",
         include_dirs=[np.get_include()],
-        extra_compile_args=["-std=c++11"]
+        extra_compile_args=["-std=c++11", '-fopenmp'],
+        extra_link_args=['-fopenmp'],
     )
 ]
 
