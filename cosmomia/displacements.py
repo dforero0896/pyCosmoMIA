@@ -275,8 +275,21 @@ def enhance_short_range(disp, box_size, interp_smooth):
     kr = k * interp_smooth
     interp_kernel = jnp.exp(-0.5 * (kr[:, None, None] ** 2 + kr[None, :, None] ** 2 + kr[None, None, :n_bins//2+1] ** 2))
     return jnp.fft.irfftn((1. - interp_kernel) * jnp.fft.rfftn(disp), disp.shape)
-    
 
+
+@jax.jit
+def inverse_laplace_kernel(disp, box_size, interp_smooth):
+    n_bins = disp.shape[0]
+    k = jnp.fft.fftfreq(n_bins, d=box_size/n_bins) * 2 * jnp.pi
+    ksq = k[:,None,None]**2 + k[None,:,None]**2 + k[None,None,:n_bins//2+1]**2
+    ksq = ksq.at[0,0,0].set(0)
+    kr = k * interp_smooth
+    norm = jnp.exp(-0.5 * (kr[:, None, None] ** 2 + kr[None, :, None] ** 2 + kr[None, None, :n_bins//2+1] ** 2))
+    #norm = 1
+    #return jnp.fft.irfftn(jnp.where(ksq > 0, 1 / ksq, 0), disp.shape)
+    phi_field = jnp.where(ksq > 0., jnp.fft.rfftn(disp) * norm * (ksq), 0.)
+    phi_field = phi_field.at[0,0,0].set(0.)
+    return jnp.fft.irfftn(phi_field, disp.shape)
 @jax.jit
 def interpolate_field(disp, positions, xmin, ymin, zmin, n_bins, box_size):
 

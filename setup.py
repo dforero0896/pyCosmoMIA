@@ -10,9 +10,9 @@ extensions = [
         name="cosmomia",
         sources=["cosmomia/subgrid.pyx"],#, "cosmomia/src/subgrid.cpp"],
         language="c++",
-        include_dirs=[np.get_include()],
+        include_dirs=[np.get_include(), '-I/home/astro/dforero/codes/bosque/examples/c'],
         extra_compile_args=["-std=c++11", '-fopenmp'],
-        extra_link_args=['-fopenmp'],
+        extra_link_args=['-fopenmp', '-lbosque', '-L/home/astro/dforero/codes/bosque/target/release/', '-march=native'],
     )
 ]
 

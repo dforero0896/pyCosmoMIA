@@ -14,6 +14,10 @@ import jax
 from cython.parallel cimport parallel, prange
 cimport openmp
 import multiprocessing
+#from scipy.spatial import KDTree
+import pybosque
+from pykdtree.kdtree import KDTree
+import time
 
 cdef extern from "<iterator>" namespace "std":
 
@@ -468,7 +472,7 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
                             pos_view[particle_counter, ii] = (grid_center[ii] + (0.5 * bin_size[ii] * (-1) * (1 - sqrt(-draw))) + box_size[ii]) % box_size[ii]
                 is_dm_view[particle_counter] = 0
                 sampled_new += 1
-            dweb_view[particle_counter] = dm_cw_type[i]
+            dweb_view[particle_counter] = dm_cw_type[index_3d]
             delta_dm_view[particle_counter] =  cy_read_cic[floating](dm_dens,
                                                     pos_view[particle_counter,:],
                                                     box_size,
@@ -484,7 +488,7 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
                                                     1)
             r_min_view[particle_counter] = 1e10
             delta_max_view[particle_counter] = -1e10
-            is_attractor_view[particle_counter] = (dm_cw_type[i] < 4) and is_dm_view[particle_counter]
+            is_attractor_view[particle_counter] = (dm_cw_type[index_3d] < 4) and is_dm_view[particle_counter]
             #if debug:
             #    if not check_in_range[floating](pos_view[particle_counter,:], grid_center, bin_size):
             #        print(f"Particle {particle_counter} not in cell")
@@ -692,7 +696,7 @@ cpdef dict par_py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned 
                 is_dm[thread_id].push_back(0)
                 sampled_new[thread_id] += 1
             pos[thread_id].push_back(pos_buffer[thread_id]) #maybe bug
-            dweb[thread_id].push_back(dm_cw_type[i])
+            dweb[thread_id].push_back(dm_cw_type[index_3d])
             delta_dm[thread_id].push_back(cy_read_cic_floats[floating](dm_dens,
                                                     pos_buffer[thread_id][0], pos_buffer[thread_id][1], pos_buffer[thread_id][2],
                                                     box_size[0], box_size[1], box_size[2],
@@ -708,7 +712,7 @@ cpdef dict par_py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned 
                                                     1)
             r_min[thread_id].push_back(1e10)
             delta_max[thread_id].push_back(-1e10)
-            is_attractor[thread_id].push_back((dm_cw_type[i] < 4) and is_dm[thread_id][is_dm[thread_id].size()-1])
+            is_attractor[thread_id].push_back((dm_cw_type[index_3d] < 4) and is_dm[thread_id][is_dm[thread_id].size()-1])
             vel[thread_id].push_back(vel_buffer[thread_id])
             #if debug:
             #    if not check_in_range[floating](pos_view[particle_counter,:], grid_center, bin_size):
@@ -783,7 +787,49 @@ cpdef dict par_py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned 
     
             
 
+cpdef dict subgrid_collapse(dict catalog, floating[:] params, size_t grid_size, floating[:] box_size, is_attractor_mask):
 
+    
+    #printf("Assigning DM particles to cells...")
+    #fflush(stdout)
+    #cdef vector[vector[Py_ssize_t]] mesh
+    #mesh.reserve(grid_size**3)
+    #mesh.resize(grid_size**3)
+    #for i in range(grid_size**3):
+    #    #dm_per_cell.push_back([])
+    #    dm_per_cell.push_back(*(new vector[Py_ssize_t]()))
+
+    cdef floating[:,:] pos_view, vel_view
+    pos_view = catalog['pos']
+
+    #for i in range(pos_view.shape[0]):
+    #    ii = wrap_indices(<Py_ssize_t>(floor(grid_size * pos_view[i,0] / box_size[0])), grid_size)
+    #    jj = wrap_indices(<Py_ssize_t>(floor(grid_size * pos_view[i,1] / box_size[1])), grid_size)
+    #    kk = wrap_indices(<Py_ssize_t>(floor(grid_size * pos_view[i,2] / box_size[2])), grid_size)
+    #    index_3d = INDEX(ii, jj, kk, grid_size, grid_size, grid_size)
+    #    mesh[index_3d].push_back(i)
+    
+    #mask = catalog['is_dm'].astype(bool) & (catalog['dweb'] < 4)
+    print(is_attractor_mask)
+    attractors = catalog['pos'][is_attractor_mask]
+    not_attractors = catalog['pos'][~is_attractor_mask]
+    idxs = np.arange(not_attractors.shape[0], dtype=np.uint32)
+    print(attractors)
+    tic = time.time()
+    #tree = pybosque.Tree(not_attractors, idxs)
+    tree = KDTree(not_attractors)#, boxsize = box_size)
+    print(f"Tree built in {time.time() - tic}s", flush=True)
+    tic = time.time()
+    #r, ids = tree.query(attractors, 2, [0,1])
+    r, ids = tree.query(attractors, k = 1)
+    #r, ids = tree.query(attractors, k = 1, eps = 0., distance_upper_bound = 10., workers = -1)
+    print(f"Tree query in {time.time() - tic}s", flush=True)
+    og_ids = idxs[ids]
+    
+
+    print(ids.shape, r.shape, attractors.shape, not_attractors.shape)
+
+    return catalog
 
 
 

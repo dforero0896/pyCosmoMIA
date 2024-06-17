@@ -4,7 +4,7 @@ import jax.numpy as jnp
 import sys, os
 sys.path.append("/home/astro/dforero/codes/pyCosmoMIA/")
 sys.path.append("/home/astro/dforero/codes/pyCosmoMIA/cosmomia/")
-from cosmomia import py_assign_particles_to_gals
+from cosmomia import py_assign_particles_to_gals, subgrid_collapse
 from mas import cic_mas_vec
 from correlations import powspec_vec, naive_pk, naive_xpk, naive_rcoeff
 from displacements import enhance_short_range, interpolate_field
@@ -33,50 +33,17 @@ if __name__ == '__main__':
     import proplot as pplt
     fig, ax = pplt.subplots(nrows = 1, ncols = 2, share = 0)
     
-    displacement = read_alpt_vector_field(DISP_FILES, GRID_SIZE**3)
-    dm_particles = read_alpt_vector_field(POS_FILES, GRID_SIZE**3)
-    velocities = read_alpt_vector_field(VEL_FILES, GRID_SIZE**3)
-    dm_dens = np.fromfile(DELTA_FILE, np.float32, GRID_SIZE**3)
-    dm_cw_type = np.fromfile(CWEB_FILE, np.float32, GRID_SIZE**3).astype(np.uint32)
-    target_ncount = np.fromfile(COUNTS_FILE, np.float32, GRID_SIZE**3).astype(np.uint32)
-    
-    
-    
-    ref_cat = Table.read(REFERENCE_CAT).to_pandas()
-    ref_cat[['x','y','z']] += 3/2 * BOX_SIZE
-    ref_cat[['x','y','z']] %=  BOX_SIZE
-    delta_ref = jnp.zeros([GRID_SIZE] * 3)
-    delta_ref = cic_mas_vec(delta_ref,
-                    ref_cat['x'].values, ref_cat['y'].values, ref_cat['z'].values, jnp.broadcast_to(jnp.array([1.]), ref_cat['x'].values.shape[0]), 
-                    ref_cat['x'].values.shape[0], 
-                    0., 0., 0.,
-                    BOX_SIZE[0],
-                    delta_ref.shape[0],
-                    True)
-
-    delta_ref /= delta_ref.mean()
-    delta_ref -= 1.
-    
-    k_ref, pk_ref = naive_pk(delta_ref, BOX_SIZE[0],k_edges)
-    ax[0].plot(k_ref, k_ref * pk_ref, label = "ref")
-    
-    
-    fig.savefig("plots/test_subgrid.png", dpi=300)
-       
-    
     
     cache_name = f"data/test_cache.npz"
-    if not os.path.isfile(cache_name) or 1:
-        result = py_assign_particles_to_gals(dm_particles, target_ncount,
-                                            GRID_SIZE, BOX_SIZE, BOX_MIN,
-                                            dm_cw_type, dm_dens, displacement,
-                                            velocities, 0, 0.1 * BIN_SIZE[0], False)
-        np.savez(cache_name, **result)
-    else:
-        result = dict(np.load(cache_name))
     
+    result = dict(np.load(cache_name))
+    print(result['is_attractor'].sum())
+    print(result['is_dm'].sum())
+    print((result['dweb'] == 4).sum())
     
+    result = subgrid_collapse(result, np.zeros(3, dtype = np.float32), 10, BOX_SIZE, result['is_dm'].astype(bool))
     
+    exit()
     delta_cm_raw = jnp.zeros([GRID_SIZE] * 3)
     delta_cm_raw = cic_mas_vec(delta_cm_raw,
                     result['pos'][:,0], result['pos'][:,1], result['pos'][:,2], jnp.broadcast_to(jnp.array([1.]), result['pos'].shape[0]), 
@@ -144,7 +111,7 @@ if __name__ == '__main__':
     ax[0].plot(k_, k_ * pk_, label = "CosmoMIA enhanced")
     
     
-    fig.savefig("plots/test_subgrid.png", dpi=300)
+    fig.savefig("plots/test_collapse.png", dpi=300)
     
     
     
@@ -201,7 +168,7 @@ if __name__ == '__main__':
     
     
     [a.legend(loc = 'top') for a in ax]
-    fig.savefig("plots/test_subgrid.png", dpi=300)
+    fig.savefig("plots/test_collapse.png", dpi=300)
     
     
     @jax.jit
@@ -252,4 +219,4 @@ if __name__ == '__main__':
     
     
     [a.legend(loc = 'top') for a in ax]
-    fig.savefig("plots/test_subgrid.png", dpi=300)
+    fig.savefig("plots/test_collapse.png", dpi=300)
