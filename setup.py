@@ -18,5 +18,7 @@ extensions = [
 
 setup(
     name="cosmomia",
+    author = "Daniel Forero",
     ext_modules=cythonize(extensions, annotate = True),
+    install_requires = ['numpy', 'pykdtree']
 )
