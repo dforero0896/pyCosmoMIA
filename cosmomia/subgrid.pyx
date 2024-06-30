@@ -16,7 +16,7 @@ from cython.parallel cimport parallel, prange
 cimport openmp
 import multiprocessing
 #from scipy.spatial import KDTree
-import pybosque
+#import pybosque
 from pykdtree.kdtree import KDTree
 import time
 
@@ -218,6 +218,105 @@ cpdef floating cy_read_cic_floats(floating[:] field,
                                 dims_z);
                 result += cy_weights[floating](ddx, ddy, ddz, ii, jj, kk) * field[index_3d];
     return result;
+
+@boundscheck(False)
+@wraparound(False)
+cpdef void cy_read_cic_vector(floating[:] output,
+                                  floating[:] field,
+                                  floating[:,:] positions,
+                                  floating[:] box_size,
+                                  floating[:] box_min,
+                                  Py_ssize_t[:] dims,
+                                  cbool wrap,
+                                  size_t n_threads,
+                                    ) noexcept nogil:
+
+    cdef Py_ssize_t i, size
+    size = positions.shape[0]
+    if size != output.shape[0]:
+        printf("ERROR: Size of output array does not match size of particles array.\n")
+        fflush(stdout)
+        abort()
+    for i in prange(size, nogil = True, num_threads = n_threads):
+        output[i] += cy_read_cic_floats[floating](field, 
+                                                 positions[i,0], positions[i,1], positions[i,2],
+                                                 box_size[0], box_size[1], box_size[2],
+                                                 box_min[0], box_min[1], box_min[2],
+                                                 dims[0], dims[1], dims[2],
+                                                 wrap)
+
+
+cpdef void cy_cic_mas(floating[:,:,:] field, 
+                      floating[:] x, floating[:] y, floating[:] z,
+                      floating[:] w,
+                      floating[:] box_min,
+                      floating[:] box_size,
+                      cbool wrap,
+                      size_t n_threads,
+                    ) noexcept nogil:
+    
+    cdef vector[Py_ssize_t] n_bins;
+    cdef vector[floating] bin_size
+    cdef size_t i 
+    for i in range(3):
+        n_bins.push_back(field.shape[i])
+        bin_size.push_back(box_size[i] / field.shape[i])
+
+    
+
+
+    cdef floating x_, y_, z_, wx0, wx1, wy0, wy1, wz0, wz1
+    cdef Py_ssize_t x0, y0, z0, x1, y1, z1
+
+
+    
+
+    for i in prange(x.shape[0], nogil = True, num_threads = n_threads):
+    #for i in range(x.shape[0]):
+        x_ = (x[i] - box_min[0]) / bin_size[0]
+        y_ = (y[i] - box_min[1]) / bin_size[1]
+        z_ = (z[i] - box_min[2]) / bin_size[2]
+
+        x0 = <size_t> floor(x_)
+        y0 = <size_t> floor(y_)
+        z0 = <size_t> floor(z_)
+
+
+        wx1 = x_ - x0
+        wx0 = 1 - wx1
+        wy1 = y_ - y0
+        wy0 = 1 - wy1
+        wz1 = z_ - z0
+        wz0 = 1 - wz1
+
+        if wrap:
+            x0 = wrap_indices(x0, n_bins[0])
+            y0 = wrap_indices(y0, n_bins[1])
+            z0 = wrap_indices(z0, n_bins[2])
+
+        x1 = x0 + 1
+        y1 = y0 + 1
+        z1 = z0 + 1
+
+        if wrap:
+            x1 = wrap_indices(x1, n_bins[0])
+            y1 = wrap_indices(y1, n_bins[1])
+            z1 = wrap_indices(z1, n_bins[2])
+
+        wx0 = wx0 * w[i]
+        wx1 = wx1 * w[i]
+
+
+        field[x0,y0,z0] += wx0 * wy0 * wz0
+        field[x1,y0,z0] += wx1 * wy0 * wz0
+        field[x0,y1,z0] += wx0 * wy1 * wz0
+        field[x0,y0,z1] += wx0 * wy0 * wz1
+        field[x1,y1,z0] += wx1 * wy1 * wz0
+        field[x1,y0,z1] += wx1 * wy0 * wz1
+        field[x0,y1,z1] += wx0 * wy1 * wz1
+        field[x1,y1,z1] += wx1 * wy1 * wz1
+
+
 
 
 cdef int is_double_prec(floating a):
@@ -464,7 +563,8 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
                                 printf("DM Particle %li not in cell either\n", dm_particles_in_cell[missing_counter])
                                 abort()
                         pos_view[particle_counter, ii] -= displacement[dm_particles_in_cell[missing_counter], ii]
-                        pos_view[particle_counter, ii] += (dist_exp(gen))**2#dist_gauss(gen) #+ displacement[dm_particles_in_cell[cen_idx], ii]
+                        #pos_view[particle_counter, ii] += dist_gauss(gen) #+ displacement[dm_particles_in_cell[cen_idx], ii]
+                        pos_view[particle_counter, ii] += (dist_exp(gen))#dist_gauss(gen) #+ displacement[dm_particles_in_cell[cen_idx], ii]
                     for ii in range(3):
                         #psi_i[ii] = cy_read_cic[floating](displacement[:,ii],
                         #                                                            pos_view[particle_counter,:],
@@ -500,7 +600,7 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
                                                     dims,
                                                     1)
             for ii in range(3):
-                vel_view[particle_counter,ii] =  cy_read_cic[floating](velocities[:,0],
+                vel_view[particle_counter,ii] =  cy_read_cic[floating](velocities[:,ii],
                                                     pos_view[particle_counter,:],
                                                     box_size,
                                                     box_min,
@@ -536,6 +636,9 @@ cpdef dict par_py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned 
                                 unsigned int[:] dm_cw_type, floating[:] dm_dens, floating[:,:] displacement,
                                 floating[:,:] velocities, size_t seed, floating gauss_std, cbool debug):
 
+    printf("\nERROR: Parallel version of function is outdated, please use the serial version.\n")
+    fflush(stdout)
+    abort()
     print_icon()
     cdef int is_double = is_double_prec(dm_particles[0,0])
     if is_double:
@@ -998,11 +1101,13 @@ cpdef dict subgrid_collapse(dict catalog, floating[:] params, floating[:] box_si
         #print(dists[mask] - dist_corr)
 
     catalog['pos'] = np.vstack((attractors[:,:3], not_attractors[:,:3]))
+    catalog['vel'] = np.vstack((vel_attractors[:,:3], vel_not_attractors[:,:3]))
+
     return catalog
 
 
 
-    
+
 
 
     

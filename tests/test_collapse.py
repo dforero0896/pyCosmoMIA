@@ -115,7 +115,7 @@ if __name__ == '__main__':
     
     
     
-    params = np.array([0.8, 1.5 * BIN_SIZE[0], 0.2, BIN_SIZE[0], 0.1], dtype = np.float32)
+    params = np.array([0.9, 1. * BIN_SIZE[0], 0.5, BIN_SIZE[0], 0.1], dtype = np.float32)
     result = subgrid_collapse(result, params, BOX_SIZE, result['is_attractor'].astype(bool), 99, debug = False)
     result['pos'] += BOX_SIZE
     result['pos'] %= BOX_SIZE

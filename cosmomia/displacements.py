@@ -1,6 +1,7 @@
 import jax
 import jax.numpy as jnp
-from mas import cic_mas_vec
+from jax.scipy.interpolate import RegularGridInterpolator
+from .mas import cic_mas_vec
 import jax_cosmo as jc
 
 
@@ -10,6 +11,17 @@ import jax_cosmo as jc
 def get_k(n_bins, box_size):
     k = jnp.fft.fftfreq(n_bins, d=box_size/n_bins) * 2 * jnp.pi
     return k
+
+@jax.jit
+def vel_kernel(field, gain, box_size):
+    
+    n_bins = field.shape[0]
+    k = jnp.fft.fftfreq(n_bins, d=box_size/n_bins) * 2 * jnp.pi
+    k = jnp.sqrt(k[:,None,None]**2 + k[None,:,None]**2 + k[None,None,:n_bins//2+1]**2)
+    field_k = jnp.fft.rfftn(field)
+    field_k *= 1 + jax.nn.sigmoid(0.6) * gain * k**2
+    field = jnp.fft.irfftn(field_k, field.shape)
+    return field
 
 
 @jax.jit
@@ -163,18 +175,18 @@ def two_lpt_(delta, box_size, smooth):
     return psi_x, psi_y, psi_z
 
 @jax.jit
-def spherical_collapse(delta, box_size, smooth):
+def spherical_collapse(delta, box_size, smooth, alpha = 3. / 2):
 
     """ See eq 2.13 https://florent-leclercq.eu/documents/thesis/Chapter2.pdf"""
 
-    divergence = jnp.where(delta < 3. / 2, 3 * (jnp.sqrt(1. - (2./3) * delta) - 1.), -3.)
+    divergence = jnp.where(delta < alpha, 3 * ((1. - delta / alpha)**(alpha / 3) - 1.), -3.)
     
     psi_x, psi_y, psi_z = divergence_to_displacement(divergence, box_size, smooth)
 
     return psi_x, psi_y, psi_z
 
 @jax.jit
-def aug_lpt(delta, box_size, smooth, interp_smooth):
+def aug_lpt(delta, box_size, smooth, interp_smooth, sc_alpha = 3./2):
 
     """ See eq 2.17 https://florent-leclercq.eu/documents/thesis/Chapter2.pdf"""
 
@@ -188,7 +200,7 @@ def aug_lpt(delta, box_size, smooth, interp_smooth):
     interp_kernel = jnp.exp(-0.5 * (kr[:, None, None] ** 2 + kr[None, :, None] ** 2 + kr[None, None, :n_bins//2+1] ** 2))
 
 
-    divergence_sc_k = jnp.fft.rfftn(jnp.where(delta < 3. / 2, 3 * (jnp.sqrt(1. - (2./3) * delta) - 1.), -3.))
+    divergence_sc_k = jnp.fft.rfftn(jnp.where(delta < sc_alpha, 3 * ((1. - delta / sc_alpha)**(sc_alpha / 3) - 1.), -3.))
     #divergence_2lpt_k = jnp.fft.rfftn(-delta + (3. / 7) * delta**2)
     
     # Solve Poisson for Phi_1
@@ -229,6 +241,45 @@ def aug_lpt(delta, box_size, smooth, interp_smooth):
     psi_x, psi_y, psi_z = divergence_to_displacement_k(divergence_k, box_size, smooth)
 
     return psi_x, psi_y, psi_z
+
+@jax.jit
+def rank_order_fields(field, ref_field, box_size, smooth):
+    n_bins = field.shape[0]
+    k = jnp.fft.fftfreq(n_bins, d=box_size/n_bins) * 2 * jnp.pi
+    ksq = k[:,None,None]**2 + k[None,:,None]**2 + k[None,None,:n_bins//2+1]**2
+    ksq = ksq.at[0,0,0].set(0)
+    kr = k * smooth
+    norm = jnp.exp(-0.5 * (kr[:, None, None] ** 2 + kr[None, :, None] ** 2 + kr[None, None, :n_bins//2+1] ** 2))
+    
+    field_sorter = jnp.argsort(jnp.fft.irfftn(norm * jnp.fft.rfftn(field), field.shape).ravel())[::-1]
+    ref_field_sorter = jnp.argsort(jnp.fft.irfftn(norm * jnp.fft.rfftn(ref_field), ref_field.shape).ravel())[::-1]
+    field = field.ravel().at[field_sorter].set(ref_field.ravel()[ref_field_sorter])
+    
+    return field.reshape(ref_field.shape)
+
+@jax.jit
+def correct_large_scale_bias(field, ref_field, box_size, smooth):
+    n_bins = field.shape[0]
+    k = jnp.fft.fftfreq(n_bins, d=box_size/n_bins) * 2 * jnp.pi
+    ksq = k[:,None,None]**2 + k[None,:,None]**2 + k[None,None,:n_bins//2+1]**2
+    ksq = ksq.at[0,0,0].set(0)
+    kr = k * smooth
+    norm = jnp.exp(-0.5 * (kr[:, None, None] ** 2 + kr[None, :, None] ** 2 + kr[None, None, :n_bins//2+1] ** 2))
+    factor = jnp.mean(jnp.fft.irfftn(norm * jnp.fft.rfftn(ref_field), ref_field.shape) / jnp.fft.irfftn(norm * jnp.fft.rfftn(field), field.shape))
+    return factor * field
+
+
+def apply_transfer_func(field, box_size, transfer, k_transfer):
+    print(transfer.shape, k_transfer.shape)
+    transfer_func = lambda __k: RegularGridInterpolator((jnp.log(k_transfer),), transfer, method='linear', fill_value = 1., bounds_error = False)(jnp.log(__k))
+    
+    n_bins = field.shape[0]
+    k = jnp.fft.fftfreq(n_bins, d=box_size/n_bins) * 2 * jnp.pi
+    k = jnp.sqrt(k[:,None,None]**2 + k[None,:,None]**2 + k[None,None,:n_bins//2+1]**2)
+    field_k = jnp.fft.rfftn(field)
+    return jnp.fft.irfftn(field_k.at[:].set((transfer_func(k.ravel()).reshape(field_k.shape) * field_k)), field.shape)
+    
+
 
 @jax.jit
 def add_interpolated_disp(pos, psi, box_min, box_size, fac = 1.):
@@ -276,7 +327,7 @@ def enhance_short_range(disp, box_size, interp_smooth):
     ksq = k[:,None,None]**2 + k[None,:,None]**2 + k[None,None,:n_bins//2+1]**2
     interp_kernel = jnp.exp(-0.5 * (kr[:, None, None] ** 2 + kr[None, :, None] ** 2 + kr[None, None, :n_bins//2+1] ** 2))
     #return jnp.fft.irfftn((1. - interp_kernel) * jnp.fft.rfftn(disp), disp.shape)
-    return jnp.fft.irfftn((jax.nn.sigmoid(20 * (jnp.sqrt(ksq) - interp_smooth))) * jnp.fft.rfftn(disp), disp.shape)
+    return jnp.fft.irfftn((jax.nn.sigmoid(100 * (jnp.sqrt(ksq) - interp_smooth))) * jnp.fft.rfftn(disp), disp.shape)
 
 
 @jax.jit
@@ -322,6 +373,41 @@ def interpolate_field(disp, positions, xmin, ymin, zmin, n_bins, box_size):
 
     
     return shifts
+
+interpolate_field_3d = jax.jit(jax.vmap(interpolate_field, in_axes = (0, None, None, None, None, None, None)))
+
+def weights(ddx, ddy, ddz, ii, jj, kk):
+    return (((1 - ddx) + ii * (-1 + 2 * ddx)) * 
+            ((1 - ddy) + jj * (-1 + 2 * ddy)) *
+            ((1 - ddz) + kk * (-1 + 2 * ddz)))
+    
+def interpolate_field_single(disp, x, y, z, xmin, ymin, zmin, n_bins, box_size):
+
+    bin_size = box_size / n_bins
+    xpos = (x - xmin) / bin_size
+    ypos = (y - ymin) / bin_size
+    zpos = (z - zmin) / bin_size
+
+    i = jnp.int32(xpos)
+    j = jnp.int32(ypos)
+    k = jnp.int32(zpos)
+
+    ddx = xpos - i
+    ddy = ypos - j
+    ddz = zpos - k
+
+    shifts = 0
+
+    for ii in range(2):
+        for jj in range(2):
+            for kk in range(2):
+                shifts += weights(ddx, ddy, ddz, ii, jj, kk) * disp[(i + ii) % n_bins, (j + jj) % n_bins, (k + kk) % n_bins]
+                
+
+    
+    return shifts
+
+
 
 def gaussian_field(grid, kf, Pkf, Rayleigh_sampling, 
                       key, box_size):

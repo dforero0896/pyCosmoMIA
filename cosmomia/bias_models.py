@@ -7,8 +7,14 @@ from jaxtyping import Array, Float, Int, PyTree  # https://github.com/google/jax
 
 def patchy_deterministic(params, delta, target_mean):
     alpha, rho_eps, epsilon = params
+    delta = jnp.where(delta>=-1, delta, -1)
+    #rho_eps = jnp.max(jnp.array([rho_eps, 0.]))
+    alpha = jnp.max(jnp.array([alpha, 1]))
     
-    delta_g = ((1 + delta)**alpha)*(jnp.exp(-((1+delta)/rho_eps)**epsilon))*jnp.e
+    #epsilon = jnp.max(jnp.array([alpha, 1]))
+    delta_g = ((1 + delta)**alpha) * (jnp.exp(-((1+delta) / (rho_eps * target_mean))**jnp.abs(epsilon)))*jnp.e
+    print(delta[jnp.isnan(delta_g)], params)
+    
     delta_g_mean = delta_g.mean()
     norm = target_mean / delta_g_mean
     delta_g *= norm

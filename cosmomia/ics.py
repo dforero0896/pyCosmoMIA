@@ -1,6 +1,6 @@
 import jax
 import jax.numpy as jnp
-
+# Modified from JaxPM
 
 
 
@@ -56,3 +56,13 @@ def linear_field_box_muller(mesh_shape, box_size, pk, seed, fixamp = False, inv_
         
     
     return box_muller_field(amplitude, phase, pkmesh)
+  
+  
+  
+def downsample_ics(ics, kernel_size):
+  import equinox as eqx
+  layer = eqx.nn.AvgPool3d(kernel_size=kernel_size, stride = kernel_size)  
+  #layer = eqx.nn.Pool(init = 0, num_spatial_dims = ics.ndim, operation = jax.lax.add, kernel_size=kernel_size, stride = kernel_size)
+  out = jnp.squeeze(layer(ics[None,...]))
+  
+  return out

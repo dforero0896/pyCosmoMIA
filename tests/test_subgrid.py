@@ -75,19 +75,19 @@ if __name__ == '__main__':
                         cf = ['AA / @@ - 1']) # CF estimator (not necessary if only pair counts are required)
 
     print(tpcf['multipoles'].shape)
-    ax[1].semilogx(tpcf['s'], tpcf['multipoles'][0,0,:])
+    ax[1].semilogx(tpcf['s'], tpcf['s'] * tpcf['multipoles'][0,0,:])
     
     fig.savefig("plots/test_subgrid.png", dpi=300)
        
     
     
     cache_name = f"data/test_cache.npz"
-    if not os.path.isfile(cache_name) :
+    if not os.path.isfile(cache_name) or 1:
         result = py_assign_particles_to_gals(dm_particles, target_ncount,
                                             GRID_SIZE, BOX_SIZE, BOX_MIN,
                                             dm_cw_type, dm_dens, displacement,
                                             #velocities, 0, 0.3 * BIN_SIZE[0], False)
-                                            velocities, 0, 3, False)
+                                            velocities, 0, 5, False)
         np.savez(cache_name, **result)
     else:
         result = dict(np.load(cache_name))
@@ -129,7 +129,7 @@ if __name__ == '__main__':
                         cf = ['AA / @@ - 1']) # CF estimator (not necessary if only pair counts are required)
 
     print(tpcf['multipoles'].shape)
-    ax[1].semilogx(tpcf['s'], tpcf['multipoles'][0,0,:])
+    ax[1].semilogx(tpcf['s'], tpcf['s'] * tpcf['multipoles'][0,0,:])
     
     #pk = compute_auto_box(result['pos'][:,0], result['pos'][:,1], result['pos'][:,2], np.ones_like(result['pos'][:,0]), 
     #                  powspec_conf_file = "tests/powspec.conf",
@@ -143,7 +143,7 @@ if __name__ == '__main__':
                               
     
     print("Enhancing field")
-    param_init = jnp.array([0.5, 3])
+    param_init = jnp.array([0.8, 100])
     smooth, step_size = param_init
     enhance_short_range_3d = jax.jit(jax.vmap(enhance_short_range, in_axes = (3, None, None)))
     interpolate_field_3d = jax.jit(jax.vmap(interpolate_field, in_axes = (0, None, None, None, None, None, None)))
@@ -189,7 +189,7 @@ if __name__ == '__main__':
                         cf = ['AA / @@ - 1']) # CF estimator (not necessary if only pair counts are required)
 
     print(tpcf['multipoles'].shape)
-    ax[1].semilogx(tpcf['s'], tpcf['multipoles'][0,0,:], ls ='--')
+    ax[1].semilogx(tpcf['s'], tpcf['s'] * tpcf['multipoles'][0,0,:], ls ='--')
     
     
     ax[0].legend(loc = 'top')
@@ -256,7 +256,7 @@ if __name__ == '__main__':
                         cf = ['AA / @@ - 1']) # CF estimator (not necessary if only pair counts are required)
 
     print(tpcf['multipoles'].shape)
-    ax[1].semilogx(tpcf['s'], tpcf['multipoles'][0,0,:], ls ='--')
+    ax[1].semilogx(tpcf['s'], tpcf['s'] * tpcf['multipoles'][0,0,:], ls ='--')
     
     
     delta_cm = modify_pos(param_init, result['pos'])

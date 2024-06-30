@@ -710,11 +710,52 @@ def compute_2pt_correlations(delta, box_size, s_edges, k_edges):
     r3D = 0.5 * (kedges[1:] + kedges[:-1]) * (box_size * 1.0 / dims)
     
     return k3D, Pk3D, Nmodes3D_pk, r3D, xi3D
+
 @jax.jit
-def naive_pk(delta, box_size, k_edges):
+def cic_correction(x, index):
+    return (1. / jnp.sinc(x/jnp.pi))**index
+
+
+
+@jax.jit
+def naive_pk(delta, box_size, k_edges, index = 2):
     dims = delta.shape[0]
     middle = dims // 2 
+    prefact = jnp.pi / dims
+    delta_k = jnp.fft.rfftn(delta)
 
+    kx = jnp.fft.fftfreq(delta.shape[0], box_size / dims) * 2 * jnp.pi
+    ky = kx.copy()
+    kz = jnp.fft.rfftfreq(delta.shape[2], box_size / dims)  * 2 * jnp.pi
+    
+    
+
+    kx = jnp.broadcast_to(kx[:,None,None], (kx.shape[0], ky.shape[0],kz.shape[0]))
+    ky = jnp.broadcast_to(ky[None,:,None], (kx.shape[0], ky.shape[0],kz.shape[0]))
+    kz = jnp.broadcast_to(kz[None,None,:], (kx.shape[0], ky.shape[1],kz.shape[0]))
+    k = jnp.sqrt(kx**2 + ky**2 + kz**2)
+    
+    
+    delta_k *= cic_correction(prefact * kx, index) * cic_correction(prefact * ky, index) * cic_correction(prefact * kz, index)
+    
+    counts, bins = jnp.histogram(k.ravel(), weights = (delta_k * delta_k.conj()).real.ravel().real, bins = k_edges)
+    modes, bins = jnp.histogram(k.ravel(), weights = jnp.ones_like(delta_k.ravel().real), bins = bins)
+    
+    return bins[:-1] + 0.5 * jnp.diff(bins), counts / modes * (box_size / dims**2)**3
+
+def k_weight_fun(k, k_ny):
+    return jnp.where((k == 0) | k == k_ny, 1, 2)
+
+#@jax.jit
+def naive_pk_poles(delta, box_size, k_edges, index = 2):
+    dims = delta.shape[0]
+    prefact = jnp.pi / dims
+    k_ny = jnp.pi * dims / box_size
+    #wdata = jnp.sum(delta)
+    #vol = box_size**3
+    #shot = vol / wdata
+    #norm = wdata**2 / vol
+    
     delta_k = jnp.fft.rfftn(delta)
 
     kx = jnp.fft.fftfreq(delta.shape[0], box_size / dims) * 2 * jnp.pi
@@ -726,16 +767,54 @@ def naive_pk(delta, box_size, k_edges):
     kz = jnp.broadcast_to(kz[None,None,:], (kx.shape[0], ky.shape[1],kz.shape[0]))
     k = jnp.sqrt(kx**2 + ky**2 + kz**2)
     
-    counts, bins = jnp.histogram(k.ravel(), weights = (delta_k * delta_k.conj()).real.ravel().real, bins = k_edges)
-    modes, bins = jnp.histogram(k.ravel(), weights = jnp.ones_like(delta_k.ravel().real), bins = bins)
+    mu = (jnp.where(k!=0, kz / k, 1.)).ravel()
+    delta_k *= cic_correction(prefact * kx, index) * cic_correction(prefact * ky, index) * cic_correction(prefact * kz, index)
+    delta_k = delta_k.at[...].set((delta_k * delta_k.conj()))
+    #num = jnp.where((k == 0) | (k == k_ny), 1, 2).ravel()
+    num = 1
+    P_ell = (3 * mu**2 - 1) / 2
     
-    return bins[:-1] + 0.5 * jnp.diff(bins), counts / modes * (box_size / dims**2)**3
+    counts, bins = jnp.histogram(k.ravel(), weights = num * delta_k.real.ravel(), bins = k_edges)
+    counts_quad, bins = jnp.histogram(k.ravel(), weights = num * delta_k.real.ravel() * P_ell, bins = k_edges)
+    #modes_quad, bins = jnp.histogram(k.ravel(),  weights = num * P_ell, bins = bins)
+    modes, bins = jnp.histogram(k.ravel(),  bins = bins)
+    
+    
+    
+    poles = jnp.stack(
+        [
+         counts / modes * (box_size / dims**2)**3, #mono
+         5 * counts_quad / modes * (box_size / dims**2)**3, #quad
+         #counts / modes / norm - shot, #mono
+         #5 * ((counts_quad / modes / norm)  - shot * modes_quad / modes), #quad
+         ],
+        axis = -1
+    )
+    
+    return bins[:-1] + 0.5 * jnp.diff(bins), poles
 
 @jax.jit
-def naive_xpk(delta1, delta2, box_size, k_edges):
+def compute_transfer_from_power(delta1, delta2, box_size, k_edges, index = 2):
+    
+    k, pk1 = naive_pk(delta1, box_size, k_edges, index = index)
+    k, pk2 = naive_pk(delta2, box_size, k_edges, index = index)
+    
+    return k, jnp.sqrt(pk1 / pk2)
+
+
+@jax.jit
+def compute_transfer_from_cross_power(delta1, delta2, box_size, k_edges, index = 2):
+    
+    k, pk1 = naive_xpk(delta1, delta2, box_size, k_edges, index = index)
+    k, pk2 = naive_pk(delta2, box_size, k_edges, index = index)
+    
+    return k, pk1 / jnp.sqrt(pk2)
+
+@jax.jit
+def naive_xpk(delta1, delta2, box_size, k_edges, index = 2):
     dims = delta1.shape[0]
     middle = dims // 2 
-
+    prefact = jnp.pi / dims
     delta1_k = jnp.fft.rfftn(delta1)
     delta2_k = jnp.fft.rfftn(delta2)
 
@@ -743,10 +822,15 @@ def naive_xpk(delta1, delta2, box_size, k_edges):
     ky = kx.copy()
     kz = jnp.fft.rfftfreq(delta1.shape[2], box_size / dims)  * 2 * jnp.pi
 
+
     kx = jnp.broadcast_to(kx[:,None,None], (kx.shape[0], ky.shape[0],kz.shape[0]))
     ky = jnp.broadcast_to(ky[None,:,None], (kx.shape[0], ky.shape[0],kz.shape[0]))
     kz = jnp.broadcast_to(kz[None,None,:], (kx.shape[0], ky.shape[1],kz.shape[0]))
     k = jnp.sqrt(kx**2 + ky**2 + kz**2)
+    
+    
+    delta1_k *= cic_correction(prefact * kx, index) * cic_correction(prefact * ky, index) * cic_correction(prefact * kz, index)
+    delta2_k *= cic_correction(prefact * kx, index) * cic_correction(prefact * ky, index) * cic_correction(prefact * kz, index)
     
     counts, bins = jnp.histogram(k.ravel(), weights = (delta1_k * delta2_k.conj()).real.ravel().real, bins = k_edges)
     modes, bins = jnp.histogram(k.ravel(), weights = jnp.ones_like(delta1_k.ravel().real), bins = bins)
@@ -754,10 +838,10 @@ def naive_xpk(delta1, delta2, box_size, k_edges):
     return bins[:-1] + 0.5 * jnp.diff(bins), counts / modes * (box_size / dims**2)**3
 
 @jax.jit
-def naive_rcoeff(delta1, delta2, box_size, k_edges):
+def naive_rcoeff(delta1, delta2, box_size, k_edges, index = 2):
     dims = delta1.shape[0]
     middle = dims // 2 
-
+    prefact = jnp.pi / dims
     delta1_k = jnp.fft.rfftn(delta1)
     delta2_k = jnp.fft.rfftn(delta2)
 
@@ -769,6 +853,9 @@ def naive_rcoeff(delta1, delta2, box_size, k_edges):
     ky = jnp.broadcast_to(ky[None,:,None], (kx.shape[0], ky.shape[0],kz.shape[0]))
     kz = jnp.broadcast_to(kz[None,None,:], (kx.shape[0], ky.shape[1],kz.shape[0]))
     k = jnp.sqrt(kx**2 + ky**2 + kz**2)
+    
+    delta1_k *= cic_correction(prefact * kx, index) * cic_correction(prefact * ky, index) * cic_correction(prefact * kz, index)
+    delta2_k *= cic_correction(prefact * kx, index) * cic_correction(prefact * ky, index) * cic_correction(prefact * kz, index)
     
     counts, bins = jnp.histogram(k.ravel(), weights = (delta1_k * delta2_k.conj()).real.ravel().real, bins = k_edges)
     modes, bins = jnp.histogram(k.ravel(), weights = jnp.ones_like(delta1_k.ravel().real), bins = bins)
