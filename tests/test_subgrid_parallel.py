@@ -1,16 +1,14 @@
 import numpy as np
 import jax 
 import jax.numpy as jnp
-import sys, os
+import sys, os, time
 sys.path.append("/home/astro/dforero/codes/pyCosmoMIA/")
 sys.path.append("/home/astro/dforero/codes/pyCosmoMIA/cosmomia/")
-from cosmomia import py_assign_particles_to_gals
+from cosmomia import py_assign_particles_to_gals, par_py_assign_particles_to_gals
 from mas import cic_mas_vec
 from correlations import powspec_vec, naive_pk, naive_xpk, naive_rcoeff
-from displacements import enhance_short_range, interpolate_field, spherical_collapse
+from displacements import enhance_short_range, interpolate_field
 from astropy.table import Table, vstack
-sys.path.append("/home/astro/dforero/codes//pyfcfc/")
-from pyfcfc.boxes import py_compute_cf
 
 
 
@@ -27,7 +25,6 @@ BOX_SIZE = np.array([2000.] * 3, dtype = np.float32)
 BOX_MIN = np.array([0.] * 3, dtype = np.float32)
 BIN_SIZE = BOX_SIZE / GRID_SIZE
 k_edges = np.arange(0.02, 0.4, 0.005)
-s_edges = np.geomspace(1e-2, 50, 50)
 def read_alpt_vector_field(filename, size):
     return np.vstack([np.fromfile(filename.format(s), np.float32, size) for s in ['x', 'y', 'z']]).T
 
@@ -63,40 +60,24 @@ if __name__ == '__main__':
     k_ref, pk_ref = naive_pk(delta_ref, BOX_SIZE[0],k_edges)
     ax[0].plot(k_ref, k_ref * pk_ref, label = "ref")
     
-    tpcf = py_compute_cf([ref_cat[['x', 'y', 'z']].values], [np.ones(ref_cat['x'].shape[0], dtype = ref_cat['x'].dtype)], 
-                        s_edges.copy(), 
-                        None, 
-                        100, 
-                        label = ['A'], # Catalog labels matching the number of catalogs provided
-                        bin=1, # bin type for multipoles
-                        pair = ['AA'], # Desired pair counts
-                        box=BOX_SIZE[0], 
-                        multipole = [0, 2, 4], # Multipoles to compute
-                        cf = ['AA / @@ - 1']) # CF estimator (not necessary if only pair counts are required)
-
-    print(tpcf['multipoles'].shape)
-    ax[1].semilogx(tpcf['s'], tpcf['s'] * tpcf['multipoles'][0,0,:])
     
-    fig.savefig("plots/test_subgrid.png", dpi=300)
+    fig.savefig("plots/test_subgrid_parallel.png", dpi=300)
        
     
     
     cache_name = f"data/test_cache.npz"
     if not os.path.isfile(cache_name) or 1:
+        tic = time.time()
         result = py_assign_particles_to_gals(dm_particles, target_ncount,
                                             GRID_SIZE, BOX_SIZE, BOX_MIN,
                                             dm_cw_type, dm_dens, displacement,
-                                            #velocities, 0, 0.3 * BIN_SIZE[0], False)
-                                            velocities, 0, 5, False)
+                                            velocities, 0, 0.1 * BIN_SIZE[0], False)
+        print(f"Out of C in {time.time() - tic}s", flush = True)
         np.savez(cache_name, **result)
     else:
         result = dict(np.load(cache_name))
-    print((result['is_attractor'] < 1).any())
-    print((result['is_attractor'].astype(bool)).any())
     
-    print(result['pos'].min(axis=0), result['pos'].max(axis=0), result['pos'].mean(axis=0), result['pos'].std(axis=0))
-    ax[1].axvline(BIN_SIZE[0], ls =':')
-    ax[1].axvline(np.sqrt(np.sum((BIN_SIZE**2))), ls ='--')
+    
     
     delta_cm_raw = jnp.zeros([GRID_SIZE] * 3)
     delta_cm_raw = cic_mas_vec(delta_cm_raw,
@@ -117,33 +98,57 @@ if __name__ == '__main__':
     
     
     
-    tpcf = py_compute_cf([result['pos']], [np.ones(result['pos'].shape[0], dtype = result['pos'].dtype)], 
-                        s_edges.copy(), 
-                        None, 
-                        100, 
-                        label = ['A'], # Catalog labels matching the number of catalogs provided
-                        bin=1, # bin type for multipoles
-                        pair = ['AA'], # Desired pair counts
-                        box=BOX_SIZE[0], 
-                        multipole = [0, 2, 4], # Multipoles to compute
-                        cf = ['AA / @@ - 1']) # CF estimator (not necessary if only pair counts are required)
-
-    print(tpcf['multipoles'].shape)
-    ax[1].semilogx(tpcf['s'], tpcf['s'] * tpcf['multipoles'][0,0,:])
+    cache_name = f"data/test_cache_par.npz"
+    if not os.path.isfile(cache_name) or 1:
+        tic = time.time()
+        result = par_py_assign_particles_to_gals(dm_particles, target_ncount,
+                                            GRID_SIZE, BOX_SIZE, BOX_MIN,
+                                            dm_cw_type, dm_dens, displacement,
+                                            velocities, 0, 0.1 * BIN_SIZE[0], False)
+        print(f"Out of C in {time.time() - tic}s", flush = True)
+        np.savez(cache_name, **result)
+    else:
+        result = dict(np.load(cache_name))
+    
+    
+    
+    delta_cm_raw = jnp.zeros([GRID_SIZE] * 3)
+    delta_cm_raw = cic_mas_vec(delta_cm_raw,
+                    result['pos'][:,0], result['pos'][:,1], result['pos'][:,2], jnp.broadcast_to(jnp.array([1.]), result['pos'].shape[0]), 
+                    result['pos'].shape[0], 
+                    0., 0., 0.,
+                    BOX_SIZE[0],
+                    delta_cm_raw.shape[0],
+                    True)
+    rho_cm_raw = delta_cm_raw.copy()
+    delta_cm_raw /= delta_cm_raw.mean()
+    delta_cm_raw -= 1.
+    
+    
+    
+    k_, pk_ = naive_pk(delta_cm_raw, BOX_SIZE[0], k_edges)
+    ax[0].plot(k_, k_ * pk_, label = "CosmoMIA par", ls = '--')
+    
+    ax[0].legend(loc = 'top')
+    fig.savefig("plots/test_subgrid_parallel.png", dpi=300)
+    exit()
     
     #pk = compute_auto_box(result['pos'][:,0], result['pos'][:,1], result['pos'][:,2], np.ones_like(result['pos'][:,0]), 
     #                  powspec_conf_file = "tests/powspec.conf",
     #                  )
     #
     #ax[1].plot(pk['k'], pk['k'] * pk['multipoles'][:,0], label = "CosmoMIA")
-       
-    print("Computing displacement", flush = True)
-    displacement = jnp.stack(spherical_collapse(delta_cm_raw, BOX_SIZE[0], 0.), axis = -1)
-    print(displacement.shape)
-                              
+    
+    
+    
+    target_ncount = (target_ncount / target_ncount.mean() - 1).reshape(GRID_SIZE, GRID_SIZE, GRID_SIZE)
+    k_, pk_ = naive_pk(target_ncount, BOX_SIZE[0], k_edges)
+    ax[0].plot(k_, k_ * pk_, label = "Number counts")
+    
+    
     
     print("Enhancing field")
-    param_init = jnp.array([0.8, 100])
+    param_init = jnp.array([6., -1.])
     smooth, step_size = param_init
     enhance_short_range_3d = jax.jit(jax.vmap(enhance_short_range, in_axes = (3, None, None)))
     interpolate_field_3d = jax.jit(jax.vmap(interpolate_field, in_axes = (0, None, None, None, None, None, None)))
@@ -177,33 +182,17 @@ if __name__ == '__main__':
     ax[0].plot(k_, k_ * pk_, label = "CosmoMIA enhanced")
     
     
-    tpcf = py_compute_cf([np.array(new_pos)], [np.ones(np.array(new_pos).shape[0], dtype = np.array(new_pos).dtype)], 
-                        s_edges.copy(), 
-                        None, 
-                        100, 
-                        label = ['A'], # Catalog labels matching the number of catalogs provided
-                        bin=1, # bin type for multipoles
-                        pair = ['AA'], # Desired pair counts
-                        box=BOX_SIZE[0], 
-                        multipole = [0, 2, 4], # Multipoles to compute
-                        cf = ['AA / @@ - 1']) # CF estimator (not necessary if only pair counts are required)
-
-    print(tpcf['multipoles'].shape)
-    ax[1].semilogx(tpcf['s'], tpcf['s'] * tpcf['multipoles'][0,0,:], ls ='--')
-    
-    
-    ax[0].legend(loc = 'top')
-    ax[1].format(yscale = 'log')
-    fig.savefig("plots/test_subgrid.png", dpi=300)
+    fig.savefig("plots/test_subgrid_parallel.png", dpi=300)
     
     
     
     
     
-    exit()
     k = jnp.fft.fftfreq(GRID_SIZE, d=BOX_SIZE[0]/GRID_SIZE) * 2 * jnp.pi
     rfftn_batch = jax.vmap(jnp.fft.rfftn, in_axes = (0,))
-    
+    psis_k = rfftn_batch(psis)
+    kmod = jnp.sqrt(k[:,None,None]**2 + k[None,:,None]**2 + k[None,None,:GRID_SIZE//2+1]**2)
+    ax[1].scatter(kmod.ravel(), (psis_k * psis_k.conj()).real.sum(axis=0).ravel().real)
     
     
     @jax.jit
@@ -243,36 +232,16 @@ if __name__ == '__main__':
     k_, pk_ = naive_pk(delta_cm, BOX_SIZE[0], k_edges)
     ax[0].plot(k_, k_ * pk_, label = "CosmoMIA enhanced field")
     
-    
-    tpcf = py_compute_cf([np.array(new_pos)], [np.ones(np.array(new_pos).shape[0], dtype = np.array(new_pos).dtype)], 
-                        s_edges.copy(), 
-                        None, 
-                        100, 
-                        label = ['A'], # Catalog labels matching the number of catalogs provided
-                        bin=1, # bin type for multipoles
-                        pair = ['AA'], # Desired pair counts
-                        box=BOX_SIZE[0], 
-                        multipole = [0, 2, 4], # Multipoles to compute
-                        cf = ['AA / @@ - 1']) # CF estimator (not necessary if only pair counts are required)
-
-    print(tpcf['multipoles'].shape)
-    ax[1].semilogx(tpcf['s'], tpcf['s'] * tpcf['multipoles'][0,0,:], ls ='--')
-    
-    
     delta_cm = modify_pos(param_init, result['pos'])
     k_, pk_ = naive_pk(delta_cm, BOX_SIZE[0], k_edges)
     ax[0].plot(k_, k_ * pk_, label = "CosmoMIA enhanced part")
     
     
     
-    target_ncount = (target_ncount / target_ncount.mean() - 1).reshape(GRID_SIZE, GRID_SIZE, GRID_SIZE)
-    k_, pk_ = naive_pk(target_ncount, BOX_SIZE[0], k_edges)
-    ax[0].plot(k_, k_ * pk_, label = "Number counts")
-    
     [a.legend(loc = 'top') for a in ax]
-    fig.savefig("plots/test_subgrid.png", dpi=300)
+    fig.savefig("plots/test_subgrid_parallel.png", dpi=300)
     
-    exit()
+    
     @jax.jit
     def loss_fn(params):
         delta_cm = modify_delta(params, rho_cm_raw)       
@@ -321,4 +290,4 @@ if __name__ == '__main__':
     
     
     [a.legend(loc = 'top') for a in ax]
-    fig.savefig("plots/test_subgrid.png", dpi=300)
+    fig.savefig("plots/test_subgrid_parallel.png", dpi=300)

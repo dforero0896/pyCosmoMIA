@@ -1,52 +1,128 @@
 import jax 
 import jax.numpy as jnp
+from jax.experimental import mesh_utils
 import sys
 sys.path.append("/home/astro/dforero/codes/pyCosmoMIA/")
-from cosmomia import cy_read_cic #, py_read_cic
-
-
-@jax.jit
-def interpolate_field(disp, positions, xmin, ymin, zmin, n_bins, box_size):
-
-    bin_size = box_size / n_bins
-    xpos = (positions[:,0] - xmin) / bin_size
-    ypos = (positions[:,1] - ymin) / bin_size
-    zpos = (positions[:,2] - zmin) / bin_size
-
-    i = jnp.int32(xpos)
-    j = jnp.int32(ypos)
-    k = jnp.int32(zpos)
-
-    ddx = xpos - i
-    ddy = ypos - j
-    ddz = zpos - k
-
-    def weights(ddx, ddy, ddz, ii, jj, kk):
-        return (((1 - ddx) + ii * (-1 + 2 * ddx)) * 
-                ((1 - ddy) + jj * (-1 + 2 * ddy)) *
-                ((1 - ddz) + kk * (-1 + 2 * ddz)))
-
-    shifts = jnp.zeros((positions.shape[0]))
-
-    for ii in range(2):
-        for jj in range(2):
-            for kk in range(2):
-                shifts = shifts.at[:].add(weights(ddx, ddy, ddz, ii, jj, kk) * disp[(i + ii) % n_bins, (j + jj) % n_bins, (k + kk) % n_bins])            
-
+from cosmomia import cy_read_cic_vector, cy_cic_mas
+import time
+sys.path.append("/home/astro/dforero/codes/pyCosmoMIA/cosmomia/")
+from displacements import interpolate_field, interpolate_field_single
+from mas import cic_mas_vec, cic_mas
+import proplot as pplt
     
-    return shifts
+fig, ax = pplt.subplots(nrows = 1, ncols = 2)
+import os
+os.environ["XLA_FLAGS"] = '--xla_force_host_platform_device_count=8' # Use 8 CPU devices
 
 
 if __name__ == '__main__':
     import numpy as np
     np.random.seed(0)
-    field = np.random.uniform(size = (10, 10, 10)).astype(np.double)
-    box_size = np.array([10.,10.,10.])
-    box_min = np.array([0.,0.,0.])    
-    positions = (box_size - box_min)[None,:] * np.random.uniform(size = (10, 3)) + box_min[None,:]
-    #results_c = py_read_cic(field.ravel(), np.array(field.shape, dtype = np.int32), positions, box_size, box_min)
+    dtype = np.float32
+    size = (512,) * 3
+    field = np.random.uniform(size = size).astype(dtype)
+    box_size = np.array([10.,10.,10.]).astype(dtype)
+    box_min = np.array([5.,5.,5.]).astype(dtype)
+    positions = (box_size)[None,:] * np.random.uniform(size = (int(1e7), 3)) + box_min[None,:]
+    positions = positions.astype(dtype)
+    tic = time.time()
     results_py = interpolate_field(field, positions, box_min[0], box_min[1], box_min[2], field.shape[0], box_size[0])
-    results_cy = np.array([cy_read_cic["double", "int"](field.ravel(), positions[i,:], box_size, box_min, np.array(field.shape, dtype = np.int32), 1) for i in range(positions.shape[0])])
+    print(f"JAX toox {time.time() - tic}s", flush=True)
+    tic = time.time()
+    results_py = interpolate_field(field, positions, box_min[0], box_min[1], box_min[2], field.shape[0], box_size[0])
+    print(f"JAX toox {time.time() - tic}s", flush=True)
+    #print(jax.make_jaxpr(interpolate_field)(field, positions, box_min[0], box_min[1], box_min[2], field.shape[0], box_size[0]))
+    interpolate_field_vector = jax.jit(jax.vmap(interpolate_field_single, in_axes = (None, 0, 0, 0, None, None, None, None, None)))
+    tic = time.time()
+    results_vmap = interpolate_field_vector(field, positions[:,0], positions[:,1], positions[:,2], box_min[0], box_min[1], box_min[2], field.shape[0], box_size[0])
+    print(f"JAX vmap toox {time.time() - tic}s", flush=True)
+    #print(jax.make_jaxpr(interpolate_field_vector)(field, positions[:,0], positions[:,1], positions[:,2], box_min[0], box_min[1], box_min[2], field.shape[0], box_size[0]))
+    tic = time.time()
+    results_vmap = interpolate_field_vector(field, positions[:,0], positions[:,1], positions[:,2], box_min[0], box_min[1], box_min[2], field.shape[0], box_size[0])
+    print(f"JAX vmap toox {time.time() - tic}s", flush=True)
+    
+    results_cy = np.zeros(positions.shape[0], dtype = positions.dtype)
+    tic = time.time()
+    cy_read_cic_vector["float"](results_cy, field.ravel(), positions, box_size, box_min, np.array(field.shape, dtype = np.intp), 1, 32)
+    print(f"C toox {time.time() - tic}s", flush=True)
     #print(results_c)
     print(results_py)
     print(results_cy)
+    print(results_vmap)
+    
+    
+    from jax.sharding import Mesh
+    from jax.sharding import PartitionSpec
+    from jax.sharding import NamedSharding
+    from jax.experimental import mesh_utils
+
+    P = jax.sharding.PartitionSpec
+    devices = mesh_utils.create_device_mesh((8,))
+    mesh = jax.sharding.Mesh(devices, ('x',))
+    sharding = jax.sharding.NamedSharding(mesh, P('x',))
+    
+    
+    positions = jax.device_put(positions, sharding)
+    #jax.debug.visualize_array_sharding(positions, use_color = False)
+    tic = time.time()
+    results_vmap = interpolate_field(field, positions, box_min[0], box_min[1], box_min[2], field.shape[0], box_size[0])
+    print(f"JAX vmap toox {time.time() - tic}s", flush=True)
+    tic = time.time()
+    print("shardings match:", positions.sharding == results_vmap.sharding)
+    print(results_vmap)
+    
+    exit()
+    interpolate_field_vector = jax.jit(jax.pmap(interpolate_field_single, in_axes = (None, 0, 0, 0, None, None, None, None, None)))
+    tic = time.time()
+    results_vmap = interpolate_field_vector(field, positions[:,0], positions[:,1], positions[:,2], box_min[0], box_min[1], box_min[2], field.shape[0], box_size[0])
+    print(f"JAX vmap toox {time.time() - tic}s", flush=True)
+    tic = time.time()
+    results_vmap = interpolate_field_vector(field, positions[:,0], positions[:,1], positions[:,2], box_min[0], box_min[1], box_min[2], field.shape[0], box_size[0])
+    print(f"JAX vmap toox {time.time() - tic}s", flush=True)
+    
+
+    
+    
+    exit()
+    
+    
+    delta_ev = jnp.zeros(size)
+    tic = time.time()
+    delta_ev = cic_mas_vec(delta_ev,
+                    positions[:,0], positions[:,1], positions[:,2], jnp.broadcast_to(jnp.array([1.]), positions.shape[0]), 
+                    positions.shape[0], 
+                    *box_min,
+                    box_size[0],
+                    delta_ev.shape[0],
+                    True)
+    print(f"JAX toox {time.time() - tic}s", flush=True)
+    delta_ev = delta_ev.at[...].set(0)
+    tic = time.time()
+    delta_ev = cic_mas_vec(delta_ev,
+                    positions[:,0], positions[:,1], positions[:,2], jnp.broadcast_to(jnp.array([1.]), positions.shape[0]), 
+                    positions.shape[0], 
+                    *box_min,
+                    box_size[0],
+                    delta_ev.shape[0],
+                    True)
+    print(f"JAX toox {time.time() - tic}s", flush=True)
+    print(delta_ev.mean(), delta_ev.std())
+    print(delta_ev[:4, 0, 0])
+    
+    ax[0].imshow(delta_ev[:50, ...].mean(axis=0))
+    
+    delta_ev = np.zeros(size, dtype = dtype)
+    positions = np.asarray(positions)
+    w = np.ones(positions.shape[0], dtype = dtype)
+    tic = time.time()
+    cy_cic_mas['float'](delta_ev, positions[:,0], positions[:,1], positions[:,2], w,
+                        box_min, box_size, 1, 32)
+    print(f"C toox {time.time() - tic}s", flush=True)
+    print(delta_ev.mean(), delta_ev.std())
+    
+    print(delta_ev[:4, 0, 0])
+    
+    ax[1].imshow(delta_ev[:50, ...].mean(axis=0))
+    
+    
+    fig.savefig("plots/test_interp.png", dpi=300)
