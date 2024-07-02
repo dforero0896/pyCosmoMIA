@@ -118,7 +118,7 @@ if __name__ == '__main__':
                         box=BOX_SIZE[0], 
                         multipole = [0, 2, 4], # Multipoles to compute
                         cf = ['AA / @@ - 1']) # CF estimator (not necessary if only pair counts are required)
-
+    tpcf_ref = tpcf
     print(tpcf['multipoles'].shape)
     ax[0,1].semilogx(tpcf['s'], tpcf['s'] * tpcf['multipoles'][0,0,:])
     ax[1,1].semilogx(tpcf['s'], tpcf['s'] * tpcf['multipoles'][0,1,:])
@@ -126,23 +126,23 @@ if __name__ == '__main__':
     fig.savefig("plots/example_subgrid.png", dpi=300)
     
     vel_kernel_3d = jax.jit(jax.vmap(vel_kernel, in_axes = (0, None, None)))
-    velocities = np.array(vel_kernel_3d(velocities.T.reshape(3, GRID_SIZE, GRID_SIZE, GRID_SIZE), 15., BOX_SIZE[0]).reshape(3, -1).T)
+    velocities = np.array(vel_kernel_3d(velocities.T.reshape(3, GRID_SIZE, GRID_SIZE, GRID_SIZE), 10., BOX_SIZE[0]).reshape(3, -1).T)
     print(velocities.min(axis = 0), velocities.max(axis = 0), velocities.mean(axis = 0))
     velocities = np.array(velocities)
     cache_name = f"data/test_cache.npz"
     if not os.path.isfile(cache_name) or 1:
-        result = py_assign_particles_to_gals(dm_particles, target_ncount,
+        result_init = py_assign_particles_to_gals(dm_particles, target_ncount,
                                             GRID_SIZE, BOX_SIZE, BOX_MIN,
                                             dm_cw_type, dm_dens, displacement,
                                             #velocities, 0, 0.05 * BIN_SIZE[0], False)
                                             velocities, 0, 2, False)
-        np.savez(cache_name, **result)
+        np.savez(cache_name, **result_init)
     else:
-        result = dict(np.load(cache_name))
+        result_init = dict(np.load(cache_name))
     
     
-    print((result['is_attractor'] < 1).any())
-    print((result['is_attractor'].astype(bool)).any())
+    print((result_init['is_attractor'] < 1).any())
+    print((result_init['is_attractor'].astype(bool)).any())
     
     
     ax[0,1].axvline(BIN_SIZE[0], ls =':')
@@ -152,9 +152,52 @@ if __name__ == '__main__':
     #                  powspec_conf_file = "tests/powspec_subgrid.conf",
     #                  )
     #k_, pk_ = pk['k'], pk['multipoles']
+    result_rsd = apply_rsd(REDSHIFT, result_init['pos'][:,2], result_init['vel'][:,2], cosmo_jax)
+    result_rsd += BOX_SIZE[2]
+    result_rsd %= BOX_SIZE[2]
+    delta_cm_raw = jnp.zeros([GRID_SIZE] * 3)
+    delta_cm_raw = cic_mas_vec(delta_cm_raw,
+                    result_init['pos'][:,0], result_init['pos'][:,1], result_rsd, jnp.broadcast_to(jnp.array([1.]), result_init['pos'].shape[0]), 
+                    result_init['pos'].shape[0], 
+                    0., 0., 0.,
+                    BOX_SIZE[0],
+                    delta_cm_raw.shape[0],
+                    True)
+    rho_cm_raw = delta_cm_raw.copy()
+    delta_cm_raw /= delta_cm_raw.mean()
+    delta_cm_raw -= 1.
+    
+    
+    
+    k_, pk_ = naive_pk_poles(delta_cm_raw, BOX_SIZE[0], k_edges)
+    ax[0,0].plot(k_, k_ * pk_[:,0], label = "CosmoMIA")
+    ax[1,0].plot(k_, k_ * pk_[:,1], label = "CosmoMIA")
+    
+    
+    
+    tpcf = py_compute_cf([np.c_[result_init['pos'][:,:2], result_rsd]], [np.ones(result_init['pos'].shape[0], dtype = result_init['pos'].dtype)], 
+                        s_edges.copy(), 
+                        None, 
+                        100, 
+                        label = ['A'], # Catalog labels matching the number of catalogs provided
+                        bin=1, # bin type for multipoles
+                        pair = ['AA'], # Desired pair counts
+                        box=BOX_SIZE[0], 
+                        multipole = [0, 2, 4], # Multipoles to compute
+                        cf = ['AA / @@ - 1']) # CF estimator (not necessary if only pair counts are required)
+
+    print(tpcf['multipoles'].shape)
+    ax[0,1].semilogx(tpcf['s'], tpcf['s'] * tpcf['multipoles'][0,0,:])
+    ax[1,1].semilogx(tpcf['s'], tpcf['s'] * tpcf['multipoles'][0,1,:])
+    fig.savefig("plots/example_subgrid.png", dpi=300)
+    
+    
+    params = np.array([1, 1. * BIN_SIZE[0], 100, 2, 10.], dtype = np.float32)
+    result = subgrid_collapse(result_init, params, BOX_SIZE, result_init['is_attractor'].astype(bool), 99, debug = False)
     result_rsd = apply_rsd(REDSHIFT, result['pos'][:,2], result['vel'][:,2], cosmo_jax)
     result_rsd += BOX_SIZE[2]
     result_rsd %= BOX_SIZE[2]
+    
     delta_cm_raw = jnp.zeros([GRID_SIZE] * 3)
     delta_cm_raw = cic_mas_vec(delta_cm_raw,
                     result['pos'][:,0], result['pos'][:,1], result_rsd, jnp.broadcast_to(jnp.array([1.]), result['pos'].shape[0]), 
@@ -192,33 +235,15 @@ if __name__ == '__main__':
     fig.savefig("plots/example_subgrid.png", dpi=300)
     
     
-    params = np.array([0.9, 3. * BIN_SIZE[0], 0.5, BIN_SIZE[0], 10.], dtype = np.float32)
-    result = subgrid_collapse(result, params, BOX_SIZE, result['is_attractor'].astype(bool), 99, debug = False)
-    result_rsd = apply_rsd(REDSHIFT, result['pos'][:,2], result['vel'][:,2], cosmo_jax)
-    result_rsd += BOX_SIZE[2]
-    result_rsd %= BOX_SIZE[2]
+    exit()
     
-    delta_cm_raw = jnp.zeros([GRID_SIZE] * 3)
-    delta_cm_raw = cic_mas_vec(delta_cm_raw,
-                    result['pos'][:,0], result['pos'][:,1], result_rsd, jnp.broadcast_to(jnp.array([1.]), result['pos'].shape[0]), 
-                    result['pos'].shape[0], 
-                    0., 0., 0.,
-                    BOX_SIZE[0],
-                    delta_cm_raw.shape[0],
-                    True)
-    rho_cm_raw = delta_cm_raw.copy()
-    delta_cm_raw /= delta_cm_raw.mean()
-    delta_cm_raw -= 1.
-    
-    
-    
-    k_, pk_ = naive_pk_poles(delta_cm_raw, BOX_SIZE[0], k_edges)
-    ax[0,0].plot(k_, k_ * pk_[:,0], label = "CosmoMIA")
-    ax[1,0].plot(k_, k_ * pk_[:,1], label = "CosmoMIA")
-    
-    
-    
-    tpcf = py_compute_cf([np.c_[result['pos'][:,:2], result_rsd]], [np.ones(result['pos'].shape[0], dtype = result['pos'].dtype)], 
+    def loss_fn(params):
+        
+        result = subgrid_collapse(result_init, params.astype(np.float32), BOX_SIZE, result_init['is_attractor'].astype(bool), 99, debug = False)
+        result_rsd = apply_rsd(REDSHIFT, result['pos'][:,2], result['vel'][:,2], cosmo_jax)
+        result_rsd += BOX_SIZE[2]
+        result_rsd %= BOX_SIZE[2]
+        tpcf = py_compute_cf([np.c_[result['pos'][:,:2], result_rsd]], [np.ones(result['pos'].shape[0], dtype = result['pos'].dtype)], 
                         s_edges.copy(), 
                         None, 
                         100, 
@@ -228,11 +253,15 @@ if __name__ == '__main__':
                         box=BOX_SIZE[0], 
                         multipole = [0, 2, 4], # Multipoles to compute
                         cf = ['AA / @@ - 1']) # CF estimator (not necessary if only pair counts are required)
-
-    print(tpcf['multipoles'].shape)
-    ax[0,1].semilogx(tpcf['s'], tpcf['s'] * tpcf['multipoles'][0,0,:])
-    ax[1,1].semilogx(tpcf['s'], tpcf['s'] * tpcf['multipoles'][0,1,:])
-    fig.savefig("plots/example_subgrid.png", dpi=300)
+        loss_val = np.mean(np.abs(tpcf['s'] * (tpcf['multipoles'][0,0,:] - tpcf_ref['multipoles'][0,0,:])))
+        print("Loss = ", loss_val, "params = ", params, flush = True)
+        return loss_val
+        
+        
+    from scipy.optimize import minimize
+    
+    res = minimize(loss_fn, params, method='BFGS',
+               options={'xatol': 1e-8, 'disp': True})
     
     
     

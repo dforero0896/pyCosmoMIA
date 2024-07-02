@@ -9,15 +9,12 @@ import jax.numpy as jnp
 import jax_cosmo as jc
 from jax_cosmo.power import linear_matter_power, nonlinear_matter_power
 import sys, os, time
-sys.path.append("/home/astro/dforero/codes/pyCosmoMIA/")
-sys.path.append("/home/astro/dforero/codes/pyCosmoMIA/cosmomia/")
-from displacements import aug_lpt, spherical_collapse, two_lpt, zeldovich, divergence_to_displacement, interpolate_field, two_lpt_, nbody, lpt_init, gen_ode_func, eul_aug_lpt, rank_order_fields, apply_transfer_func
-from ics import linear_field_box_muller
-from mas import cic_mas_vec
+from cosmomia.displacements import aug_lpt, spherical_collapse, two_lpt, zeldovich, divergence_to_displacement, interpolate_field, two_lpt_, nbody, lpt_init, gen_ode_func, eul_aug_lpt, rank_order_fields, apply_transfer_func
+from cosmomia.ics import linear_field_box_muller
+from cosmomia.mas import cic_mas_vec
 from cosmomia import cy_read_cic_vector, cy_cic_mas
-from correlations import powspec_vec, naive_pk, naive_xpk, naive_rcoeff, compute_transfer_from_power, compute_transfer_from_cross_power
-sys.path.append("/home/astro/dforero/codes/pypowspec/powspec/")
-from pypowspec import compute_auto_box_mesh, compute_auto_box
+from cosmomia.correlations import powspec_vec, naive_pk, naive_xpk, naive_rcoeff, compute_transfer_from_power, compute_transfer_from_cross_power
+from pypowspec.pypowspec import compute_auto_box_mesh, compute_auto_box
 from tqdm import tqdm
 from mpi4py import MPI
 comm = MPI.COMM_WORLD
@@ -375,10 +372,40 @@ if __name__ == '__main__':
         #pax[0].plot(k_, pk_ / pk_ref - 1,)
         #fig.savefig("plots/example_multiscale.png", dpi=300)
         
+        
+        
+        fname = f"data/reference/dmdens_abacus.npy"
+        fname_pk = f"data/reference/pk_abacus.npy"
+        if not os.path.isfile(fname) or not os.path.isfile(fname_pk) or args.rerun:
+            if not os.path.isfile(fname) or args.rerun:
+                particle_fns = glob.glob("/srv/astro/projects/cosmo3d/AbacusSummit/ics/dm_part_N512_z1.100.npy")
+                #particles = (read_particle_files(particle_fns, use_mp = False) + box_size) % box_size
+                #print(particles.shape)
+                #pk = compute_auto_box(particles[0,:,0],particles[0,:,1], particles[0,:,2], np.ones_like(particles[0,:,2]), "tests/powspec.conf")
+                #k_, pk_ = pk['k'], pk['multipoles'][:,0]
+                delta_ev_abacus = paint_to_mesh(particle_fns, mesh_shape, is_abacus = True)
+                np.save(fname, delta_ev_abacus)
+            else:
+                delta_ev_abacus = np.load(fname)
+            if not os.path.isfile(fname_pk)  or args.rerun:
+                #k_, pk_ = naive_pk(delta_ev, box_size[0], k_edges)  
+                pk = compute_auto_box_mesh(delta_ev_abacus.astype(np.double), "tests/powspec.conf")
+                np.save(fname_pk, pk)
+            else:
+                pk = np.load(fname_pk, allow_pickle=True).item()
+        else:
+            delta_ev_abacus = np.load(fname)
+            pk = np.load(fname_pk, allow_pickle=True).item()
+        #k_, pk_ = naive_pk(delta_ev, box_size[0], k_edges)  
+        k_, pk_ = pk['k'], pk['multipoles'][:,0]
+        ax[0].loglog(k_, pk_, label = "Abacus")
+        pax[0].loglog(k_, pk_ / pk_ref - 1,)
+        
+        
         fname = f"data/multiscale/final/dmdens_abacus_alpt_approx.npy"
         fname_pk = f"data/multiscale/final/pk_abacus_alpt_approx.npy"
-        if not os.path.isfile(fname) or not os.path.isfile(fname_pk)  or 'split' in args.task  or args.rerun or 1:
-            if not os.path.isfile(fname) or 'split' in args.task  or args.rerun or 1:
+        if not os.path.isfile(fname) or not os.path.isfile(fname_pk)  or 'split' in args.task  or args.rerun :
+            if not os.path.isfile(fname) or 'split' in args.task  or args.rerun :
                 particle_fns = glob.glob("data/multiscale/approx/pos*npy")
                 #particles = (read_particle_files(particle_fns, use_mp = False) + box_size) % box_size
                 #print(particles.shape)
@@ -388,7 +415,7 @@ if __name__ == '__main__':
                 np.save(fname, delta_ev)
             else:
                 delta_ev = np.load(fname)
-            if not os.path.isfile(fname_pk) or 'split' in args.task or args.rerun or 1:
+            if not os.path.isfile(fname_pk) or 'split' in args.task or args.rerun :
                 #k_, pk_ = naive_pk(delta_ev, box_size[0], k_edges)  
                 pk = compute_auto_box_mesh(delta_ev.astype(np.double), "tests/powspec.conf")
                 np.save(fname_pk, pk)
@@ -408,22 +435,28 @@ if __name__ == '__main__':
         
         
         
-        fname = f"data/reference/dmdens_abacus.npy"
-        fname_pk = f"data/reference/pk_abacus.npy"
-        if not os.path.isfile(fname) or not os.path.isfile(fname_pk) or args.rerun:
-            if not os.path.isfile(fname) or args.rerun:
-                particle_fns = glob.glob("/srv/astro/projects/cosmo3d/AbacusSummit/ics/dm_part_N512_z1.100.npy")
+        
+        k_edges_interp = jnp.linspace(k_in, jnp.sqrt(3) * k_ny, 200)
+        
+        
+        fname = f"data/multiscale/final/dmdens_abacus_alpt_remap.npy"
+        fname_pk = f"data/multiscale/final/pk_abacus_alpt_remap.npy"
+        if not os.path.isfile(fname) or not os.path.isfile(fname_pk)  or 'split' in args.task  or args.rerun or 1:
+            if not os.path.isfile(fname) or 'split' in args.task  or args.rerun :
+                
                 #particles = (read_particle_files(particle_fns, use_mp = False) + box_size) % box_size
                 #print(particles.shape)
                 #pk = compute_auto_box(particles[0,:,0],particles[0,:,1], particles[0,:,2], np.ones_like(particles[0,:,2]), "tests/powspec.conf")
                 #k_, pk_ = pk['k'], pk['multipoles'][:,0]
-                delta_ev = paint_to_mesh(particle_fns, mesh_shape, is_abacus = True)
+                k_, transfer = compute_transfer_from_power(delta_ev, delta_ev_abacus, box_size[0], k_edges_interp)
+                assert (~np.isnan(transfer)).all()
+                delta_ev = apply_transfer_func(rank_order_fields(delta_ev, apply_transfer_func(delta_ev_abacus, box_size[0], transfer, k_), box_size[0],1.), box_size[0], 1 / transfer, k_)
                 np.save(fname, delta_ev)
             else:
                 delta_ev = np.load(fname)
-            if not os.path.isfile(fname_pk)  or args.rerun:
+            if not os.path.isfile(fname_pk) or 'split' in args.task or args.rerun or 1:
                 #k_, pk_ = naive_pk(delta_ev, box_size[0], k_edges)  
-                pk = compute_auto_box_mesh(delta_ev.astype(np.double), "tests/powspec.conf")
+                pk = compute_auto_box_mesh(np.array(delta_ev).astype(np.double), "tests/powspec.conf")
                 np.save(fname_pk, pk)
             else:
                 pk = np.load(fname_pk, allow_pickle=True).item()
@@ -432,10 +465,12 @@ if __name__ == '__main__':
             pk = np.load(fname_pk, allow_pickle=True).item()
         #k_, pk_ = naive_pk(delta_ev, box_size[0], k_edges)  
         k_, pk_ = pk['k'], pk['multipoles'][:,0]
-        ax[0].loglog(k_, pk_, label = "Abacus")
-        pax[0].loglog(k_, pk_ / pk_ref - 1,)
+        ax[0].loglog(k_, pk_, label = "LANARM $N_{\mathrm{big}}^3*N_{\mathrm{small}}^3$")
+        pax[0].plot(k_, pk_ / pk_ref - 1,)
+        #ax[3].imshow(jnp.log10(2 + delta_ev[:20, :, :].mean(axis=0)), colorbar = None, vmin = VMIN, cmap = cmap, vmax = VMAX)
         
         
+        fig.savefig("plots/example_multiscale.png", dpi=300)
         
         
         ax[0].legend(loc = 'top')
