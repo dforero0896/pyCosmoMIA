@@ -648,7 +648,7 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
     print(f"Sampled {100 * sampled_rand / (used_dm + sampled_around + sampled_rand)} % of particles in empty cells.")
     print("Done")
 
-    return dict(pos = pos, vel = vel, is_dm = is_dm, dweb = dweb, delta_dm = delta_dm, r_min = r_min, delta_max = delta_max, is_attractor = is_attractor)
+    return dict(pos = pos, vel = vel, is_dm = is_dm, dweb = dweb, delta_dm = delta_dm, r_min = r_min, delta_max = delta_max, is_attractor = is_attractor, order = np.arange(pos.shape[0]))
     
             
 
@@ -1052,6 +1052,12 @@ cpdef dict subgrid_collapse(dict catalog, floating[:] params, floating[:] box_si
     vel_attractors_view = vel_attractors
     vel_not_attractors_view = vel_not_attractors
 
+    cdef cnp.ndarray[long, ndim=1] attractors_ids = catalog['order'][is_attractor_mask]
+    cdef cnp.ndarray[long, ndim=1] not_attractors_ids = catalog['order'][~is_attractor_mask]
+    
+    
+
+
 
     cdef floating[:] dm_view = dm
     #attractors_copy_view = attractors_copy
@@ -1140,12 +1146,74 @@ cpdef dict subgrid_collapse(dict catalog, floating[:] params, floating[:] box_si
 
     catalog['pos'] = np.vstack((attractors[:,:3], not_attractors[:,:3]))
     catalog['vel'] = np.vstack((vel_attractors[:,:3], vel_not_attractors[:,:3]))
+    catalog['order'] = np.concatenate((attractors_ids, not_attractors_ids))
 
     return catalog
 
 
+cpdef dict single_collapse_step(cnp.ndarray[floating, ndim=2] attractors, cnp.ndarray[floating, ndim=2] vel_attractors, cnp.ndarray[floating, ndim=1] dm,
+                                cnp.ndarray[floating, ndim=2] not_attractors, cnp.ndarray[floating, ndim=2] vel_not_attractors,
+                                floating[:] params, 
+                                size_t k_neighbour,
+                                floating[:] box_size, size_t seed, size_t num_threads, debug = False):
+    #params = (collapse_frac, collapse_radius, velocity_dispersion)
+
+    cdef mt19937 gen = mt19937(seed)
+    cdef normal_distribution[floating] dist_gauss = normal_distribution[floating](0., 1.)
+    
+
+    #cdef cnp.ndarray[floating, ndim=2] attractors_copy = attractors.copy()
+    #cdef cnp.ndarray[floating, ndim=2] not_attractors_copy = not_attractors.copy()
+
+    cdef floating[:,:] attractors_view, not_attractors_view, vel_attractors_view, vel_not_attractors_view#, attractors_copy_view, not_attractors_copy_view
+    attractors_view = attractors
+    not_attractors_view = not_attractors
+    vel_attractors_view = vel_attractors
+    vel_not_attractors_view = vel_not_attractors
 
 
+    cdef floating[:] dm_view = dm
+    #attractors_copy_view = attractors_copy
+    #not_attractors_copy_view = not_attractors_copy
+    
+    #tic = time.time()
+    #tree = pybosque.Tree(not_attractors, idxs)
+    tree = KDTree(attractors)#, boxsize = box_size)
+    #print(f"Tree built in {time.time() - tic}s", flush=True)
+    #tic = time.time()
+    #r, ids = tree.query(attractors, 2, [0,1])
+    #r, ids = tree.query(not_attractors, k = 2)
+    dists, ids = tree.query(not_attractors, k = k_neighbour, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)
+    cdef floating[:] dists_view
+    cdef unsigned[:] ids_view
+    if k_neighbour > 1:
+        dists_view = dists[:,k_neighbour-1]
+        ids_view = ids[:,k_neighbour-1]
+    else:
+        dists_view = dists
+        ids_view = ids
+    #ids is the array of ids in not_attractors that are closest to eah attractor
+    #print(f"Tree query in {time.time() - tic}s", flush=True)
+    cdef Py_ssize_t i
+    cdef floating collapse_frac, gauss_rand
+
+    for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):
+        collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], params[0] , params[1], 
+                                                      vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[2],
+                                                      box_size)
+    
+    #log_delta_dm = (catalog['delta_dm'])
+
+    #rescaled_delta_dm = box_size[0] * (log_delta_dm  - log_delta_dm.min()) / (log_delta_dm.max()  - log_delta_dm.min())
+    #attractors = np.c_[attractors,rescaled_delta_dm[is_attractor_mask]]
+    #not_attractors = np.c_[not_attractors,rescaled_delta_dm[~is_attractor_mask]]
+    #attractors_copy = attractors.copy()
+    #not_attractors_copy = not_attractors.copy()
+    catalog = {}
+    catalog['pos'] = np.vstack((attractors[:,:3], not_attractors[:,:3]))
+    catalog['vel'] = np.vstack((vel_attractors[:,:3], vel_not_attractors[:,:3]))
+
+    return catalog
 
 
     

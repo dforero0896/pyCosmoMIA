@@ -1,9 +1,10 @@
+import time
 import numpy as np
 import jax 
 import jax.numpy as jnp
 import sys, os
 from cosmomia.mas import cic_mas_vec
-from cosmomia import py_assign_particles_to_gals, subgrid_collapse
+from cosmomia import py_assign_particles_to_gals, subgrid_collapse, single_collapse_step
 from cosmomia.correlations import powspec_vec, naive_pk, naive_xpk, naive_rcoeff, naive_pk_poles
 from cosmomia.displacements import enhance_short_range, interpolate_field, spherical_collapse, vel_kernel
 from astropy.table import Table, vstack
@@ -213,13 +214,16 @@ if __name__ == '__main__':
     # Julia pars [6.681508955504605, 5.47808573538, 0.7534895556587489, 1.1209400930989315, 0.10218062957157581]
     #params = np.array([0.75, 6.68, 1.12, 5.47, 0.1], dtype = np.float32)
     #params = np.array([0.3, 2., 0.5, 6.4, 0.1], dtype = np.float32)
-    params = np.array([0.3, 3., 0.5, 6.7, 0.1], dtype = np.float32)
+    params = np.array([0.6, 3., 0.5, 6.7, 0.1], dtype = np.float32)
     #########################################################################################################3
     
     
     
-    
+    tic = time.time()
     result = subgrid_collapse(result_init, params, BOX_SIZE, result_init['is_attractor'].astype(bool), 99, 32, debug = False)
+    print(f"Collapse in {time.time() - tic}s", flush = True)
+    
+    
     result_rsd = apply_rsd(REDSHIFT, result['pos'][:,2], result['vel'][:,2], cosmo_jax)
     result_rsd += BOX_SIZE[2]
     result_rsd %= BOX_SIZE[2]
