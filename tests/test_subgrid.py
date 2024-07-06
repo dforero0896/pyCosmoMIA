@@ -2,15 +2,15 @@ import numpy as np
 import jax 
 import jax.numpy as jnp
 import sys, os
-sys.path.append("/home/astro/dforero/codes/pyCosmoMIA/")
-sys.path.append("/home/astro/dforero/codes/pyCosmoMIA/cosmomia/")
-from cosmomia import py_assign_particles_to_gals
-from mas import cic_mas_vec
-from correlations import powspec_vec, naive_pk, naive_xpk, naive_rcoeff
-from displacements import enhance_short_range, interpolate_field, spherical_collapse
+from cosmomia.mas import cic_mas_vec
+from cosmomia import py_assign_particles_to_gals, subgrid_collapse
+from cosmomia.correlations import powspec_vec, naive_pk, naive_xpk, naive_rcoeff, naive_pk_poles
+from cosmomia.displacements import enhance_short_range, interpolate_field, spherical_collapse, vel_kernel
 from astropy.table import Table, vstack
-sys.path.append("/home/astro/dforero/codes//pyfcfc/")
 from pyfcfc.boxes import py_compute_cf
+from pypowspec.pypowspec import compute_auto_box
+from astropy.table import Table, vstack
+
 
 
 
@@ -143,9 +143,9 @@ if __name__ == '__main__':
                               
     
     print("Enhancing field")
-    param_init = jnp.array([0.8, 100])
+    param_init = jnp.array([30, 0.1])
     smooth, step_size = param_init
-    enhance_short_range_3d = jax.jit(jax.vmap(enhance_short_range, in_axes = (3, None, None)))
+    enhance_short_range_3d = (jax.vmap(enhance_short_range, in_axes = (3, None, None)))
     interpolate_field_3d = jax.jit(jax.vmap(interpolate_field, in_axes = (0, None, None, None, None, None, None)))
     
     
@@ -156,6 +156,9 @@ if __name__ == '__main__':
     
     #psis = [interpolate_field(psis[i], result['pos'], BOX_MIN[0], BOX_MIN[1], BOX_MIN[2], GRID_SIZE, BOX_SIZE[0])  for i in range(3)]
     new_pos = result['pos'] + step_size * interpolate_field_3d(psis, result['pos'], BOX_MIN[0], BOX_MIN[1], BOX_MIN[2], GRID_SIZE, BOX_SIZE[0]).T
+    
+    new_pos += BOX_SIZE
+    new_pos %= BOX_SIZE
     print(psis.shape)
     
     
@@ -176,7 +179,7 @@ if __name__ == '__main__':
     k_, pk_ = naive_pk(delta_cm, BOX_SIZE[0], k_edges)
     ax[0].plot(k_, k_ * pk_, label = "CosmoMIA enhanced")
     
-    
+    fig.savefig("plots/test_subgrid.png", dpi=300)
     tpcf = py_compute_cf([np.array(new_pos)], [np.ones(np.array(new_pos).shape[0], dtype = np.array(new_pos).dtype)], 
                         s_edges.copy(), 
                         None, 

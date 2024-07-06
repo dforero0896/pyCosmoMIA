@@ -319,15 +319,18 @@ def eul_aug_lpt(delta, box_size, smooth, interp_smooth, steps, pos, box_min, cos
 
     return pos
 
-@jax.jit
+#@jax.jit
 def enhance_short_range(disp, box_size, interp_smooth):
+    
     n_bins = disp.shape[0]
     k = jnp.fft.fftfreq(n_bins, d=box_size/n_bins) * 2 * jnp.pi
     kr = k * interp_smooth
     ksq = k[:,None,None]**2 + k[None,:,None]**2 + k[None,None,:n_bins//2+1]**2
-    interp_kernel = jnp.exp(-0.5 * (kr[:, None, None] ** 2 + kr[None, :, None] ** 2 + kr[None, None, :n_bins//2+1] ** 2))
-    #return jnp.fft.irfftn((1. - interp_kernel) * jnp.fft.rfftn(disp), disp.shape)
-    return jnp.fft.irfftn((jax.nn.sigmoid(100 * (jnp.sqrt(ksq) - interp_smooth))) * jnp.fft.rfftn(disp), disp.shape)
+    #interp_kernel = 1 - jnp.exp(-0.5 * (kr[:, None, None] ** 2 + kr[None, :, None] ** 2 + kr[None, None, :n_bins//2+1] ** 2))
+    interp_kernel = jax.scipy.special.erf((jnp.sqrt(kr[:, None, None] ** 2 + kr[None, :, None] ** 2 + kr[None, None, :n_bins//2+1]**2)))
+    assert jnp.all(~jnp.isnan(interp_kernel))
+    return jnp.fft.irfftn((interp_kernel) * jnp.fft.rfftn(disp), disp.shape)
+    #return jnp.fft.irfftn((jax.nn.sigmoid(100 * (jnp.sqrt(ksq) - interp_smooth))) * jnp.fft.rfftn(disp), disp.shape)
 
 
 @jax.jit
