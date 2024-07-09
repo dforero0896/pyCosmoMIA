@@ -6,7 +6,7 @@ from libc.stdio cimport printf, fflush, stdout
 from libc.stdlib cimport abort, malloc, free
 from libc.math cimport floor, sqrt, round, abs, exp, acos, asin, cos, sin
 from libcpp.vector cimport vector
-from libcpp.iterator cimport iterator
+from libcpp.iterator cimport iterator, front_insert_iterator, input_iterator_tag
 from libcpp cimport bool as cbool
 from cython cimport boundscheck, wraparound, numeric, floating, integral, cdivision, inline
 import numpy as np
@@ -20,9 +20,12 @@ import multiprocessing
 from pykdtree.kdtree import KDTree
 import time
 
-cdef extern from "<iterator>" namespace "std":
+#cdef extern from "<iterator>" namespace "std":
+    ##cdef cppclass iterator[Category,T,Distance,Pointer,Reference]:
+    #    pass
+    #T make_move_iterator[T](T i) nogil
+    #cdef cppclass input_iterator_tag
 
-    T make_move_iterator[T](T i) nogil
 cdef extern from "<random>" namespace "std":
     cdef cppclass mt19937:
         mt19937() nogil# we need to define this constructor to stack allocate classes in Cython
@@ -46,9 +49,18 @@ cdef extern from "<random>" namespace "std":
         exponential_distribution()  nogil
         exponential_distribution(T b) nogil
         T operator()(mt19937 gen)   nogil# ignore the possibility of using other classes for "gen"
+    cdef cppclass discrete_distribution[T]:
+        discrete_distribution()  nogil
+        #discrete_distribution(iterator[input_iterator_tag, int, ptrdiff_t, int*, int&] first, iterator[input_iterator_tag, int, ptrdiff_t, int*, int&]  last)  nogil
+        #InputIt discrete_distribution[InputIt](InputIt firstW, InputIt lastW)  nogil
+        T operator()(mt19937 gen)   nogil# ignore the possibility of using other classes for "gen"
         
 
 # Declare external functions from the C++ file
+cdef extern from "src/utils.h":
+    cdef discrete_distribution[int] setup_discrete_distribution(vector[double] bin_counts) nogil
+
+
 #cdef extern from "src/subgrid.h":
 #    cdef cppclass SubgridCatalog:
 #        vector[vector[double]] pos
@@ -391,7 +403,9 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
                                 floating[:,:] velocities, size_t seed, floating dist_std_par, 
                                 size_t small_scale_dist,
                                 size_t fully_rand_dist,
-                                cbool debug):
+                                double[:] s_binning =None ,
+                                double[:] prob_values = None,
+                                cbool debug = False ):
     
 
     print_icon()
@@ -419,6 +433,17 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
     cdef uniform_int_distribution[int] dist_int
     cdef normal_distribution[floating] dist_gauss = normal_distribution[floating](0., dist_std_par)
     cdef exponential_distribution[floating] dist_exp = exponential_distribution[floating](1. / dist_std_par)
+    #cdef discrete_distribution[int] dist_disc
+    #cdef vector[double] histogram_list 
+    
+    #if s_binning is not None and prob_values is not None:
+    #    histogram_list.resize(prob_values.shape[0])
+    #    for ii in range(prob_values.shape[0]):
+    #        histogram_list[ii] = prob_values[ii]
+    #    #dist_disc = discrete_distribution[int](histogram_list.begin(), histogram_list.end())
+    #    disc_dist = setup_discrete_distribution(histogram_list)
+        
+        
 
     cdef floating[:] grid_center = np.zeros(3, dtype = dtype)
     #cdef Py_ssize_t[:] grid_indices = np.zeros(3, dtype = np.int_)
@@ -499,6 +524,8 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
     #y = Math.round((i - z * WIDTH * HEIGHT) / WIDTH);
     #x = i - WIDTH * (y + HEIGHT * z);
     cdef Py_ssize_t particle_counter = 0
+    cdef floating displacement_draw 
+    cdef int hist_bin_id
     
     printf("Assigning particles to tracers...\n")
     for index_3d in range(grid_size**3):
@@ -553,7 +580,17 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
                     
                     #missing_counter = dist_int(gen) if missing_counter > number_dm_in_cell else  missing_counter
                     missing_counter = dist_int(gen)
-                    
+
+                    if small_scale_dist == 1:
+                        displacement_draw = dist_gauss(gen) 
+                    elif small_scale_dist == 2:
+                        displacement_draw  += (dist_exp(gen))
+                    #elif small_scale_dist == 4:
+                    #    hist_bin_id = dist_disc(gen)
+                    #    displacement_draw = (s_binning[hist_bin_id+1] - s_binning[hist_bin_id]) * dist_unif(gen) + s_binning[hist_bin_id]
+                    else:
+                        printf("ERROR: Received `small_scale_dist = %i`, accepted values are 1 = gaussian, 2 = exponential)\n", small_scale_dist)
+                        abort()
                     for ii in range(3):
                         pos_view[particle_counter, ii] = dm_particles[dm_particles_in_cell[missing_counter], ii] if missing_counter < number_dm_in_cell  else grid_center[ii]
                         if debug:
@@ -561,13 +598,10 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
                                 printf("DM Particle %li not in cell either\n", dm_particles_in_cell[missing_counter])
                                 abort()
                         pos_view[particle_counter, ii] -= displacement[dm_particles_in_cell[missing_counter], ii]
-                        if small_scale_dist == 1:
-                            pos_view[particle_counter, ii] += dist_gauss(gen) 
-                        elif small_scale_dist == 2:
-                            pos_view[particle_counter, ii] += (dist_exp(gen))
-                        else:
-                            printf("ERROR: Received `small_scale_dist = %i`, accepted values are 1 = gaussian, 2 = exponential)\n", small_scale_dist)
-                            abort()
+                        displacement_draw = clip(displacement_draw, -sqrt(3) * bin_size[ii], sqrt(3) * bin_size[ii])
+                        pos_view[particle_counter, ii] += displacement_draw
+                        
+                        
                     for ii in range(3):
                         #psi_i[ii] = cy_read_cic[floating](displacement[:,ii],
                         #                                                            pos_view[particle_counter,:],
@@ -581,14 +615,17 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
                         pos_view[particle_counter, ii] = (pos_view[particle_counter, ii] + box_size[ii]) % box_size[ii]
                     sampled_around += 1
                 elif number_dm_in_cell == 0 and assigned_random_flag:
+                    if small_scale_dist == 1:
+                        displacement_draw = dist_gauss(gen) 
+                    elif small_scale_dist == 2:
+                        displacement_draw = (dist_exp(gen))
+                    else:
+                        printf("ERROR: Received `small_scale_dist = %i`, accepted values are 1 = gaussian, 2 = exponential)\n", small_scale_dist)
+                        abort()
+                    
                     for ii in range(3):
-                        if small_scale_dist == 1:
-                            pos_view[particle_counter, ii] = pos_view[particle_counter-1, ii] + dist_gauss(gen) 
-                        elif small_scale_dist == 2:
-                            pos_view[particle_counter, ii] = pos_view[particle_counter-1, ii] + (dist_exp(gen))
-                        else:
-                            printf("ERROR: Received `small_scale_dist = %i`, accepted values are 1 = gaussian, 2 = exponential)\n", small_scale_dist)
-                            abort()
+                        displacement_draw = clip(displacement_draw, -sqrt(3) * bin_size[ii], sqrt(3) * bin_size[ii])
+                        pos_view[particle_counter, ii] = pos_view[particle_counter-1, ii] + displacement_draw
                     sampled_around += 1
                 else: #Need a random particle, no DM in cell
                     for ii in range(3):
@@ -983,7 +1020,7 @@ cdef void collapse(floating[:] out_sat_pos, floating[:] sat_pos, floating[:] cen
     #cdef floating r = sqrt(dist)
 
 
-    if (r < <floating> dist_upper_bound) and (r > <floating> 1e-5):
+    if (r < <floating> dist_upper_bound) and (r > <floating> 1e-2):
         cos_phi = coordinate_separation[floating](sat_pos[2], cen_pos[2], box_size[2]) / r
         sin_phi = sinx[floating](cos_phi**2)
         #sin_phi = sin(acos(cos_phi))
@@ -1006,8 +1043,8 @@ cdef void collapse(floating[:] out_sat_pos, floating[:] sat_pos, floating[:] cen
         out_sat_pos[2] = cen_pos[2] + r * cos_phi
 
         out_sat_vel[0] = out_sat_vel[0] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
-        out_sat_vel[1] = out_sat_vel[1] + random_gauss_y * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
-        out_sat_vel[2] = out_sat_vel[2] + random_gauss_z * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+        out_sat_vel[1] = out_sat_vel[1] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+        out_sat_vel[2] = out_sat_vel[2] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
 
 
     

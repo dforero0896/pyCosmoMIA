@@ -8,7 +8,7 @@ import numpy as np
 extensions = [
     Extension(
         name="cosmomia.cosmomia",
-        sources=["cosmomia/subgrid.pyx",],#, "cosmomia/src/subgrid.cpp"],
+        sources=["cosmomia/subgrid.pyx"],#, "cosmomia/src/utils.cpp"],#, "cosmomia/src/subgrid.cpp"],
         language="c++",
         include_dirs=[np.get_include()],#, '-I/home/astro/dforero/codes/bosque/examples/c'],
         extra_compile_args=["-std=c++11", '-fopenmp'],

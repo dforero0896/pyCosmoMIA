@@ -19,7 +19,8 @@ def vel_kernel(field, gain, box_size):
     k = jnp.fft.fftfreq(n_bins, d=box_size/n_bins) * 2 * jnp.pi
     k = jnp.sqrt(k[:,None,None]**2 + k[None,:,None]**2 + k[None,None,:n_bins//2+1]**2)
     field_k = jnp.fft.rfftn(field)
-    field_k *= 1 + jax.nn.sigmoid(0.6) * gain * k**2
+    #field_k *= 1 + jax.nn.sigmoid(0.6) * gain * k**2
+    field_k *= 1 + jax.nn.sigmoid(50 * (k - 0.))  * gain * k**2 * (1 - jax.nn.sigmoid(10 * (k - 0.4)))
     field = jnp.fft.irfftn(field_k, field.shape)
     return field
 

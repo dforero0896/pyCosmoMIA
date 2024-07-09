@@ -77,13 +77,15 @@ if __name__ == '__main__':
     
     
     fig, ax = pplt.subplots(nrows = 2, ncols = 2, share = 0)
-    
+    tic = time.time()
+    print("Loading ALPT", flush=True)
     displacement = read_alpt_vector_field(DISP_FILES, GRID_SIZE**3)
     dm_particles = read_alpt_vector_field(POS_FILES, GRID_SIZE**3)
     velocities = renormalize_velocities(REDSHIFT, cosmo_jax, read_alpt_vector_field(VEL_FILES, GRID_SIZE**3))
     dm_dens = np.fromfile(DELTA_FILE, np.float32, GRID_SIZE**3)
     dm_cw_type = np.fromfile(CWEB_FILE, np.float32, GRID_SIZE**3).astype(np.uint32)
     target_ncount = np.fromfile(COUNTS_FILE, np.float32, GRID_SIZE**3).astype(np.uint32)
+    print(f"Done in {time.time() - tic}s", flush=True)
     
     
     
@@ -129,7 +131,8 @@ if __name__ == '__main__':
                         pair = ['AA'], # Desired pair counts
                         box=BOX_SIZE[0], 
                         multipole = [0, 2, 4], # Multipoles to compute
-                        cf = ['AA / @@ - 1']) # CF estimator (not necessary if only pair counts are required)
+                        cf = ['AA / @@ - 1'],
+                        verbose = 'F') # CF estimator (not necessary if only pair counts are required)
     tpcf_ref = tpcf
     print(tpcf['multipoles'].shape)
     ax[0,1].semilogx(tpcf['s'], tpcf['s']**s_pow * tpcf['multipoles'][0,0,:], color = 'k')
@@ -138,23 +141,29 @@ if __name__ == '__main__':
     fig.savefig("plots/example_subgrid.png", dpi=300)
     
     vel_kernel_3d = jax.jit(jax.vmap(vel_kernel, in_axes = (0, None, None)))
-    velocities = np.array(vel_kernel_3d(velocities.T.reshape(3, GRID_SIZE, GRID_SIZE, GRID_SIZE), 9., BOX_SIZE[0]).reshape(3, -1).T)
-    print(velocities.min(axis = 0), velocities.max(axis = 0), velocities.mean(axis = 0))
-    velocities = np.array(velocities)
+    #velocities = np.array(vel_kernel_3d(velocities.T.reshape(3, GRID_SIZE, GRID_SIZE, GRID_SIZE), 6., BOX_SIZE[0]).reshape(3, -1).T)
+    velocities = np.array(vel_kernel_3d(velocities.T.reshape(3, GRID_SIZE, GRID_SIZE, GRID_SIZE), 7., BOX_SIZE[0]).reshape(3, -1).T)
     cache_name = f"data/test_cache.npz"
     if not os.path.isfile(cache_name) or args.repopulate:
+        tic = time.time()
+        print("Populating catalog with particles", flush=True)
         result_init = py_assign_particles_to_gals(dm_particles, target_ncount,
                                             GRID_SIZE, BOX_SIZE, BOX_MIN,
                                             dm_cw_type, dm_dens, displacement,
                                             velocities, 
                                             0,                  # seed
-                                            0.7 * BIN_SIZE[0],  #dist_parameter stdev of gauss, mean of exponential
+                                            #0.7 * BIN_SIZE[0],  #dist_parameter stdev of gauss, mean of exponential
+                                            2,
                                             1,                   # distribution for particles around DM 1= gaussian, 2 = exp
-                                            2,                   # distribution for fully random particles around cell center 1 = gauss, 2 = exp 3 = triangle (EZmock)
-                                            False,
+                                            3,                   # distribution for fully random particles around cell center 1 = gauss, 2 = exp 3 = triangle (EZmock)
+                                            s_binning = None,
+                                            histogram = None,
+                                            debug = False,
                                             )
                                             #velocities, 0, 3, False)
+        print(F"Done in {time.time() - tic}", flush=True)
         np.savez(cache_name, **result_init)
+        
     else:
         result_init = dict(np.load(cache_name))
        
@@ -203,7 +212,8 @@ if __name__ == '__main__':
                         pair = ['AA'], # Desired pair counts
                         box=BOX_SIZE[0], 
                         multipole = [0, 2, 4], # Multipoles to compute
-                        cf = ['AA / @@ - 1']) # CF estimator (not necessary if only pair counts are required)
+                        cf = ['AA / @@ - 1'],
+                        verbose = 'F') # CF estimator (not necessary if only pair counts are required)
 
     print(tpcf['multipoles'].shape)
     ax[0,1].semilogx(tpcf['s'], tpcf['s']**s_pow * tpcf['multipoles'][0,0,:])
@@ -259,7 +269,8 @@ if __name__ == '__main__':
                         pair = ['AA'], # Desired pair counts
                         box=BOX_SIZE[0], 
                         multipole = [0, 2, 4], # Multipoles to compute
-                        cf = ['AA / @@ - 1']) # CF estimator (not necessary if only pair counts are required)
+                        cf = ['AA / @@ - 1'],
+                        verbose = 'F') # CF estimator (not necessary if only pair counts are required)
 
     print(tpcf['multipoles'].shape)
     ax[0,1].semilogx(tpcf['s'], tpcf['s']**s_pow * tpcf['multipoles'][0,0,:])
@@ -289,7 +300,8 @@ if __name__ == '__main__':
                             pair = ['AA'], # Desired pair counts
                             box=BOX_SIZE[0], 
                             multipole = [0, 2, 4], # Multipoles to compute
-                            cf = ['AA / @@ - 1']) # CF estimator (not necessary if only pair counts are required)
+                            cf = ['AA / @@ - 1'],
+                            verbose = 'F') # CF estimator (not necessary if only pair counts are required)
             loss_val += np.mean(np.abs(tpcf['s'] * (tpcf['multipoles'][0,0,:] - tpcf_ref['multipoles'][0,0,:])))
         if fit_pk:
             delta_cm_raw = jnp.zeros([GRID_SIZE] * 3)
