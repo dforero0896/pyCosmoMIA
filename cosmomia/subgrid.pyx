@@ -54,7 +54,10 @@ cdef extern from "<random>" namespace "std":
         #discrete_distribution(iterator[input_iterator_tag, int, ptrdiff_t, int*, int&] first, iterator[input_iterator_tag, int, ptrdiff_t, int*, int&]  last)  nogil
         #InputIt discrete_distribution[InputIt](InputIt firstW, InputIt lastW)  nogil
         T operator()(mt19937 gen)   nogil# ignore the possibility of using other classes for "gen"
-        
+    cdef cppclass chi_squared_distribution[T]:
+        chi_squared_distribution()  nogil
+        chi_squared_distribution(T b) nogil
+        T operator()(mt19937 gen)   nogil# ignore the possibility of using other classes for "gen"
 
 # Declare external functions from the C++ file
 cdef extern from "src/utils.h":
@@ -403,8 +406,6 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
                                 floating[:,:] velocities, size_t seed, floating dist_std_par, 
                                 size_t small_scale_dist,
                                 size_t fully_rand_dist,
-                                double[:] s_binning =None ,
-                                double[:] prob_values = None,
                                 cbool debug = False ):
     
 
@@ -433,17 +434,8 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
     cdef uniform_int_distribution[int] dist_int
     cdef normal_distribution[floating] dist_gauss = normal_distribution[floating](0., dist_std_par)
     cdef exponential_distribution[floating] dist_exp = exponential_distribution[floating](1. / dist_std_par)
-    #cdef discrete_distribution[int] dist_disc
-    #cdef vector[double] histogram_list 
-    
-    #if s_binning is not None and prob_values is not None:
-    #    histogram_list.resize(prob_values.shape[0])
-    #    for ii in range(prob_values.shape[0]):
-    #        histogram_list[ii] = prob_values[ii]
-    #    #dist_disc = discrete_distribution[int](histogram_list.begin(), histogram_list.end())
-    #    disc_dist = setup_discrete_distribution(histogram_list)
-        
-        
+    cdef chi_squared_distribution[floating] dist_chi = chi_squared_distribution[floating](dist_std_par)
+ 
 
     cdef floating[:] grid_center = np.zeros(3, dtype = dtype)
     #cdef Py_ssize_t[:] grid_indices = np.zeros(3, dtype = np.int_)
@@ -520,9 +512,7 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
     psi_i.resize(3)
     cdef int dummy = 0
     cdef int missing_counter = 0
-    #z = Math.round(i / (WIDTH * HEIGHT));
-    #y = Math.round((i - z * WIDTH * HEIGHT) / WIDTH);
-    #x = i - WIDTH * (y + HEIGHT * z);
+    
     cdef Py_ssize_t particle_counter = 0
     cdef floating displacement_draw 
     cdef int hist_bin_id
@@ -584,12 +574,12 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
                     if small_scale_dist == 1:
                         displacement_draw = dist_gauss(gen) 
                     elif small_scale_dist == 2:
-                        displacement_draw  += (dist_exp(gen))
-                    #elif small_scale_dist == 4:
-                    #    hist_bin_id = dist_disc(gen)
-                    #    displacement_draw = (s_binning[hist_bin_id+1] - s_binning[hist_bin_id]) * dist_unif(gen) + s_binning[hist_bin_id]
+                        displacement_draw  = (dist_exp(gen))
+                    elif small_scale_dist == 5:
+                        displacement_draw = dist_chi(gen)
                     else:
                         printf("ERROR: Received `small_scale_dist = %i`, accepted values are 1 = gaussian, 2 = exponential)\n", small_scale_dist)
+                        fflush(stdout)
                         abort()
                     for ii in range(3):
                         pos_view[particle_counter, ii] = dm_particles[dm_particles_in_cell[missing_counter], ii] if missing_counter < number_dm_in_cell  else grid_center[ii]
@@ -598,7 +588,7 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
                                 printf("DM Particle %li not in cell either\n", dm_particles_in_cell[missing_counter])
                                 abort()
                         pos_view[particle_counter, ii] -= displacement[dm_particles_in_cell[missing_counter], ii]
-                        displacement_draw = clip(displacement_draw, -sqrt(3) * bin_size[ii], sqrt(3) * bin_size[ii])
+                        #displacement_draw = clip(displacement_draw, -sqrt(3) * bin_size[ii], sqrt(3) * bin_size[ii])
                         pos_view[particle_counter, ii] += displacement_draw
                         
                         
@@ -619,15 +609,22 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
                         displacement_draw = dist_gauss(gen) 
                     elif small_scale_dist == 2:
                         displacement_draw = (dist_exp(gen))
+                    elif small_scale_dist == 5:
+                        displacement_draw = dist_chi(gen)
                     else:
                         printf("ERROR: Received `small_scale_dist = %i`, accepted values are 1 = gaussian, 2 = exponential)\n", small_scale_dist)
+                        fflush(stdout)
                         abort()
                     
                     for ii in range(3):
-                        displacement_draw = clip(displacement_draw, -sqrt(3) * bin_size[ii], sqrt(3) * bin_size[ii])
+                        #displacement_draw = clip(displacement_draw, -sqrt(3) * bin_size[ii], sqrt(3) * bin_size[ii])
                         pos_view[particle_counter, ii] = pos_view[particle_counter-1, ii] + displacement_draw
                     sampled_around += 1
                 else: #Need a random particle, no DM in cell
+
+                    #for ii in range(3):
+                    #    pos_view[particle_counter,ii] = grid_center[ii]
+                    #move_centers(1e-1, grid_indices[0], grid_indices[1], grid_indices[2], pos_view[particle_counter,:], dm_dens, grid_size, box_size)
                     for ii in range(3):
                         if fully_rand_dist == 3:
                             draw = 2 * dist_unif(gen) - 1
@@ -644,6 +641,7 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
                             pos_view[particle_counter, ii] = (grid_center[ii] + draw  + box_size[ii]) % box_size[ii]
                         else:
                             printf("ERROR: Received `fully_rand_dist = %i`, accepted values are 1 = gaussian, 2 = exponential, 3 = triangular)\n", fully_rand_dist)
+                            fflush(stdout)
                             abort()
                     sampled_rand += 1
                     assigned_random_flag = 1
@@ -1253,4 +1251,51 @@ cpdef dict single_collapse_step(cnp.ndarray[floating, ndim=2] attractors, cnp.nd
     return catalog
 
 
+cdef void move_centers(floating step_size, int i, int j, int k, floating[:] pos, floating[:] field, int grid_size, floating[:] box_size) noexcept nogil:
+
+
+    cdef floating d_dx = 0
+    cdef floating d_dy = 0
+    cdef floating d_dz = 0
+    cdef Py_ssize_t ll
+
+
+    for ll in range(-1, 1, 2):
+        index_3d = INDEX(wrap_indices(i+ll, grid_size),
+                                wrap_indices(j, grid_size),
+                                wrap_indices(k, grid_size),
+                                grid_size,
+                                grid_size,
+                                grid_size);
+        d_dx += <floating> ll * field[index_3d]
     
+    pos[0] += step_size * d_dx * grid_size / (2 * box_size[0])
+
+
+    for ll in range(-1, 1, 2):
+        index_3d = INDEX(wrap_indices(i, grid_size),
+                                wrap_indices(j+ll, grid_size),
+                                wrap_indices(k, grid_size),
+                                grid_size,
+                                grid_size,
+                                grid_size);
+        d_dy += <floating> ll * field[index_3d]
+    
+    pos[1] += step_size * d_dy * grid_size / (2 * box_size[1])
+
+
+
+    for ll in range(-1, 1, 2):
+        index_3d = INDEX(wrap_indices(i, grid_size),
+                                wrap_indices(j, grid_size),
+                                wrap_indices(k+ll, grid_size),
+                                grid_size,
+                                grid_size,
+                                grid_size);
+        d_dz += <floating> ll * field[index_3d]
+    
+    pos[2] += step_size * d_dz * grid_size / (2 * box_size[2])
+
+
+
+        

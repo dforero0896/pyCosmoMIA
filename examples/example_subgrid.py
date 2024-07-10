@@ -19,13 +19,13 @@ cosmo_jax = jc.Cosmology(Omega_c=0.1200 / h**2, Omega_b=0.02237 / h**2, h=h, sig
 s_pow = 1
 
 REDSHIFT = 1.1
-POS_FILES = "/home/astro/dforero/projects/desi-patchy/run-ridged/BOXpos{}OM0.315OL0.685G360V2000.0_ALPTrs6.000z1.100.dat"
-VEL_FILES = "/home/astro/dforero/projects/desi-patchy/run-ridged/VE{}EULz1.100.dat"        
-DISP_FILES = "/home/astro/dforero/projects/desi-patchy/run-ridged/PSI{}z1.100.dat"
-DELTA_FILE = "/home/astro/dforero/projects/desi-patchy/run-ridged/deltaBOXOM0.315OL0.685G360V2000.0_ALPTrs6.000z1.100.dat"
-CWEB_FILE = "/home/astro/dforero/projects/desi-patchy/run-ridged/TwebDelta_OM0.315OL0.685G360V2000.0lthD0.050z1.100.dat"
+POS_FILES = "/srv/astro/projects/cosmo3d/desi/patchy/run-ridged/BOXpos{}OM0.315OL0.685G360V2000.0_ALPTrs6.000z1.100.dat"
+VEL_FILES = "/srv/astro/projects/cosmo3d/desi/patchy/run-ridged/VE{}EULz1.100.dat"        
+DISP_FILES = "/srv/astro/projects/cosmo3d/desi/patchy/run-ridged/PSI{}z1.100.dat"
+DELTA_FILE = "/srv/astro/projects/cosmo3d/desi/patchy/run-ridged/deltaBOXOM0.315OL0.685G360V2000.0_ALPTrs6.000z1.100.dat"
+CWEB_FILE = "/srv/astro/projects/cosmo3d/desi/patchy/run-ridged/TwebDelta_OM0.315OL0.685G360V2000.0lthD0.050z1.100.dat"
 REFERENCE_CAT = "/srv/astro/projects/cosmo3d/desi/SecondGenMocks/AbacusHOD/ELG/z1.100/AbacusSummit_base_c000_ph000/ELG_real_space.fits"
-COUNTS_FILE = "/home/astro/dforero/cosmo3d/desi/patchy/ELG/z1.100/calibration/n_mock.dat"
+COUNTS_FILE = "/srv/astro/projects/cosmo3d/desi/patchy/ELG/z1.100/calibration/n_mock.dat"
 GRID_SIZE = 360
 PK_GRID_SIZE = 360
 BOX_SIZE = np.array([2000.] * 3, dtype = np.float32)
@@ -35,7 +35,7 @@ k_ny = jnp.mean(jnp.pi * jnp.array(PK_GRID_SIZE) / jnp.array(BOX_SIZE))
 k_in = 2 * jnp.pi / BOX_SIZE[0]
 #k_edges = jnp.linspace(k_in, k_ny, 200)
 k_edges = jnp.arange(k_in, k_ny, 0.005)
-s_edges = np.geomspace(1e-2, 50, 50)
+s_edges = np.geomspace(1e-1, 50, 50)
 def read_alpt_vector_field(filename, size):
     return np.vstack([np.fromfile(filename.format(s), np.float32, size) for s in ['x', 'y', 'z']]).T
 
@@ -51,7 +51,7 @@ def growth_rate_approx(cosmo, redshift):
     return Omega**(5. / 9)
                                      
 
-#@jax.jit
+@jax.jit
 def renormalize_velocities(redshift, cosmo, vel):
     jax.debug.print("Renormalizing velocities")
     cgs_Mpc = 1.
@@ -142,7 +142,7 @@ if __name__ == '__main__':
     
     vel_kernel_3d = jax.jit(jax.vmap(vel_kernel, in_axes = (0, None, None)))
     #velocities = np.array(vel_kernel_3d(velocities.T.reshape(3, GRID_SIZE, GRID_SIZE, GRID_SIZE), 6., BOX_SIZE[0]).reshape(3, -1).T)
-    velocities = np.array(vel_kernel_3d(velocities.T.reshape(3, GRID_SIZE, GRID_SIZE, GRID_SIZE), 7., BOX_SIZE[0]).reshape(3, -1).T)
+    velocities = np.array(vel_kernel_3d(velocities.T.reshape(3, GRID_SIZE, GRID_SIZE, GRID_SIZE), 8., BOX_SIZE[0]).reshape(3, -1).T)
     cache_name = f"data/test_cache.npz"
     if not os.path.isfile(cache_name) or args.repopulate:
         tic = time.time()
@@ -152,12 +152,9 @@ if __name__ == '__main__':
                                             dm_cw_type, dm_dens, displacement,
                                             velocities, 
                                             0,                  # seed
-                                            #0.7 * BIN_SIZE[0],  #dist_parameter stdev of gauss, mean of exponential
-                                            2,
+                                            0.7 * BIN_SIZE[0],  #dist_parameter stdev of gauss, mean of exponential
                                             1,                   # distribution for particles around DM 1= gaussian, 2 = exp
-                                            3,                   # distribution for fully random particles around cell center 1 = gauss, 2 = exp 3 = triangle (EZmock)
-                                            s_binning = None,
-                                            histogram = None,
+                                            2,                   # distribution for fully random particles around cell center 1 = gauss, 2 = exp 3 = triangle (EZmock)
                                             debug = False,
                                             )
                                             #velocities, 0, 3, False)
@@ -224,7 +221,7 @@ if __name__ == '__main__':
     # Julia pars [6.681508955504605, 5.47808573538, 0.7534895556587489, 1.1209400930989315, 0.10218062957157581]
     #params = np.array([0.75, 6.68, 1.12, 5.47, 0.1], dtype = np.float32)
     #params = np.array([0.3, 2., 0.5, 6.4, 0.1], dtype = np.float32)
-    params = np.array([0.6, 3., 0.5, 6.7, 0.1], dtype = np.float32)
+    params = np.array([0.15, 3., 0.5, 6.6, 5], dtype = np.float32)
     #########################################################################################################3
     
     
