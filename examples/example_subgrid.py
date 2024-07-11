@@ -3,9 +3,9 @@ import numpy as np
 import jax 
 import jax.numpy as jnp
 import sys, os
-from cosmomia.mas import cic_mas_vec
+from cosmomia.mas import cic_mas_vec, ngp_mas_vec
 from cosmomia import py_assign_particles_to_gals, subgrid_collapse, single_collapse_step
-from cosmomia.correlations import powspec_vec, naive_pk, naive_xpk, naive_rcoeff, naive_pk_poles
+from cosmomia.correlations import powspec_vec, naive_pk, naive_xpk, naive_rcoeff, naive_pk_poles, bispec
 from cosmomia.displacements import enhance_short_range, interpolate_field, spherical_collapse, vel_kernel
 from astropy.table import Table, vstack
 from pyfcfc.boxes import py_compute_cf
@@ -73,6 +73,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("-minimizer", default = "scipy", choices = ['scipy', 'nautilus'])
     parser.add_argument('-repopulate', action = 'store_true')
+    parser.add_argument('-compute_bispec', action = 'store_true')
+    parser.add_argument('-compute_rs', action = 'store_true')
+    parser.add_argument('-compute_full_2pcf', action = 'store_true')
     args = parser.parse_args()
     
     
@@ -221,7 +224,7 @@ if __name__ == '__main__':
     # Julia pars [6.681508955504605, 5.47808573538, 0.7534895556587489, 1.1209400930989315, 0.10218062957157581]
     #params = np.array([0.75, 6.68, 1.12, 5.47, 0.1], dtype = np.float32)
     #params = np.array([0.3, 2., 0.5, 6.4, 0.1], dtype = np.float32)
-    params = np.array([0.15, 3., 0.5, 6.6, 5], dtype = np.float32)
+    params = np.array([0.15, 3, 0.5, 6.6, 5], dtype = np.float32)
     #########################################################################################################3
     
     
@@ -276,6 +279,132 @@ if __name__ == '__main__':
     [a.format(xlabel = '$k~[h/\mathrm{Mpc}]$', ylabel = f"$kP_{2*i}(k)$") for i, a in enumerate(ax[:,0])]
     [a.format(xlabel = '$s~[\mathrm{Mpc}/h]$', ylabel = rf"$s^{{{s_pow}}}\xi_{2*i}(s)$") for i, a in enumerate(ax[:,1])]
     fig.savefig("plots/example_subgrid.png", dpi=300)
+    
+    if args.compute_bispec:
+        fig, ax = pplt.subplots([[1]], share = 0)
+        pax = ax.panel('bottom')
+        k1, k2 = 0.1, 0.2
+        theta = jnp.linspace(0, jnp.pi, 25)
+        _, _, _, Bt_ref, Qt_ref = bispec(delta_ref, BOX_SIZE[0], k1, k2, theta)
+        
+        _, _, _, Bt, Qt = bispec(delta_cm_raw, BOX_SIZE[0], k1, k2, theta)
+        
+        ax[0].plot(theta, Qt_ref, c = 'k', label = 'ref')
+        ax[0].plot(theta, Qt, label = 'CosmoMIA+collapse')
+        pax[0].plot(theta, 100 * (Qt / Qt_ref - 1))
+        pax[0].area(theta, -15, 15, color = 'gray5', zorder = 0)
+        pax[0].format(ylim = (-50, 50))
+        ax[0].format(xlabel = r'$\theta [\mathrm{rad}]$', ylabel = r"$Q(\theta)$")
+        ax[0].legend(loc = 'top')
+        
+        fig.savefig("plots/example_subgrid_3pt.png", dpi=300)
+    
+    
+    if args.compute_rs:
+        
+        delta_ref = jnp.zeros([PK_GRID_SIZE] * 3)
+        delta_ref = ngp_mas_vec(delta_ref,
+                        ref_cat['x'].values, ref_cat['y'].values, ref_cat['z'].values, jnp.broadcast_to(jnp.array([1.]), ref_cat['x'].values.shape[0]), 
+                        ref_cat['x'].values.shape[0], 
+                        0., 0., 0.,
+                        BOX_SIZE[0],
+                        delta_ref.shape[0],
+                        True)
+        delta_ref /= delta_ref.mean()
+        delta_ref -= 1.
+        k_ref, pk_ref = naive_pk_poles(delta_ref, BOX_SIZE[0],k_edges, index = 1)
+        
+        ax[0,0].plot(k_ref, k_ref * pk_ref[:,0], label = "ref", color = 'k')
+        ax[1,0].plot(k_ref, k_ref * pk_ref[:,1], label = "ref", color = 'k')
+        
+        delta_cm_raw = jnp.zeros([PK_GRID_SIZE] * 3)
+        delta_cm_raw = ngp_mas_vec(delta_cm_raw,
+                        result['pos'][:,0], result['pos'][:,1], result['pos'][:,2], jnp.broadcast_to(jnp.array([1.]), result['pos'].shape[0]), 
+                        result['pos'].shape[0], 
+                        0., 0., 0.,
+                        BOX_SIZE[0],
+                        delta_cm_raw.shape[0],
+                        True)
+        rho_cm_raw = delta_cm_raw.copy()
+        delta_cm_raw /= delta_cm_raw.mean()
+        delta_cm_raw -= 1.
+        
+        
+        
+        k_, pk_ = naive_pk_poles(delta_cm_raw, BOX_SIZE[0], k_edges, index = 1)
+        ax[0,0].plot(k_, k_ * pk_[:,0], label = "CosmoMIA+Coll", color = "C1", ls = '--')
+        pax[0,0].plot(k_, 100 * (pk_[:,0] / pk_ref[:,0] - 1), color = "C1", ls = '--')
+        ax[1,0].plot(k_, k_ * pk_[:,1], label = "CosmoMIA+Coll", color = "C1", ls = '--')
+        pax[1,0].plot(k_, 100 * (pk_[:,1] / pk_ref[:,1] - 1), color = "C1", ls = '--')
+        
+        
+        #k_ref, pk_ref = pk['k'], pk['multipoles']
+        
+        
+        target_ncount = target_ncount / target_ncount.mean()
+        target_ncount -= 1
+        k_, pk_ = naive_pk_poles(target_ncount.reshape(GRID_SIZE, GRID_SIZE, GRID_SIZE), BOX_SIZE[0], k_edges, index = 1)
+        ax[0,0].plot(k_, k_ * pk_[:,0], label = "Ncount", color = "C2", ls = '--')
+        pax[0,0].plot(k_, 100 * (pk_[:,0] / pk_ref[:,0] - 1), color = "C2", ls = '--')
+        ax[1,0].plot(k_, k_ * pk_[:,1], label = "Ncount", color = "C2", ls = '--')
+        pax[1,0].plot(k_, 100 * (pk_[:,1] / pk_ref[:,1] - 1), color = "C2", ls = '--')
+        fig.savefig("plots/example_subgrid.png", dpi=300)
+        
+    if args.compute_full_2pcf:
+        fig, ax = pplt.subplots([[1]], share = 0)
+        pax = ax.panel('bottom')
+        s_edges = np.arange(0, 200, 1, dtype = ref_cat['x'].dtype)
+        s_pow = 2
+        tpcf = py_compute_cf([ref_cat[['x', 'y', 'zrsd']].values], [np.ones(ref_cat['x'].shape[0], dtype = ref_cat['x'].dtype)], 
+                        s_edges.copy(), 
+                        None, 
+                        100, 
+                        label = ['A'], # Catalog labels matching the number of catalogs provided
+                        bin=1, # bin type for multipoles
+                        pair = ['AA'], # Desired pair counts
+                        box=BOX_SIZE[0], 
+                        multipole = [0, 2, 4], # Multipoles to compute
+                        cf = ['AA / @@ - 1'],
+                        verbose = 'F') # CF estimator (not necessary if only pair counts are required)
+        tpcf_ref = tpcf
+        print(tpcf['multipoles'].shape)
+        for i in range(3):
+            ax[0].plot(tpcf['s'], tpcf['s']**s_pow * tpcf['multipoles'][0,i,:], color = 'k', label = 'ref' if i == 0 else None)
+        
+        np.save("data/full_tpcf_ref.pkl.npy", tpcf)
+        fig.savefig("plots/example_subgrid_2pcf.png", dpi=300)
+        
+        
+        tpcf = py_compute_cf([np.c_[result['pos'][:,:2], result_rsd]], [np.ones(result['pos'].shape[0], dtype = result['pos'].dtype)], 
+                        s_edges.copy(), 
+                        None, 
+                        100, 
+                        label = ['A'], # Catalog labels matching the number of catalogs provided
+                        bin=1, # bin type for multipoles
+                        pair = ['AA'], # Desired pair counts
+                        box=BOX_SIZE[0], 
+                        multipole = [0, 2, 4], # Multipoles to compute
+                        cf = ['AA / @@ - 1'],
+                        verbose = 'F') # CF estimator (not necessary if only pair counts are required)
+
+        print(tpcf['multipoles'].shape)
+        
+        np.save("data/full_tpcf_coll.pkl.npy", tpcf)
+        for i in range(3):
+            ax[0].plot(tpcf['s'], tpcf['s']**s_pow * tpcf['multipoles'][0,i,:], label = 'CosmoMIA' if i == 0 else None)
+            pax[0].plot(tpcf['s'], 100 * (tpcf['multipoles'][0,i,:] / tpcf_ref['multipoles'][0,i,:] - 1))
+        ax[0].legend(loc = 'top')
+        
+        pax[0].area(tpcf['s'], -2.5, 2.5, color = 'gray5', zorder = 0)
+        pax[0].format(ylim = (-5, 5))
+        ax[0].format(xlabel = '$s~[\mathrm{Mpc}/h]$', ylabel = rf"$s^{{{s_pow}}}\xi_{2*i}(s)$")
+        ax[0].legend(loc = 'top')
+    
+        fig.savefig("plots/example_subgrid_2pcf.png", dpi=300)
+    
+   
+    
+    
     
     
     exit()

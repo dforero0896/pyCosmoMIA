@@ -152,6 +152,36 @@ def cic_mas_vec(delta,
 
     return delta
 
+
+@jax.jit
+def ngp_mas_vec(delta,
+            x, y, z, w, 
+            n_part, 
+            xmin, 
+            ymin,
+            zmin,
+            box_size,
+            n_bins,
+            wrap):
+
+
+    bin_size = box_size / n_bins
+    inv_bin_size = 1. / bin_size
+
+    xpos = (x - xmin) * inv_bin_size
+    ypos = (y - ymin) * inv_bin_size
+    zpos = (z - zmin) * inv_bin_size
+
+    ix = jnp.int32(xpos)# % nbins
+    iy = jnp.int32(ypos)# % nbins
+    iz = jnp.int32(zpos)# % nbins
+
+    
+
+    delta = delta.at[(ix, iy, iz)].add(w)
+
+    return delta
+
     
 
     
