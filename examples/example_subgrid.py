@@ -3,7 +3,7 @@ import numpy as np
 import jax 
 import jax.numpy as jnp
 import sys, os
-from cosmomia.mas import cic_mas_vec, ngp_mas_vec
+from cosmomia.mas import ngp_mas_vec, ngp_mas_vec
 from cosmomia import py_assign_particles_to_gals, subgrid_collapse, single_collapse_step
 from cosmomia.correlations import powspec_vec, naive_pk, naive_xpk, naive_rcoeff, naive_pk_poles, bispec
 from cosmomia.displacements import enhance_short_range, interpolate_field, spherical_collapse, vel_kernel
@@ -88,6 +88,7 @@ if __name__ == '__main__':
     dm_dens = np.fromfile(DELTA_FILE, np.float32, GRID_SIZE**3)
     dm_cw_type = np.fromfile(CWEB_FILE, np.float32, GRID_SIZE**3).astype(np.uint32)
     target_ncount = np.fromfile(COUNTS_FILE, np.float32, GRID_SIZE**3).astype(np.uint32)
+    
     print(f"Done in {time.time() - tic}s", flush=True)
     
     
@@ -105,7 +106,7 @@ if __name__ == '__main__':
     
     
     delta_ref = jnp.zeros([PK_GRID_SIZE] * 3)
-    delta_ref = cic_mas_vec(delta_ref,
+    delta_ref = ngp_mas_vec(delta_ref,
                     ref_cat['x'].values, ref_cat['y'].values, ref_cat['zrsd'].values, jnp.broadcast_to(jnp.array([1.]), ref_cat['x'].values.shape[0]), 
                     ref_cat['x'].values.shape[0], 
                     0., 0., 0.,
@@ -114,7 +115,7 @@ if __name__ == '__main__':
                     True)
     delta_ref /= delta_ref.mean()
     delta_ref -= 1.
-    k_ref, pk_ref = naive_pk_poles(delta_ref, BOX_SIZE[0],k_edges)
+    k_ref, pk_ref = naive_pk_poles(delta_ref, BOX_SIZE[0],k_edges, index = 1)
     
     
     #k_ref, pk_ref = pk['k'], pk['multipoles']
@@ -122,9 +123,15 @@ if __name__ == '__main__':
     ax[0,0].plot(k_ref, k_ref * pk_ref[:,0], label = "ref", color = 'k')
     ax[1,0].plot(k_ref, k_ref * pk_ref[:,1], label = "ref", color = 'k')
     
-    
-    
-    
+    #target_ncount = jnp.array(target_ncount).at[...].set(0).reshape(GRID_SIZE, GRID_SIZE, GRID_SIZE)
+    #target_ncount = ngp_mas_vec(target_ncount,
+    #                ref_cat['x'].values, ref_cat['y'].values, ref_cat['z'].values, jnp.broadcast_to(jnp.array([1.]), ref_cat['x'].values.shape[0]), 
+    #                ref_cat['x'].values.shape[0], 
+    #                0., 0., 0.,
+    #                BOX_SIZE[0],
+    #                delta_ref.shape[0],
+    #                True)
+    #target_ncount = np.array(target_ncount).ravel()
     tpcf = py_compute_cf([ref_cat[['x', 'y', 'zrsd']].values], [np.ones(ref_cat['x'].shape[0], dtype = ref_cat['x'].dtype)], 
                         s_edges.copy(), 
                         None, 
@@ -179,7 +186,7 @@ if __name__ == '__main__':
     result_rsd += BOX_SIZE[2]
     result_rsd %= BOX_SIZE[2]
     delta_cm_raw = jnp.zeros([PK_GRID_SIZE] * 3)
-    delta_cm_raw = cic_mas_vec(delta_cm_raw,
+    delta_cm_raw = ngp_mas_vec(delta_cm_raw,
                     result_init['pos'][:,0], result_init['pos'][:,1], result_rsd, jnp.broadcast_to(jnp.array([1.]), result_init['pos'].shape[0]), 
                     result_init['pos'].shape[0], 
                     0., 0., 0.,
@@ -192,7 +199,7 @@ if __name__ == '__main__':
     
     
     pax = ax.panel('bottom')
-    k_, pk_ = naive_pk_poles(delta_cm_raw, BOX_SIZE[0], k_edges)
+    k_, pk_ = naive_pk_poles(delta_cm_raw, BOX_SIZE[0], k_edges, index = 1)
     ax[0,0].plot(k_, k_ * pk_[:,0], label = "CosmoMIA")
     pax[0,0].plot(k_, 100 * (pk_[:,0] / pk_ref[:,0] - 1))
     ax[1,0].plot(k_, k_ * pk_[:,1], label = "CosmoMIA")
@@ -224,7 +231,7 @@ if __name__ == '__main__':
     # Julia pars [6.681508955504605, 5.47808573538, 0.7534895556587489, 1.1209400930989315, 0.10218062957157581]
     #params = np.array([0.75, 6.68, 1.12, 5.47, 0.1], dtype = np.float32)
     #params = np.array([0.3, 2., 0.5, 6.4, 0.1], dtype = np.float32)
-    params = np.array([0.15, 3, 0.5, 6.6, 5], dtype = np.float32)
+    params = np.array([0.15, 3, 0.67, 6.6, 3.], dtype = np.float32)
     #########################################################################################################3
     
     
@@ -239,7 +246,7 @@ if __name__ == '__main__':
     result_rsd %= BOX_SIZE[2]
     
     delta_cm_raw = jnp.zeros([PK_GRID_SIZE] * 3)
-    delta_cm_raw = cic_mas_vec(delta_cm_raw,
+    delta_cm_raw = ngp_mas_vec(delta_cm_raw,
                     result['pos'][:,0], result['pos'][:,1], result_rsd, jnp.broadcast_to(jnp.array([1.]), result['pos'].shape[0]), 
                     result['pos'].shape[0], 
                     0., 0., 0.,
@@ -252,7 +259,7 @@ if __name__ == '__main__':
     
     
     
-    k_, pk_ = naive_pk_poles(delta_cm_raw, BOX_SIZE[0], k_edges)
+    k_, pk_ = naive_pk_poles(delta_cm_raw, BOX_SIZE[0], k_edges, index = 1)
     ax[0,0].plot(k_, k_ * pk_[:,0], label = "CosmoMIA+Coll")
     pax[0,0].plot(k_, 100 * (pk_[:,0] / pk_ref[:,0] - 1))
     ax[1,0].plot(k_, k_ * pk_[:,1], label = "CosmoMIA+Coll")
@@ -431,7 +438,7 @@ if __name__ == '__main__':
             loss_val += np.mean(np.abs(tpcf['s'] * (tpcf['multipoles'][0,0,:] - tpcf_ref['multipoles'][0,0,:])))
         if fit_pk:
             delta_cm_raw = jnp.zeros([GRID_SIZE] * 3)
-            delta_cm_raw = cic_mas_vec(delta_cm_raw,
+            delta_cm_raw = ngp_mas_vec(delta_cm_raw,
                             result_init['pos'][:,0], result_init['pos'][:,1], result_rsd, jnp.broadcast_to(jnp.array([1.]), result_init['pos'].shape[0]), 
                             result_init['pos'].shape[0], 
                             0., 0., 0.,
@@ -441,7 +448,7 @@ if __name__ == '__main__':
             rho_cm_raw = delta_cm_raw.copy()
             delta_cm_raw /= delta_cm_raw.mean()
             delta_cm_raw -= 1.
-            k_, pk_ = naive_pk_poles(delta_cm_raw, BOX_SIZE[0], k_edges)
+            k_, pk_ = naive_pk_poles(delta_cm_raw, BOX_SIZE[0], k_edges, index = 1)
             loss_val += np.mean(np.abs(np.log(pk_[:,0]) - np.log(pk_ref[:,0])))
         print("Loss = ", loss_val, "params = ", params, flush = True)
         return loss_val
