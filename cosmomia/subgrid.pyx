@@ -4,9 +4,9 @@
 # cython: cdivision=True
 from libc.stdio cimport printf, fflush, stdout
 from libc.stdlib cimport abort, malloc, free
-from libc.math cimport floor, sqrt, round, abs, exp
+from libc.math cimport floor, sqrt, round, abs, exp, acos, asin, cos, sin
 from libcpp.vector cimport vector
-from libcpp.iterator cimport iterator
+from libcpp.iterator cimport iterator, front_insert_iterator, input_iterator_tag
 from libcpp cimport bool as cbool
 from cython cimport boundscheck, wraparound, numeric, floating, integral, cdivision, inline
 import numpy as np
@@ -20,9 +20,12 @@ import multiprocessing
 from pykdtree.kdtree import KDTree
 import time
 
-cdef extern from "<iterator>" namespace "std":
+#cdef extern from "<iterator>" namespace "std":
+    ##cdef cppclass iterator[Category,T,Distance,Pointer,Reference]:
+    #    pass
+    #T make_move_iterator[T](T i) nogil
+    #cdef cppclass input_iterator_tag
 
-    T make_move_iterator[T](T i) nogil
 cdef extern from "<random>" namespace "std":
     cdef cppclass mt19937:
         mt19937() nogil# we need to define this constructor to stack allocate classes in Cython
@@ -46,9 +49,21 @@ cdef extern from "<random>" namespace "std":
         exponential_distribution()  nogil
         exponential_distribution(T b) nogil
         T operator()(mt19937 gen)   nogil# ignore the possibility of using other classes for "gen"
-        
+    cdef cppclass discrete_distribution[T]:
+        discrete_distribution()  nogil
+        #discrete_distribution(iterator[input_iterator_tag, int, ptrdiff_t, int*, int&] first, iterator[input_iterator_tag, int, ptrdiff_t, int*, int&]  last)  nogil
+        #InputIt discrete_distribution[InputIt](InputIt firstW, InputIt lastW)  nogil
+        T operator()(mt19937 gen)   nogil# ignore the possibility of using other classes for "gen"
+    cdef cppclass chi_squared_distribution[T]:
+        chi_squared_distribution()  nogil
+        chi_squared_distribution(T b) nogil
+        T operator()(mt19937 gen)   nogil# ignore the possibility of using other classes for "gen"
 
 # Declare external functions from the C++ file
+cdef extern from "src/utils.h":
+    cdef discrete_distribution[int] setup_discrete_distribution(vector[double] bin_counts) nogil
+
+
 #cdef extern from "src/subgrid.h":
 #    cdef cppclass SubgridCatalog:
 #        vector[vector[double]] pos
@@ -87,12 +102,6 @@ cdef extern from "<random>" namespace "std":
 #        double dist,
 #        cbool debug)
 #
-
-
-ctypedef fused real:
-    int
-    double
-    float
 
 
 cdef Py_ssize_t INDEX(Py_ssize_t i,Py_ssize_t j,Py_ssize_t k, Py_ssize_t nx, Py_ssize_t ny, Py_ssize_t nz) noexcept nogil:
@@ -394,7 +403,11 @@ def print_icon():
 cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[:] target_ncount,
                                 Py_ssize_t grid_size, floating[:] box_size, floating[:] box_min,
                                 unsigned int[:] dm_cw_type, floating[:] dm_dens, floating[:,:] displacement,
-                                floating[:,:] velocities, size_t seed, floating gauss_std, cbool debug):
+                                floating[:,:] velocities, size_t seed, floating dist_std_par, 
+                                size_t small_scale_dist,
+                                size_t fully_rand_dist,
+                                cbool debug = False ):
+    
 
     print_icon()
     cdef int is_double = is_double_prec(dm_particles[0,0])
@@ -419,8 +432,10 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
     cdef mt19937 gen = mt19937(seed)
     cdef uniform_real_distribution[double] dist_unif = uniform_real_distribution[double](0.0,1.0)
     cdef uniform_int_distribution[int] dist_int
-    cdef normal_distribution[floating] dist_gauss = normal_distribution[floating](0., gauss_std)
-    cdef exponential_distribution[floating] dist_exp = exponential_distribution[floating](gauss_std)
+    cdef normal_distribution[floating] dist_gauss = normal_distribution[floating](0., dist_std_par)
+    cdef exponential_distribution[floating] dist_exp = exponential_distribution[floating](1. / dist_std_par)
+    cdef chi_squared_distribution[floating] dist_chi = chi_squared_distribution[floating](dist_std_par)
+ 
 
     cdef floating[:] grid_center = np.zeros(3, dtype = dtype)
     #cdef Py_ssize_t[:] grid_indices = np.zeros(3, dtype = np.int_)
@@ -497,10 +512,10 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
     psi_i.resize(3)
     cdef int dummy = 0
     cdef int missing_counter = 0
-    #z = Math.round(i / (WIDTH * HEIGHT));
-    #y = Math.round((i - z * WIDTH * HEIGHT) / WIDTH);
-    #x = i - WIDTH * (y + HEIGHT * z);
+    
     cdef Py_ssize_t particle_counter = 0
+    cdef floating displacement_draw 
+    cdef int hist_bin_id
     
     printf("Assigning particles to tracers...\n")
     for index_3d in range(grid_size**3):
@@ -555,7 +570,17 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
                     
                     #missing_counter = dist_int(gen) if missing_counter > number_dm_in_cell else  missing_counter
                     missing_counter = dist_int(gen)
-                    
+
+                    if small_scale_dist == 1:
+                        displacement_draw = dist_gauss(gen) 
+                    elif small_scale_dist == 2:
+                        displacement_draw  = (dist_exp(gen))
+                    elif small_scale_dist == 5:
+                        displacement_draw = dist_chi(gen)
+                    else:
+                        printf("ERROR: Received `small_scale_dist = %i`, accepted values are 1 = gaussian, 2 = exponential)\n", small_scale_dist)
+                        fflush(stdout)
+                        abort()
                     for ii in range(3):
                         pos_view[particle_counter, ii] = dm_particles[dm_particles_in_cell[missing_counter], ii] if missing_counter < number_dm_in_cell  else grid_center[ii]
                         if debug:
@@ -563,8 +588,10 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
                                 printf("DM Particle %li not in cell either\n", dm_particles_in_cell[missing_counter])
                                 abort()
                         pos_view[particle_counter, ii] -= displacement[dm_particles_in_cell[missing_counter], ii]
-                        #pos_view[particle_counter, ii] += dist_gauss(gen) #+ displacement[dm_particles_in_cell[cen_idx], ii]
-                        pos_view[particle_counter, ii] += (dist_exp(gen))#dist_gauss(gen) #+ displacement[dm_particles_in_cell[cen_idx], ii]
+                        #displacement_draw = clip(displacement_draw, -sqrt(3) * bin_size[ii], sqrt(3) * bin_size[ii])
+                        pos_view[particle_counter, ii] += displacement_draw
+                        
+                        
                     for ii in range(3):
                         #psi_i[ii] = cy_read_cic[floating](displacement[:,ii],
                         #                                                            pos_view[particle_counter,:],
@@ -577,17 +604,47 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
                         pos_view[particle_counter, ii] += psi_i[ii]
                         pos_view[particle_counter, ii] = (pos_view[particle_counter, ii] + box_size[ii]) % box_size[ii]
                     sampled_around += 1
-                else:
+                elif number_dm_in_cell == 0 and assigned_random_flag:
+                    if small_scale_dist == 1:
+                        displacement_draw = dist_gauss(gen) 
+                    elif small_scale_dist == 2:
+                        displacement_draw = (dist_exp(gen))
+                    elif small_scale_dist == 5:
+                        displacement_draw = dist_chi(gen)
+                    else:
+                        printf("ERROR: Received `small_scale_dist = %i`, accepted values are 1 = gaussian, 2 = exponential)\n", small_scale_dist)
+                        fflush(stdout)
+                        abort()
+                    
                     for ii in range(3):
-                        #draw = dist_gauss(gen)
-                        #pos_view[particle_counter, ii] = (grid_center[ii] + 0.01 * draw  + box_size[ii]) % box_size[ii]
-                        draw = 2 * dist_unif(gen) - 1
-                        #pos_view[particle_counter, ii] = ((grid_center[ii] + (0.5 * bin_size[ii] * draw)) + box_size[ii]) % box_size[ii]
-                        if draw >= 0:
-                            pos_view[particle_counter, ii] = (grid_center[ii] + (0.5 * bin_size[ii] * (1 - sqrt(draw))) + box_size[ii]) % box_size[ii]
+                        #displacement_draw = clip(displacement_draw, -sqrt(3) * bin_size[ii], sqrt(3) * bin_size[ii])
+                        pos_view[particle_counter, ii] = pos_view[particle_counter-1, ii] + displacement_draw
+                    sampled_around += 1
+                else: #Need a random particle, no DM in cell
+
+                    #for ii in range(3):
+                    #    pos_view[particle_counter,ii] = grid_center[ii]
+                    #move_centers(1e-1, grid_indices[0], grid_indices[1], grid_indices[2], pos_view[particle_counter,:], dm_dens, grid_size, box_size)
+                    for ii in range(3):
+                        if fully_rand_dist == 3:
+                            draw = 2 * dist_unif(gen) - 1
+                            #pos_view[particle_counter, ii] = ((grid_center[ii] + (0.5 * bin_size[ii] * draw)) + box_size[ii]) % box_size[ii]
+                            if draw >= 0:
+                                pos_view[particle_counter, ii] = (grid_center[ii] + (0.5 * bin_size[ii] * (1 - sqrt(draw))) + box_size[ii]) % box_size[ii]
+                            else:
+                                pos_view[particle_counter, ii] = (grid_center[ii] + (0.5 * bin_size[ii] * (-1) * (1 - sqrt(-draw))) + box_size[ii]) % box_size[ii]
+                        elif fully_rand_dist == 1:
+                            draw = dist_gauss(gen)
+                            pos_view[particle_counter, ii] = (grid_center[ii] + draw  + box_size[ii]) % box_size[ii]
+                        elif fully_rand_dist == 2:
+                            draw = dist_exp(gen)
+                            pos_view[particle_counter, ii] = (grid_center[ii] + draw  + box_size[ii]) % box_size[ii]
                         else:
-                            pos_view[particle_counter, ii] = (grid_center[ii] + (0.5 * bin_size[ii] * (-1) * (1 - sqrt(-draw))) + box_size[ii]) % box_size[ii]
+                            printf("ERROR: Received `fully_rand_dist = %i`, accepted values are 1 = gaussian, 2 = exponential, 3 = triangular)\n", fully_rand_dist)
+                            fflush(stdout)
+                            abort()
                     sampled_rand += 1
+                    assigned_random_flag = 1
                     
                 is_dm_view[particle_counter] = 0
                 
@@ -626,7 +683,7 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
     print(f"Sampled {100 * sampled_rand / (used_dm + sampled_around + sampled_rand)} % of particles in empty cells.")
     print("Done")
 
-    return dict(pos = pos, vel = vel, is_dm = is_dm, dweb = dweb, delta_dm = delta_dm, r_min = r_min, delta_max = delta_max, is_attractor = is_attractor)
+    return dict(pos = pos, vel = vel, is_dm = is_dm, dweb = dweb, delta_dm = delta_dm, r_min = r_min, delta_max = delta_max, is_attractor = is_attractor, order = np.arange(pos.shape[0]))
     
             
 
@@ -634,7 +691,7 @@ cpdef dict py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[
 cpdef dict par_py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned int[:] target_ncount,
                                 Py_ssize_t grid_size, floating[:] box_size, floating[:] box_min,
                                 unsigned int[:] dm_cw_type, floating[:] dm_dens, floating[:,:] displacement,
-                                floating[:,:] velocities, size_t seed, floating gauss_std, cbool debug):
+                                floating[:,:] velocities, size_t seed, floating dist_std_par, cbool debug):
 
     printf("\nERROR: Parallel version of function is outdated, please use the serial version.\n")
     fflush(stdout)
@@ -666,7 +723,7 @@ cpdef dict par_py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned 
     cdef mt19937 gen = mt19937(seed)
     cdef uniform_real_distribution[double] dist_unif = uniform_real_distribution[double](0.0,1.0)
     cdef uniform_int_distribution[int] dist_int
-    cdef normal_distribution[floating] dist_gauss = normal_distribution[floating](0., gauss_std)
+    cdef normal_distribution[floating] dist_gauss = normal_distribution[floating](0., dist_std_par)
 
     
     cdef vector[vector[floating]] grid_center
@@ -917,7 +974,7 @@ cpdef dict par_py_assign_particles_to_gals(floating[:,:] dm_particles, unsigned 
             
 
 cdef floating sinx(floating cos2x) noexcept nogil:
-    if abs(cos2x - 1 ) < 1e-3:
+    if abs(abs(cos2x) - 1) < 1e-3:
         return 0
     else:
         return sqrt(1 -cos2x)
@@ -926,55 +983,84 @@ cdef floating sinx(floating cos2x) noexcept nogil:
 
 cdef floating coordinate_separation(floating a, floating b, floating box_size) noexcept nogil:
     cdef floating delta = abs(a - b)
+    #cdef floating delta = (a - b)
     if (a-b) >= 0:
         return (delta if delta < 0.5*box_size else delta - box_size )
     else:
         return -(delta if delta < 0.5*box_size else delta - box_size )
 
 
+cdef floating clip(floating x, floating min, floating max) noexcept nogil:
+    if x < min:
+        return min
+    elif x > max:
+        return max
+    else:
+        return x
 
-
-cdef void collapse(floating[:] out_sat_pos, floating[:] sat_pos, floating[:] cen_pos, floating dist, double collapse_frac, double dist_upper_bound, 
-                            floating[:] out_sat_vel, floating random_gauss_x, floating random_gauss_y, floating random_gauss_z, floating dm_at_cen, floating velocity_disp,
-                            floating[:] box_size) noexcept nogil:
+cdef void collapse(floating[:] out_sat_pos, floating[:] sat_pos, floating[:] cen_pos, floating dist, 
+                   double collapse_frac, double dist_upper_bound, 
+                   floating[:] out_sat_vel, 
+                   floating random_gauss_x, floating random_gauss_y, floating random_gauss_z, floating dm_at_cen, floating velocity_disp,
+                   floating[:] box_size) noexcept nogil:
 
     
     cdef floating r = 0 #sqrt(dist)
-    cdef floating cos_phi, cos_theta, sin_phi, sin_theta
+    cdef floating vnorm = 0 #sqrt(dist)
+    cdef floating cos_phi, cos_theta, sin_phi, sin_theta, local_vel_disp
     cdef size_t i
+    
     for i in range(3):
         r += coordinate_separation[floating](sat_pos[i], cen_pos[i], box_size[i])**2
+        vnorm += out_sat_vel[i]**2
     r = sqrt(r)
+    vnorm = sqrt(vnorm)
     
     #if cen_pos.shape[0] > 3:
     #    dist -= (cen_pos[3] - sat_pos[3])**2
     #cdef floating r = sqrt(dist)
 
 
-    if (r < dist_upper_bound) and (r > 1e-5):
-        cos_phi = (sat_pos[2] - cen_pos[2]) / r
+    if (r < <floating> dist_upper_bound):
+        cos_phi = coordinate_separation[floating](sat_pos[2], cen_pos[2], box_size[2]) / r
         sin_phi = sinx[floating](cos_phi**2)
-        cos_theta = (sat_pos[0] - cen_pos[0])/ (r * sin_phi) if sin_phi != 0 else sqrt(2) / 2
+        #sin_phi = sin(acos(cos_phi))
+        cos_theta = (coordinate_separation[floating](sat_pos[0], cen_pos[0], box_size[0]))/ (r * sin_phi) if sin_phi != 0 else sqrt(2) / 2
+        #cos_theta = clip[floating](cos_theta, -1, 1)
+        #if abs(cos_theta) > <floating> 1:
+        #    printf("Found cos(theta) = %lf > 1 with x = %lf, r= %lf, sin(phi) = %lf\n ", cos_theta, coordinate_separation[floating](sat_pos[0], cen_pos[0], box_size[0]), r, sin_phi)
+        #    abort()
         sin_theta = sinx[floating](cos_theta**2)
+        #sin_theta = sin(acos(cos_theta))
         if (cos_phi != cos_phi) or (sin_phi != sin_phi) or (cos_theta != cos_theta) or (sin_theta != sin_theta):
             printf("%lf %lf, %lf, %lf, %lf\n", r, cos_phi, sin_phi, cos_theta, sin_theta)
             fflush(stdout)
             abort()
+        if  (r > <floating> 1e-0):
+            r = r * <floating> collapse_frac
+        else:
+            r = r / <floating> (collapse_frac * 2)
 
-        r = r * collapse_frac
+        if (r > <floating> 2):
+            local_vel_disp = velocity_disp
+        else:
+            local_vel_disp = velocity_disp
 
         out_sat_pos[0] = cen_pos[0] + r * cos_theta * sin_phi
         out_sat_pos[1] = cen_pos[1] + r * sin_theta * sin_phi
         out_sat_pos[2] = cen_pos[2] + r * cos_phi
 
-        out_sat_vel[0] = out_sat_vel[0] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
-        out_sat_vel[1] = out_sat_vel[1] + random_gauss_y * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
-        out_sat_vel[2] = out_sat_vel[2] + random_gauss_z * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+        out_sat_vel[0] = out_sat_vel[0] + random_gauss_x * 1e1 * local_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+        out_sat_vel[1] = out_sat_vel[1] + random_gauss_y * 1e1 * local_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+        out_sat_vel[2] = out_sat_vel[2] + random_gauss_z * 1e1 * local_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
 
+        
+
+        
 
     
 
-cpdef dict subgrid_collapse(dict catalog, floating[:] params, floating[:] box_size, is_attractor_mask, size_t seed, debug = False):
+cpdef dict subgrid_collapse(dict catalog, floating[:] params, floating[:] box_size, is_attractor_mask, size_t seed, size_t num_threads, debug = False):
 
     cdef mt19937 gen = mt19937(seed)
     cdef normal_distribution[floating] dist_gauss = normal_distribution[floating](0., 1.)
@@ -1014,16 +1100,22 @@ cpdef dict subgrid_collapse(dict catalog, floating[:] params, floating[:] box_si
     vel_attractors_view = vel_attractors
     vel_not_attractors_view = vel_not_attractors
 
+    cdef cnp.ndarray[long, ndim=1] attractors_ids = catalog['order'][is_attractor_mask]
+    cdef cnp.ndarray[long, ndim=1] not_attractors_ids = catalog['order'][~is_attractor_mask]
+    
+    
+
+
 
     cdef floating[:] dm_view = dm
     #attractors_copy_view = attractors_copy
     #not_attractors_copy_view = not_attractors_copy
     
-    tic = time.time()
+    #tic = time.time()
     #tree = pybosque.Tree(not_attractors, idxs)
     tree = KDTree(attractors)#, boxsize = box_size)
-    print(f"Tree built in {time.time() - tic}s", flush=True)
-    tic = time.time()
+    #print(f"Tree built in {time.time() - tic}s", flush=True)
+    #tic = time.time()
     #r, ids = tree.query(attractors, 2, [0,1])
     #r, ids = tree.query(not_attractors, k = 2)
     dists, ids = tree.query(attractors, k = 2, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)
@@ -1032,18 +1124,18 @@ cpdef dict subgrid_collapse(dict catalog, floating[:] params, floating[:] box_si
     cdef unsigned[:] ids_view
     ids_view = ids[:,1]
     #ids is the array of ids in not_attractors that are closest to eah attractor
-    print(f"Tree query in {time.time() - tic}s", flush=True)
+    #print(f"Tree query in {time.time() - tic}s", flush=True)
     cdef Py_ssize_t i
     cdef floating collapse_frac, gauss_rand
     
     tic = time.time()
-    for i in prange(ids_view.shape[0], nogil = True):#, use_threads_if=ids_view.shape[0] > 1e6):
+    for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):
         #gauss_rand = dist_gauss(gen)
         collapse_frac = params[0] #* (1 + gauss_rand * 0.5) if gauss_rand > 0 else exp(gauss_rand * 0.5)
         collapse[floating](attractors_view[ids_view[i],:], attractors_view[ids_view[i],:], attractors_view[i,:], dists_view[i], params[0], params[1], 
                                                             vel_attractors_view[ids_view[i],:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[i], params[4],
                                                             box_size)
-    print(f"Collapse in {time.time() - tic}s", flush=True)
+    #print(f"Collapse in {time.time() - tic}s", flush=True)
     if debug:
         print(dists)
         tic = time.time()
@@ -1055,7 +1147,7 @@ cpdef dict subgrid_collapse(dict catalog, floating[:] params, floating[:] box_si
 
 
     
-    log_delta_dm = (catalog['delta_dm'])
+    #log_delta_dm = (catalog['delta_dm'])
 
     #rescaled_delta_dm = box_size[0] * (log_delta_dm  - log_delta_dm.min()) / (log_delta_dm.max()  - log_delta_dm.min())
     #attractors = np.c_[attractors,rescaled_delta_dm[is_attractor_mask]]
@@ -1069,32 +1161,32 @@ cpdef dict subgrid_collapse(dict catalog, floating[:] params, floating[:] box_si
     #attractors_copy_view = attractors_copy
     #not_attractors_copy_view = not_attractors_copy
 
-    tic = time.time()
+    #tic = time.time()
     tree = KDTree(attractors)#, boxsize = box_size)
-    print(f"Tree built in {time.time() - tic}s", flush=True)
-    tic = time.time()
-    dists, ids = tree.query(not_attractors, k = 1, eps = 0.5, distance_upper_bound = None, sqr_dists = True)#, workers = -1)
+    #print(f"Tree built in {time.time() - tic}s", flush=True)
+    #tic = time.time()
+    dists, ids = tree.query(not_attractors, k = 1, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)
     dists_view = dists
     ids_view = ids
     mask = np.isfinite(dists)
     #dist_corr = (not_attractors[mask,3] - attractors[ids[mask],3])**2
     
-    tic = time.time()
+    #tic = time.time()
     
     
     for i in prange(ids_view.shape[0], nogil = True):#, use_threads_if=ids_view.shape[0] > 1e6):
         #gauss_rand = dist_gauss(gen)
-        collapse_frac = params[2]# * (1 + gauss_rand * 0.5) if gauss_rand > 0 else exp(gauss_rand * 0.5)
+        collapse_frac = params[2]
         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], collapse_frac , params[3], 
                                                       vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[4],
                                                       box_size)
-    print(f"Collapse in {time.time() - tic}s", flush=True)
+    #print(f"Collapse in {time.time() - tic}s", flush=True)
     if debug:
         #print(dists[mask] - dist_corr)
-        tic = time.time()
+        #tic = time.time()
         tree = KDTree(attractors)#, boxsize = box_size)
-        print(f"Tree built in {time.time() - tic}s", flush=True)
-        tic = time.time()
+        #print(f"Tree built in {time.time() - tic}s", flush=True)
+        #tic = time.time()
         dists, ids = tree.query(not_attractors, k = 1, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)
         mask = np.isfinite(dists)
         #dist_corr = (not_attractors[mask,3] - attractors[ids[mask],3])**2
@@ -1102,12 +1194,121 @@ cpdef dict subgrid_collapse(dict catalog, floating[:] params, floating[:] box_si
 
     catalog['pos'] = np.vstack((attractors[:,:3], not_attractors[:,:3]))
     catalog['vel'] = np.vstack((vel_attractors[:,:3], vel_not_attractors[:,:3]))
+    catalog['order'] = np.concatenate((attractors_ids, not_attractors_ids))
 
     return catalog
 
 
+cpdef dict single_collapse_step(cnp.ndarray[floating, ndim=2] attractors, cnp.ndarray[floating, ndim=2] vel_attractors, cnp.ndarray[floating, ndim=1] dm,
+                                cnp.ndarray[floating, ndim=2] not_attractors, cnp.ndarray[floating, ndim=2] vel_not_attractors,
+                                floating[:] params, 
+                                size_t k_neighbour,
+                                floating[:] box_size, size_t seed, size_t num_threads, debug = False):
+    #params = (collapse_frac, collapse_radius, velocity_dispersion)
 
-
-
-
+    cdef mt19937 gen = mt19937(seed)
+    cdef normal_distribution[floating] dist_gauss = normal_distribution[floating](0., 1.)
     
+
+    #cdef cnp.ndarray[floating, ndim=2] attractors_copy = attractors.copy()
+    #cdef cnp.ndarray[floating, ndim=2] not_attractors_copy = not_attractors.copy()
+
+    cdef floating[:,:] attractors_view, not_attractors_view, vel_attractors_view, vel_not_attractors_view#, attractors_copy_view, not_attractors_copy_view
+    attractors_view = attractors
+    not_attractors_view = not_attractors
+    vel_attractors_view = vel_attractors
+    vel_not_attractors_view = vel_not_attractors
+
+
+    cdef floating[:] dm_view = dm
+    #attractors_copy_view = attractors_copy
+    #not_attractors_copy_view = not_attractors_copy
+    
+    #tic = time.time()
+    #tree = pybosque.Tree(not_attractors, idxs)
+    tree = KDTree(attractors)#, boxsize = box_size)
+    #print(f"Tree built in {time.time() - tic}s", flush=True)
+    #tic = time.time()
+    #r, ids = tree.query(attractors, 2, [0,1])
+    #r, ids = tree.query(not_attractors, k = 2)
+    dists, ids = tree.query(not_attractors, k = k_neighbour, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)
+    cdef floating[:] dists_view
+    cdef unsigned[:] ids_view
+    if k_neighbour > 1:
+        dists_view = dists[:,k_neighbour-1]
+        ids_view = ids[:,k_neighbour-1]
+    else:
+        dists_view = dists
+        ids_view = ids
+    #ids is the array of ids in not_attractors that are closest to eah attractor
+    #print(f"Tree query in {time.time() - tic}s", flush=True)
+    cdef Py_ssize_t i
+    cdef floating collapse_frac, gauss_rand
+
+    for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):
+        collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], params[0] , params[1], 
+                                                      vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[2],
+                                                      box_size)
+    
+    #log_delta_dm = (catalog['delta_dm'])
+
+    #rescaled_delta_dm = box_size[0] * (log_delta_dm  - log_delta_dm.min()) / (log_delta_dm.max()  - log_delta_dm.min())
+    #attractors = np.c_[attractors,rescaled_delta_dm[is_attractor_mask]]
+    #not_attractors = np.c_[not_attractors,rescaled_delta_dm[~is_attractor_mask]]
+    #attractors_copy = attractors.copy()
+    #not_attractors_copy = not_attractors.copy()
+    catalog = {}
+    catalog['pos'] = np.vstack((attractors[:,:3], not_attractors[:,:3]))
+    catalog['vel'] = np.vstack((vel_attractors[:,:3], vel_not_attractors[:,:3]))
+
+    return catalog
+
+
+cdef void move_centers(floating step_size, int i, int j, int k, floating[:] pos, floating[:] field, int grid_size, floating[:] box_size) noexcept nogil:
+
+
+    cdef floating d_dx = 0
+    cdef floating d_dy = 0
+    cdef floating d_dz = 0
+    cdef Py_ssize_t ll
+
+
+    for ll in range(-1, 1, 2):
+        index_3d = INDEX(wrap_indices(i+ll, grid_size),
+                                wrap_indices(j, grid_size),
+                                wrap_indices(k, grid_size),
+                                grid_size,
+                                grid_size,
+                                grid_size);
+        d_dx += <floating> ll * field[index_3d]
+    
+    pos[0] += step_size * d_dx * grid_size / (2 * box_size[0])
+
+
+    for ll in range(-1, 1, 2):
+        index_3d = INDEX(wrap_indices(i, grid_size),
+                                wrap_indices(j+ll, grid_size),
+                                wrap_indices(k, grid_size),
+                                grid_size,
+                                grid_size,
+                                grid_size);
+        d_dy += <floating> ll * field[index_3d]
+    
+    pos[1] += step_size * d_dy * grid_size / (2 * box_size[1])
+
+
+
+    for ll in range(-1, 1, 2):
+        index_3d = INDEX(wrap_indices(i, grid_size),
+                                wrap_indices(j, grid_size),
+                                wrap_indices(k+ll, grid_size),
+                                grid_size,
+                                grid_size,
+                                grid_size);
+        d_dz += <floating> ll * field[index_3d]
+    
+    pos[2] += step_size * d_dz * grid_size / (2 * box_size[2])
+
+
+
+        

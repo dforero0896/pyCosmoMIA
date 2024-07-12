@@ -12,6 +12,7 @@ def patchy_deterministic(params, delta, target_mean):
     alpha = jnp.max(jnp.array([alpha, 1]))
     
     #epsilon = jnp.max(jnp.array([alpha, 1]))
+    #delta_g = ((1 + delta)**alpha) * (jnp.exp(-((1+delta) / (rho_eps * target_mean))**jnp.abs(epsilon)))*jnp.e
     delta_g = ((1 + delta)**alpha) * (jnp.exp(-((1+delta) / (rho_eps * target_mean))**jnp.abs(epsilon)))*jnp.e
     print(delta[jnp.isnan(delta_g)], params)
     
