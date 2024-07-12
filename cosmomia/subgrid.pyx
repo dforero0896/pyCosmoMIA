@@ -1006,19 +1006,22 @@ cdef void collapse(floating[:] out_sat_pos, floating[:] sat_pos, floating[:] cen
 
     
     cdef floating r = 0 #sqrt(dist)
-    cdef floating cos_phi, cos_theta, sin_phi, sin_theta
+    cdef floating vnorm = 0 #sqrt(dist)
+    cdef floating cos_phi, cos_theta, sin_phi, sin_theta, local_vel_disp
     cdef size_t i
     
     for i in range(3):
         r += coordinate_separation[floating](sat_pos[i], cen_pos[i], box_size[i])**2
+        vnorm += out_sat_vel[i]**2
     r = sqrt(r)
+    vnorm = sqrt(vnorm)
     
     #if cen_pos.shape[0] > 3:
     #    dist -= (cen_pos[3] - sat_pos[3])**2
     #cdef floating r = sqrt(dist)
 
 
-    if (r < <floating> dist_upper_bound) and (r > <floating> 1e-2):
+    if (r < <floating> dist_upper_bound):
         cos_phi = coordinate_separation[floating](sat_pos[2], cen_pos[2], box_size[2]) / r
         sin_phi = sinx[floating](cos_phi**2)
         #sin_phi = sin(acos(cos_phi))
@@ -1033,17 +1036,27 @@ cdef void collapse(floating[:] out_sat_pos, floating[:] sat_pos, floating[:] cen
             printf("%lf %lf, %lf, %lf, %lf\n", r, cos_phi, sin_phi, cos_theta, sin_theta)
             fflush(stdout)
             abort()
+        if  (r > <floating> 1e-0):
+            r = r * <floating> collapse_frac
+        else:
+            r = r / <floating> (collapse_frac * 2)
 
-        r = r * <floating> collapse_frac
+        if (r > <floating> 2):
+            local_vel_disp = velocity_disp
+        else:
+            local_vel_disp = velocity_disp
 
         out_sat_pos[0] = cen_pos[0] + r * cos_theta * sin_phi
         out_sat_pos[1] = cen_pos[1] + r * sin_theta * sin_phi
         out_sat_pos[2] = cen_pos[2] + r * cos_phi
 
-        out_sat_vel[0] = out_sat_vel[0] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
-        out_sat_vel[1] = out_sat_vel[1] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
-        out_sat_vel[2] = out_sat_vel[2] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+        out_sat_vel[0] = out_sat_vel[0] + random_gauss_x * 1e1 * local_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+        out_sat_vel[1] = out_sat_vel[1] + random_gauss_y * 1e1 * local_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+        out_sat_vel[2] = out_sat_vel[2] + random_gauss_z * 1e1 * local_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
 
+        
+
+        
 
     
 

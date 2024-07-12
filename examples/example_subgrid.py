@@ -76,6 +76,7 @@ if __name__ == '__main__':
     parser.add_argument('-compute_bispec', action = 'store_true')
     parser.add_argument('-compute_rs', action = 'store_true')
     parser.add_argument('-compute_full_2pcf', action = 'store_true')
+    parser.add_argument('-compute_wp', action = 'store_true')
     args = parser.parse_args()
     
     
@@ -231,15 +232,16 @@ if __name__ == '__main__':
     # Julia pars [6.681508955504605, 5.47808573538, 0.7534895556587489, 1.1209400930989315, 0.10218062957157581]
     #params = np.array([0.75, 6.68, 1.12, 5.47, 0.1], dtype = np.float32)
     #params = np.array([0.3, 2., 0.5, 6.4, 0.1], dtype = np.float32)
-    params = np.array([0.15, 3, 0.67, 6.6, 3.], dtype = np.float32)
+    params = np.array([0.15, 3, 0.67, 6.6, 8.], dtype = np.float32)
     #########################################################################################################3
     
     
     
     tic = time.time()
+    print(result_init['vel'].min(axis = 0), result_init['vel'].mean(axis = 0), result_init['vel'].max(axis = 0))
     result = subgrid_collapse(result_init, params, BOX_SIZE, result_init['is_attractor'].astype(bool), 99, 32, debug = False)
     print(f"Collapse in {time.time() - tic}s", flush = True)
-    
+    print(result['vel'].min(axis = 0), result['vel'].mean(axis = 0), result['vel'].max(axis = 0))
     
     result_rsd = apply_rsd(REDSHIFT, result['pos'][:,2], result['vel'][:,2], cosmo_jax)
     result_rsd += BOX_SIZE[2]
@@ -408,6 +410,60 @@ if __name__ == '__main__':
         ax[0].legend(loc = 'top')
     
         fig.savefig("plots/example_subgrid_2pcf.png", dpi=300)
+    
+    
+    if args.compute_wp:
+        fig, ax = pplt.subplots([[1]], share = 0)
+        pax = ax.panel('bottom')
+        s_edges = np.geomspace(0.1, 50, 100, dtype = ref_cat['x'].dtype)
+        s_pow = 1
+        tpcf = py_compute_cf([ref_cat[['x', 'y', 'zrsd']].values], [np.ones(ref_cat['x'].shape[0], dtype = ref_cat['x'].dtype)], 
+                        s_edges.copy(), 
+                        s_edges.copy(), 
+                        0, 
+                        label = ['A'], # Catalog labels matching the number of catalogs provided
+                        bin=2, # bin type for wp
+                        pair = ['AA'], # Desired pair counts
+                        box=BOX_SIZE[0],    
+                        wp = "T",
+                        cf = ['AA / @@ - 1'],
+                        verbose = 'T') # CF estimator (not necessary if only pair counts are required)
+        tpcf['projected'] = np.array(tpcf['projected'])
+        tpcf_ref = tpcf
+        
+        
+        ax[0].plot(tpcf['s'], tpcf['s']**s_pow * tpcf['projected'][0,:], color = 'k', label = 'ref' )
+        
+        np.save("data/full_rppi_ref.pkl.npy", tpcf)
+        fig.savefig("plots/example_subgrid_wp.png", dpi=300)
+        
+        
+        tpcf = py_compute_cf([np.c_[result['pos'][:,:2], result_rsd]], [np.ones(result['pos'].shape[0], dtype = result['pos'].dtype)], 
+                        s_edges.copy(), 
+                        s_edges.copy(), 
+                        0, 
+                        label = ['A'], # Catalog labels matching the number of catalogs provided
+                        bin=2, # bin type for wp
+                        pair = ['AA'], # Desired pair counts
+                        box=BOX_SIZE[0], 
+                        wp = "T",
+                        cf = ['AA / @@ - 1'],
+                        verbose = 'T') # CF estimator (not necessary if only pair counts are required)
+        tpcf['projected'] = np.array(tpcf['projected'])
+        
+        
+        np.save("data/full_rppi_coll.pkl.npy", tpcf)
+        
+        ax[0].plot(tpcf['s'], tpcf['s']**s_pow * tpcf['projected'][0,:], label = 'CosmoMIA')
+        pax[0].plot(tpcf['s'], 100 * (tpcf['projected'][0,:] / tpcf_ref['projected'][0,:] - 1))
+        ax[0].legend(loc = 'top')
+        
+        pax[0].area(tpcf['s'], -2.5, 2.5, color = 'gray5', zorder = 0)
+        pax[0].format(ylim = (-5, 5))
+        ax[0].format(xlabel = '$r_p~[\mathrm{Mpc}/h]$', ylabel = rf"$s^{{{s_pow}}}w_p(s)$", xscale = "log")
+        ax[0].legend(loc = 'top')
+    
+        fig.savefig("plots/example_subgrid_wp.png", dpi=300)
     
    
     
