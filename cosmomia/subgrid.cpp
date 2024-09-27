@@ -2000,7 +2000,7 @@ struct __pyx_fuse_1__pyx_opt_args_8cosmomia_8cosmomia_py_assign_particles_to_gal
   bool debug;
 };
 
-/* "cosmomia/subgrid.pyx":1050
+/* "cosmomia/subgrid.pyx":1076
  * 
  * 
  * cpdef dict subgrid_collapse(dict catalog, floating[:] params, floating[:] box_size, is_attractor_mask, size_t seed, size_t num_threads, debug = False):             # <<<<<<<<<<<<<<
@@ -2016,7 +2016,7 @@ struct __pyx_fuse_1__pyx_opt_args_8cosmomia_8cosmomia_subgrid_collapse {
   PyObject *debug;
 };
 
-/* "cosmomia/subgrid.pyx":1189
+/* "cosmomia/subgrid.pyx":1217
  * 
  * 
  * cpdef dict single_collapse_step(cnp.ndarray[floating, ndim=2] attractors, cnp.ndarray[floating, ndim=2] vel_attractors, cnp.ndarray[floating, ndim=1] dm,             # <<<<<<<<<<<<<<
@@ -3625,8 +3625,8 @@ static float __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_sinx(float); /*proto*/
 static double __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_sinx(double); /*proto*/
 static float __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_coordinate_separation(float, float, float); /*proto*/
 static double __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_coordinate_separation(double, double, double); /*proto*/
-static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice, __Pyx_memviewslice, __Pyx_memviewslice, float, double, double, __Pyx_memviewslice, float, float, float, float, float, __Pyx_memviewslice); /*proto*/
-static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice, __Pyx_memviewslice, __Pyx_memviewslice, double, double, double, __Pyx_memviewslice, double, double, double, double, double, __Pyx_memviewslice); /*proto*/
+static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice, __Pyx_memviewslice, __Pyx_memviewslice, float, double, double, __Pyx_memviewslice, __Pyx_memviewslice, float, float, float, float, float, __Pyx_memviewslice); /*proto*/
+static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice, __Pyx_memviewslice, __Pyx_memviewslice, double, double, double, __Pyx_memviewslice, __Pyx_memviewslice, double, double, double, double, double, __Pyx_memviewslice); /*proto*/
 static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObject *, __Pyx_memviewslice, __Pyx_memviewslice, PyObject *, size_t, size_t, int __pyx_skip_dispatch, struct __pyx_fuse_0__pyx_opt_args_8cosmomia_8cosmomia_subgrid_collapse *__pyx_optional_args); /*proto*/
 static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObject *, __Pyx_memviewslice, __Pyx_memviewslice, PyObject *, size_t, size_t, int __pyx_skip_dispatch, struct __pyx_fuse_1__pyx_opt_args_8cosmomia_8cosmomia_subgrid_collapse *__pyx_optional_args); /*proto*/
 static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_single_collapse_step(PyArrayObject *, PyArrayObject *, PyArrayObject *, PyArrayObject *, PyArrayObject *, __Pyx_memviewslice, size_t, __Pyx_memviewslice, size_t, size_t, int __pyx_skip_dispatch, struct __pyx_fuse_0__pyx_opt_args_8cosmomia_8cosmomia_single_collapse_step *__pyx_optional_args); /*proto*/
@@ -45104,15 +45104,17 @@ static double __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_coordinate_separation(doub
  * 
  * cdef void collapse(floating[:] out_sat_pos, floating[:] sat_pos, floating[:] cen_pos, floating dist,             # <<<<<<<<<<<<<<
  *                    double collapse_frac, double dist_upper_bound,
- *                    floating[:] out_sat_vel,
+ *                    floating[:] out_sat_vel, floating[:] out_cen_vel,
  */
 
-static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice __pyx_v_out_sat_pos, __Pyx_memviewslice __pyx_v_sat_pos, __Pyx_memviewslice __pyx_v_cen_pos, CYTHON_UNUSED float __pyx_v_dist, double __pyx_v_collapse_frac, double __pyx_v_dist_upper_bound, __Pyx_memviewslice __pyx_v_out_sat_vel, float __pyx_v_random_gauss_x, CYTHON_UNUSED float __pyx_v_random_gauss_y, CYTHON_UNUSED float __pyx_v_random_gauss_z, float __pyx_v_dm_at_cen, float __pyx_v_velocity_disp, __Pyx_memviewslice __pyx_v_box_size) {
+static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice __pyx_v_out_sat_pos, __Pyx_memviewslice __pyx_v_sat_pos, __Pyx_memviewslice __pyx_v_cen_pos, CYTHON_UNUSED float __pyx_v_dist, double __pyx_v_collapse_frac, double __pyx_v_dist_upper_bound, __Pyx_memviewslice __pyx_v_out_sat_vel, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_out_cen_vel, float __pyx_v_random_gauss_x, CYTHON_UNUSED float __pyx_v_random_gauss_y, float __pyx_v_random_gauss_z, float __pyx_v_dm_at_cen, float __pyx_v_velocity_disp, __Pyx_memviewslice __pyx_v_box_size) {
   float __pyx_v_r;
   float __pyx_v_cos_phi;
   float __pyx_v_cos_theta;
   float __pyx_v_sin_phi;
   float __pyx_v_sin_theta;
+  float __pyx_v_final_vel_disp;
+  CYTHON_UNUSED float __pyx_v_dt;
   size_t __pyx_v_i;
   size_t __pyx_t_1;
   size_t __pyx_t_2;
@@ -45136,7 +45138,7 @@ static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
  * 
  * 
  *     cdef floating r = 0 #sqrt(dist)             # <<<<<<<<<<<<<<
- *     cdef floating cos_phi, cos_theta, sin_phi, sin_theta
+ *     cdef floating cos_phi, cos_theta, sin_phi, sin_theta, final_vel_disp, accel, dt
  *     cdef size_t i
  */
   __pyx_v_r = 0.0;
@@ -45144,6 +45146,15 @@ static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
   /* "cosmomia/subgrid.pyx":1012
  *     cdef size_t i
  * 
+ *     dt = 0.01             # <<<<<<<<<<<<<<
+ *     for i in range(3):
+ *         r += coordinate_separation[floating](sat_pos[i], cen_pos[i], box_size[i])**2
+ */
+  __pyx_v_dt = 0.01;
+
+  /* "cosmomia/subgrid.pyx":1013
+ * 
+ *     dt = 0.01
  *     for i in range(3):             # <<<<<<<<<<<<<<
  *         r += coordinate_separation[floating](sat_pos[i], cen_pos[i], box_size[i])**2
  *     r = sqrt(r)
@@ -45151,8 +45162,8 @@ static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
   for (__pyx_t_1 = 0; __pyx_t_1 < 3; __pyx_t_1+=1) {
     __pyx_v_i = __pyx_t_1;
 
-    /* "cosmomia/subgrid.pyx":1013
- * 
+    /* "cosmomia/subgrid.pyx":1014
+ *     dt = 0.01
  *     for i in range(3):
  *         r += coordinate_separation[floating](sat_pos[i], cen_pos[i], box_size[i])**2             # <<<<<<<<<<<<<<
  *     r = sqrt(r)
@@ -45164,7 +45175,7 @@ static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
     __pyx_v_r = (__pyx_v_r + powf(__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_coordinate_separation((*((float *) ( /* dim=0 */ (__pyx_v_sat_pos.data + __pyx_t_2 * __pyx_v_sat_pos.strides[0]) ))), (*((float *) ( /* dim=0 */ (__pyx_v_cen_pos.data + __pyx_t_3 * __pyx_v_cen_pos.strides[0]) ))), (*((float *) ( /* dim=0 */ (__pyx_v_box_size.data + __pyx_t_4 * __pyx_v_box_size.strides[0]) )))), 2.0));
   }
 
-  /* "cosmomia/subgrid.pyx":1014
+  /* "cosmomia/subgrid.pyx":1015
  *     for i in range(3):
  *         r += coordinate_separation[floating](sat_pos[i], cen_pos[i], box_size[i])**2
  *     r = sqrt(r)             # <<<<<<<<<<<<<<
@@ -45173,10 +45184,10 @@ static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
  */
   __pyx_v_r = sqrt(__pyx_v_r);
 
-  /* "cosmomia/subgrid.pyx":1021
+  /* "cosmomia/subgrid.pyx":1022
  * 
  * 
- *     if (r < <floating> dist_upper_bound) and (r > <floating> 1e-2):             # <<<<<<<<<<<<<<
+ *     if (r < <floating> dist_upper_bound) and (r > <floating> 0.001):             # <<<<<<<<<<<<<<
  *         cos_phi = coordinate_separation[floating](sat_pos[2], cen_pos[2], box_size[2]) / r
  *         sin_phi = sinx[floating](cos_phi**2)
  */
@@ -45186,14 +45197,14 @@ static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
     __pyx_t_5 = __pyx_t_6;
     goto __pyx_L6_bool_binop_done;
   }
-  __pyx_t_6 = (__pyx_v_r > ((float)1e-2));
+  __pyx_t_6 = (__pyx_v_r > ((float)0.001));
   __pyx_t_5 = __pyx_t_6;
   __pyx_L6_bool_binop_done:;
   if (__pyx_t_5) {
 
-    /* "cosmomia/subgrid.pyx":1022
+    /* "cosmomia/subgrid.pyx":1023
  * 
- *     if (r < <floating> dist_upper_bound) and (r > <floating> 1e-2):
+ *     if (r < <floating> dist_upper_bound) and (r > <floating> 0.001):
  *         cos_phi = coordinate_separation[floating](sat_pos[2], cen_pos[2], box_size[2]) / r             # <<<<<<<<<<<<<<
  *         sin_phi = sinx[floating](cos_phi**2)
  *         #sin_phi = sin(acos(cos_phi))
@@ -45203,8 +45214,8 @@ static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
     __pyx_t_9 = 2;
     __pyx_v_cos_phi = (__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_coordinate_separation((*((float *) ( /* dim=0 */ (__pyx_v_sat_pos.data + __pyx_t_7 * __pyx_v_sat_pos.strides[0]) ))), (*((float *) ( /* dim=0 */ (__pyx_v_cen_pos.data + __pyx_t_8 * __pyx_v_cen_pos.strides[0]) ))), (*((float *) ( /* dim=0 */ (__pyx_v_box_size.data + __pyx_t_9 * __pyx_v_box_size.strides[0]) )))) / __pyx_v_r);
 
-    /* "cosmomia/subgrid.pyx":1023
- *     if (r < <floating> dist_upper_bound) and (r > <floating> 1e-2):
+    /* "cosmomia/subgrid.pyx":1024
+ *     if (r < <floating> dist_upper_bound) and (r > <floating> 0.001):
  *         cos_phi = coordinate_separation[floating](sat_pos[2], cen_pos[2], box_size[2]) / r
  *         sin_phi = sinx[floating](cos_phi**2)             # <<<<<<<<<<<<<<
  *         #sin_phi = sin(acos(cos_phi))
@@ -45212,7 +45223,7 @@ static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
  */
     __pyx_v_sin_phi = __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_sinx(powf(__pyx_v_cos_phi, 2.0));
 
-    /* "cosmomia/subgrid.pyx":1025
+    /* "cosmomia/subgrid.pyx":1026
  *         sin_phi = sinx[floating](cos_phi**2)
  *         #sin_phi = sin(acos(cos_phi))
  *         cos_theta = (coordinate_separation[floating](sat_pos[0], cen_pos[0], box_size[0]))/ (r * sin_phi) if sin_phi != 0 else sqrt(2) / 2             # <<<<<<<<<<<<<<
@@ -45230,7 +45241,7 @@ static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
     }
     __pyx_v_cos_theta = __pyx_t_10;
 
-    /* "cosmomia/subgrid.pyx":1030
+    /* "cosmomia/subgrid.pyx":1031
  *         #    printf("Found cos(theta) = %lf > 1 with x = %lf, r= %lf, sin(phi) = %lf\n ", cos_theta, coordinate_separation[floating](sat_pos[0], cen_pos[0], box_size[0]), r, sin_phi)
  *         #    abort()
  *         sin_theta = sinx[floating](cos_theta**2)             # <<<<<<<<<<<<<<
@@ -45239,7 +45250,7 @@ static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
  */
     __pyx_v_sin_theta = __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_sinx(powf(__pyx_v_cos_theta, 2.0));
 
-    /* "cosmomia/subgrid.pyx":1032
+    /* "cosmomia/subgrid.pyx":1033
  *         sin_theta = sinx[floating](cos_theta**2)
  *         #sin_theta = sin(acos(cos_theta))
  *         if (cos_phi != cos_phi) or (sin_phi != sin_phi) or (cos_theta != cos_theta) or (sin_theta != sin_theta):             # <<<<<<<<<<<<<<
@@ -45269,7 +45280,7 @@ static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
     __pyx_L9_bool_binop_done:;
     if (__pyx_t_5) {
 
-      /* "cosmomia/subgrid.pyx":1033
+      /* "cosmomia/subgrid.pyx":1034
  *         #sin_theta = sin(acos(cos_theta))
  *         if (cos_phi != cos_phi) or (sin_phi != sin_phi) or (cos_theta != cos_theta) or (sin_theta != sin_theta):
  *             printf("%lf %lf, %lf, %lf, %lf\n", r, cos_phi, sin_phi, cos_theta, sin_theta)             # <<<<<<<<<<<<<<
@@ -45278,7 +45289,7 @@ static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
  */
       (void)(printf(((char const *)"%lf %lf, %lf, %lf, %lf\n"), __pyx_v_r, __pyx_v_cos_phi, __pyx_v_sin_phi, __pyx_v_cos_theta, __pyx_v_sin_theta));
 
-      /* "cosmomia/subgrid.pyx":1034
+      /* "cosmomia/subgrid.pyx":1035
  *         if (cos_phi != cos_phi) or (sin_phi != sin_phi) or (cos_theta != cos_theta) or (sin_theta != sin_theta):
  *             printf("%lf %lf, %lf, %lf, %lf\n", r, cos_phi, sin_phi, cos_theta, sin_theta)
  *             fflush(stdout)             # <<<<<<<<<<<<<<
@@ -45287,16 +45298,16 @@ static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
  */
       (void)(fflush(stdout));
 
-      /* "cosmomia/subgrid.pyx":1035
+      /* "cosmomia/subgrid.pyx":1036
  *             printf("%lf %lf, %lf, %lf, %lf\n", r, cos_phi, sin_phi, cos_theta, sin_theta)
  *             fflush(stdout)
  *             abort()             # <<<<<<<<<<<<<<
  * 
- *         r = r * <floating> collapse_frac
+ *         if (r > <floating> 1):
  */
       abort();
 
-      /* "cosmomia/subgrid.pyx":1032
+      /* "cosmomia/subgrid.pyx":1033
  *         sin_theta = sinx[floating](cos_theta**2)
  *         #sin_theta = sin(acos(cos_theta))
  *         if (cos_phi != cos_phi) or (sin_phi != sin_phi) or (cos_theta != cos_theta) or (sin_theta != sin_theta):             # <<<<<<<<<<<<<<
@@ -45305,17 +45316,67 @@ static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
  */
     }
 
-    /* "cosmomia/subgrid.pyx":1037
+    /* "cosmomia/subgrid.pyx":1038
  *             abort()
  * 
- *         r = r * <floating> collapse_frac             # <<<<<<<<<<<<<<
+ *         if (r > <floating> 1):             # <<<<<<<<<<<<<<
+ *             #r -= collapse_frac / r**2
+ *             r = r * (<floating> collapse_frac + sqrt(collapse_frac) * random_gauss_z * 0.1)
+ */
+    __pyx_t_5 = (__pyx_v_r > ((float)1));
+    if (__pyx_t_5) {
+
+      /* "cosmomia/subgrid.pyx":1040
+ *         if (r > <floating> 1):
+ *             #r -= collapse_frac / r**2
+ *             r = r * (<floating> collapse_frac + sqrt(collapse_frac) * random_gauss_z * 0.1)             # <<<<<<<<<<<<<<
+ *             final_vel_disp = velocity_disp
+ *         else:
+ */
+      __pyx_v_r = (__pyx_v_r * (((float)__pyx_v_collapse_frac) + ((sqrt(__pyx_v_collapse_frac) * __pyx_v_random_gauss_z) * 0.1)));
+
+      /* "cosmomia/subgrid.pyx":1041
+ *             #r -= collapse_frac / r**2
+ *             r = r * (<floating> collapse_frac + sqrt(collapse_frac) * random_gauss_z * 0.1)
+ *             final_vel_disp = velocity_disp             # <<<<<<<<<<<<<<
+ *         else:
+ *             #r = r / <floating> (collapse_frac * 2 * random_gauss_y)
+ */
+      __pyx_v_final_vel_disp = __pyx_v_velocity_disp;
+
+      /* "cosmomia/subgrid.pyx":1038
+ *             abort()
+ * 
+ *         if (r > <floating> 1):             # <<<<<<<<<<<<<<
+ *             #r -= collapse_frac / r**2
+ *             r = r * (<floating> collapse_frac + sqrt(collapse_frac) * random_gauss_z * 0.1)
+ */
+      goto __pyx_L13;
+    }
+
+    /* "cosmomia/subgrid.pyx":1044
+ *         else:
+ *             #r = r / <floating> (collapse_frac * 2 * random_gauss_y)
+ *             r = r * (<floating> collapse_frac + sqrt(collapse_frac) * random_gauss_z * 0.1)             # <<<<<<<<<<<<<<
+ *             #r -= collapse_frac / r**2
+ *             final_vel_disp = 0
+ */
+    /*else*/ {
+      __pyx_v_r = (__pyx_v_r * (((float)__pyx_v_collapse_frac) + ((sqrt(__pyx_v_collapse_frac) * __pyx_v_random_gauss_z) * 0.1)));
+
+      /* "cosmomia/subgrid.pyx":1046
+ *             r = r * (<floating> collapse_frac + sqrt(collapse_frac) * random_gauss_z * 0.1)
+ *             #r -= collapse_frac / r**2
+ *             final_vel_disp = 0             # <<<<<<<<<<<<<<
  * 
  *         out_sat_pos[0] = cen_pos[0] + r * cos_theta * sin_phi
  */
-    __pyx_v_r = (__pyx_v_r * ((float)__pyx_v_collapse_frac));
+      __pyx_v_final_vel_disp = 0.0;
+    }
+    __pyx_L13:;
 
-    /* "cosmomia/subgrid.pyx":1039
- *         r = r * <floating> collapse_frac
+    /* "cosmomia/subgrid.pyx":1048
+ *             final_vel_disp = 0
  * 
  *         out_sat_pos[0] = cen_pos[0] + r * cos_theta * sin_phi             # <<<<<<<<<<<<<<
  *         out_sat_pos[1] = cen_pos[1] + r * sin_theta * sin_phi
@@ -45325,34 +45386,34 @@ static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
     __pyx_t_8 = 0;
     *((float *) ( /* dim=0 */ (__pyx_v_out_sat_pos.data + __pyx_t_8 * __pyx_v_out_sat_pos.strides[0]) )) = ((*((float *) ( /* dim=0 */ (__pyx_v_cen_pos.data + __pyx_t_7 * __pyx_v_cen_pos.strides[0]) ))) + ((__pyx_v_r * __pyx_v_cos_theta) * __pyx_v_sin_phi));
 
-    /* "cosmomia/subgrid.pyx":1040
+    /* "cosmomia/subgrid.pyx":1049
  * 
  *         out_sat_pos[0] = cen_pos[0] + r * cos_theta * sin_phi
  *         out_sat_pos[1] = cen_pos[1] + r * sin_theta * sin_phi             # <<<<<<<<<<<<<<
  *         out_sat_pos[2] = cen_pos[2] + r * cos_phi
- * 
+ *         #accel = -collapse_frac / r**2
  */
     __pyx_t_7 = 1;
     __pyx_t_8 = 1;
     *((float *) ( /* dim=0 */ (__pyx_v_out_sat_pos.data + __pyx_t_8 * __pyx_v_out_sat_pos.strides[0]) )) = ((*((float *) ( /* dim=0 */ (__pyx_v_cen_pos.data + __pyx_t_7 * __pyx_v_cen_pos.strides[0]) ))) + ((__pyx_v_r * __pyx_v_sin_theta) * __pyx_v_sin_phi));
 
-    /* "cosmomia/subgrid.pyx":1041
+    /* "cosmomia/subgrid.pyx":1050
  *         out_sat_pos[0] = cen_pos[0] + r * cos_theta * sin_phi
  *         out_sat_pos[1] = cen_pos[1] + r * sin_theta * sin_phi
  *         out_sat_pos[2] = cen_pos[2] + r * cos_phi             # <<<<<<<<<<<<<<
- * 
- *         out_sat_vel[0] = out_sat_vel[0] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+ *         #accel = -collapse_frac / r**2
+ *         #out_sat_pos[0] = sat_pos[0] + out_sat_vel[0] * dt + 0.5 * accel * dt**2 * out_sat_pos[0] / r
  */
     __pyx_t_7 = 2;
     __pyx_t_8 = 2;
     *((float *) ( /* dim=0 */ (__pyx_v_out_sat_pos.data + __pyx_t_8 * __pyx_v_out_sat_pos.strides[0]) )) = ((*((float *) ( /* dim=0 */ (__pyx_v_cen_pos.data + __pyx_t_7 * __pyx_v_cen_pos.strides[0]) ))) + (__pyx_v_r * __pyx_v_cos_phi));
 
-    /* "cosmomia/subgrid.pyx":1043
- *         out_sat_pos[2] = cen_pos[2] + r * cos_phi
+    /* "cosmomia/subgrid.pyx":1070
+ *         #out_sat_vel[2] = out_cen_vel[2] + (out_cen_vel[2] - out_sat_vel[2]) * random_gauss_x * 1e1 * final_vel_disp #* (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
  * 
- *         out_sat_vel[0] = out_sat_vel[0] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5             # <<<<<<<<<<<<<<
- *         out_sat_vel[1] = out_sat_vel[1] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
- *         out_sat_vel[2] = out_sat_vel[2] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+ *         out_sat_vel[0] = out_sat_vel[0] +  random_gauss_x * 1e1 * final_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5             # <<<<<<<<<<<<<<
+ *         out_sat_vel[1] = out_sat_vel[1] +  random_gauss_x * 1e1 * final_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+ *         out_sat_vel[2] = out_sat_vel[2] +  random_gauss_x * 1e1 * final_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
  */
     __pyx_t_7 = 0;
     __pyx_t_5 = (__pyx_v_dm_at_cen <= 0.0);
@@ -45361,15 +45422,15 @@ static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
     } else {
       __pyx_t_11 = __pyx_v_dm_at_cen;
     }
-    __pyx_t_10 = __Pyx_SoftComplexToDouble(__Pyx_c_sum_double(__pyx_t_double_complex_from_parts((*((float *) ( /* dim=0 */ (__pyx_v_out_sat_vel.data + __pyx_t_7 * __pyx_v_out_sat_vel.strides[0]) ))), 0), __Pyx_c_prod_double(__pyx_t_double_complex_from_parts(((__pyx_v_random_gauss_x * 1e1) * __pyx_v_velocity_disp), 0), __Pyx_c_pow_double(__pyx_t_double_complex_from_parts((1.0 + __pyx_t_11), 0), __pyx_t_double_complex_from_parts(0.5, 0)))), 0); if (unlikely(__pyx_t_10 == ((double)-1) && __Pyx_ErrOccurredWithGIL())) __PYX_ERR(0, 1043, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_SoftComplexToDouble(__Pyx_c_sum_double(__pyx_t_double_complex_from_parts((*((float *) ( /* dim=0 */ (__pyx_v_out_sat_vel.data + __pyx_t_7 * __pyx_v_out_sat_vel.strides[0]) ))), 0), __Pyx_c_prod_double(__pyx_t_double_complex_from_parts(((__pyx_v_random_gauss_x * 1e1) * __pyx_v_final_vel_disp), 0), __Pyx_c_pow_double(__pyx_t_double_complex_from_parts((1.0 + __pyx_t_11), 0), __pyx_t_double_complex_from_parts(0.5, 0)))), 0); if (unlikely(__pyx_t_10 == ((double)-1) && __Pyx_ErrOccurredWithGIL())) __PYX_ERR(0, 1070, __pyx_L1_error)
     __pyx_t_7 = 0;
     *((float *) ( /* dim=0 */ (__pyx_v_out_sat_vel.data + __pyx_t_7 * __pyx_v_out_sat_vel.strides[0]) )) = __pyx_t_10;
 
-    /* "cosmomia/subgrid.pyx":1044
+    /* "cosmomia/subgrid.pyx":1071
  * 
- *         out_sat_vel[0] = out_sat_vel[0] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
- *         out_sat_vel[1] = out_sat_vel[1] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5             # <<<<<<<<<<<<<<
- *         out_sat_vel[2] = out_sat_vel[2] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+ *         out_sat_vel[0] = out_sat_vel[0] +  random_gauss_x * 1e1 * final_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+ *         out_sat_vel[1] = out_sat_vel[1] +  random_gauss_x * 1e1 * final_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5             # <<<<<<<<<<<<<<
+ *         out_sat_vel[2] = out_sat_vel[2] +  random_gauss_x * 1e1 * final_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
  * 
  */
     __pyx_t_7 = 1;
@@ -45379,14 +45440,14 @@ static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
     } else {
       __pyx_t_11 = __pyx_v_dm_at_cen;
     }
-    __pyx_t_10 = __Pyx_SoftComplexToDouble(__Pyx_c_sum_double(__pyx_t_double_complex_from_parts((*((float *) ( /* dim=0 */ (__pyx_v_out_sat_vel.data + __pyx_t_7 * __pyx_v_out_sat_vel.strides[0]) ))), 0), __Pyx_c_prod_double(__pyx_t_double_complex_from_parts(((__pyx_v_random_gauss_x * 1e1) * __pyx_v_velocity_disp), 0), __Pyx_c_pow_double(__pyx_t_double_complex_from_parts((1.0 + __pyx_t_11), 0), __pyx_t_double_complex_from_parts(0.5, 0)))), 0); if (unlikely(__pyx_t_10 == ((double)-1) && __Pyx_ErrOccurredWithGIL())) __PYX_ERR(0, 1044, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_SoftComplexToDouble(__Pyx_c_sum_double(__pyx_t_double_complex_from_parts((*((float *) ( /* dim=0 */ (__pyx_v_out_sat_vel.data + __pyx_t_7 * __pyx_v_out_sat_vel.strides[0]) ))), 0), __Pyx_c_prod_double(__pyx_t_double_complex_from_parts(((__pyx_v_random_gauss_x * 1e1) * __pyx_v_final_vel_disp), 0), __Pyx_c_pow_double(__pyx_t_double_complex_from_parts((1.0 + __pyx_t_11), 0), __pyx_t_double_complex_from_parts(0.5, 0)))), 0); if (unlikely(__pyx_t_10 == ((double)-1) && __Pyx_ErrOccurredWithGIL())) __PYX_ERR(0, 1071, __pyx_L1_error)
     __pyx_t_7 = 1;
     *((float *) ( /* dim=0 */ (__pyx_v_out_sat_vel.data + __pyx_t_7 * __pyx_v_out_sat_vel.strides[0]) )) = __pyx_t_10;
 
-    /* "cosmomia/subgrid.pyx":1045
- *         out_sat_vel[0] = out_sat_vel[0] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
- *         out_sat_vel[1] = out_sat_vel[1] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
- *         out_sat_vel[2] = out_sat_vel[2] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5             # <<<<<<<<<<<<<<
+    /* "cosmomia/subgrid.pyx":1072
+ *         out_sat_vel[0] = out_sat_vel[0] +  random_gauss_x * 1e1 * final_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+ *         out_sat_vel[1] = out_sat_vel[1] +  random_gauss_x * 1e1 * final_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+ *         out_sat_vel[2] = out_sat_vel[2] +  random_gauss_x * 1e1 * final_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5             # <<<<<<<<<<<<<<
  * 
  * 
  */
@@ -45397,14 +45458,14 @@ static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
     } else {
       __pyx_t_11 = __pyx_v_dm_at_cen;
     }
-    __pyx_t_10 = __Pyx_SoftComplexToDouble(__Pyx_c_sum_double(__pyx_t_double_complex_from_parts((*((float *) ( /* dim=0 */ (__pyx_v_out_sat_vel.data + __pyx_t_7 * __pyx_v_out_sat_vel.strides[0]) ))), 0), __Pyx_c_prod_double(__pyx_t_double_complex_from_parts(((__pyx_v_random_gauss_x * 1e1) * __pyx_v_velocity_disp), 0), __Pyx_c_pow_double(__pyx_t_double_complex_from_parts((1.0 + __pyx_t_11), 0), __pyx_t_double_complex_from_parts(0.5, 0)))), 0); if (unlikely(__pyx_t_10 == ((double)-1) && __Pyx_ErrOccurredWithGIL())) __PYX_ERR(0, 1045, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_SoftComplexToDouble(__Pyx_c_sum_double(__pyx_t_double_complex_from_parts((*((float *) ( /* dim=0 */ (__pyx_v_out_sat_vel.data + __pyx_t_7 * __pyx_v_out_sat_vel.strides[0]) ))), 0), __Pyx_c_prod_double(__pyx_t_double_complex_from_parts(((__pyx_v_random_gauss_x * 1e1) * __pyx_v_final_vel_disp), 0), __Pyx_c_pow_double(__pyx_t_double_complex_from_parts((1.0 + __pyx_t_11), 0), __pyx_t_double_complex_from_parts(0.5, 0)))), 0); if (unlikely(__pyx_t_10 == ((double)-1) && __Pyx_ErrOccurredWithGIL())) __PYX_ERR(0, 1072, __pyx_L1_error)
     __pyx_t_7 = 2;
     *((float *) ( /* dim=0 */ (__pyx_v_out_sat_vel.data + __pyx_t_7 * __pyx_v_out_sat_vel.strides[0]) )) = __pyx_t_10;
 
-    /* "cosmomia/subgrid.pyx":1021
+    /* "cosmomia/subgrid.pyx":1022
  * 
  * 
- *     if (r < <floating> dist_upper_bound) and (r > <floating> 1e-2):             # <<<<<<<<<<<<<<
+ *     if (r < <floating> dist_upper_bound) and (r > <floating> 0.001):             # <<<<<<<<<<<<<<
  *         cos_phi = coordinate_separation[floating](sat_pos[2], cen_pos[2], box_size[2]) / r
  *         sin_phi = sinx[floating](cos_phi**2)
  */
@@ -45415,7 +45476,7 @@ static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
  * 
  * cdef void collapse(floating[:] out_sat_pos, floating[:] sat_pos, floating[:] cen_pos, floating dist,             # <<<<<<<<<<<<<<
  *                    double collapse_frac, double dist_upper_bound,
- *                    floating[:] out_sat_vel,
+ *                    floating[:] out_sat_vel, floating[:] out_cen_vel,
  */
 
   /* function exit code */
@@ -45431,12 +45492,14 @@ static void __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
   __pyx_L0:;
 }
 
-static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice __pyx_v_out_sat_pos, __Pyx_memviewslice __pyx_v_sat_pos, __Pyx_memviewslice __pyx_v_cen_pos, CYTHON_UNUSED double __pyx_v_dist, double __pyx_v_collapse_frac, double __pyx_v_dist_upper_bound, __Pyx_memviewslice __pyx_v_out_sat_vel, double __pyx_v_random_gauss_x, CYTHON_UNUSED double __pyx_v_random_gauss_y, CYTHON_UNUSED double __pyx_v_random_gauss_z, double __pyx_v_dm_at_cen, double __pyx_v_velocity_disp, __Pyx_memviewslice __pyx_v_box_size) {
+static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice __pyx_v_out_sat_pos, __Pyx_memviewslice __pyx_v_sat_pos, __Pyx_memviewslice __pyx_v_cen_pos, CYTHON_UNUSED double __pyx_v_dist, double __pyx_v_collapse_frac, double __pyx_v_dist_upper_bound, __Pyx_memviewslice __pyx_v_out_sat_vel, CYTHON_UNUSED __Pyx_memviewslice __pyx_v_out_cen_vel, double __pyx_v_random_gauss_x, CYTHON_UNUSED double __pyx_v_random_gauss_y, double __pyx_v_random_gauss_z, double __pyx_v_dm_at_cen, double __pyx_v_velocity_disp, __Pyx_memviewslice __pyx_v_box_size) {
   double __pyx_v_r;
   double __pyx_v_cos_phi;
   double __pyx_v_cos_theta;
   double __pyx_v_sin_phi;
   double __pyx_v_sin_theta;
+  double __pyx_v_final_vel_disp;
+  CYTHON_UNUSED double __pyx_v_dt;
   size_t __pyx_v_i;
   size_t __pyx_t_1;
   size_t __pyx_t_2;
@@ -45460,7 +45523,7 @@ static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
  * 
  * 
  *     cdef floating r = 0 #sqrt(dist)             # <<<<<<<<<<<<<<
- *     cdef floating cos_phi, cos_theta, sin_phi, sin_theta
+ *     cdef floating cos_phi, cos_theta, sin_phi, sin_theta, final_vel_disp, accel, dt
  *     cdef size_t i
  */
   __pyx_v_r = 0.0;
@@ -45468,6 +45531,15 @@ static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
   /* "cosmomia/subgrid.pyx":1012
  *     cdef size_t i
  * 
+ *     dt = 0.01             # <<<<<<<<<<<<<<
+ *     for i in range(3):
+ *         r += coordinate_separation[floating](sat_pos[i], cen_pos[i], box_size[i])**2
+ */
+  __pyx_v_dt = 0.01;
+
+  /* "cosmomia/subgrid.pyx":1013
+ * 
+ *     dt = 0.01
  *     for i in range(3):             # <<<<<<<<<<<<<<
  *         r += coordinate_separation[floating](sat_pos[i], cen_pos[i], box_size[i])**2
  *     r = sqrt(r)
@@ -45475,8 +45547,8 @@ static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
   for (__pyx_t_1 = 0; __pyx_t_1 < 3; __pyx_t_1+=1) {
     __pyx_v_i = __pyx_t_1;
 
-    /* "cosmomia/subgrid.pyx":1013
- * 
+    /* "cosmomia/subgrid.pyx":1014
+ *     dt = 0.01
  *     for i in range(3):
  *         r += coordinate_separation[floating](sat_pos[i], cen_pos[i], box_size[i])**2             # <<<<<<<<<<<<<<
  *     r = sqrt(r)
@@ -45488,7 +45560,7 @@ static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
     __pyx_v_r = (__pyx_v_r + pow(__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_coordinate_separation((*((double *) ( /* dim=0 */ (__pyx_v_sat_pos.data + __pyx_t_2 * __pyx_v_sat_pos.strides[0]) ))), (*((double *) ( /* dim=0 */ (__pyx_v_cen_pos.data + __pyx_t_3 * __pyx_v_cen_pos.strides[0]) ))), (*((double *) ( /* dim=0 */ (__pyx_v_box_size.data + __pyx_t_4 * __pyx_v_box_size.strides[0]) )))), 2.0));
   }
 
-  /* "cosmomia/subgrid.pyx":1014
+  /* "cosmomia/subgrid.pyx":1015
  *     for i in range(3):
  *         r += coordinate_separation[floating](sat_pos[i], cen_pos[i], box_size[i])**2
  *     r = sqrt(r)             # <<<<<<<<<<<<<<
@@ -45497,10 +45569,10 @@ static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
  */
   __pyx_v_r = sqrt(__pyx_v_r);
 
-  /* "cosmomia/subgrid.pyx":1021
+  /* "cosmomia/subgrid.pyx":1022
  * 
  * 
- *     if (r < <floating> dist_upper_bound) and (r > <floating> 1e-2):             # <<<<<<<<<<<<<<
+ *     if (r < <floating> dist_upper_bound) and (r > <floating> 0.001):             # <<<<<<<<<<<<<<
  *         cos_phi = coordinate_separation[floating](sat_pos[2], cen_pos[2], box_size[2]) / r
  *         sin_phi = sinx[floating](cos_phi**2)
  */
@@ -45510,14 +45582,14 @@ static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
     __pyx_t_5 = __pyx_t_6;
     goto __pyx_L6_bool_binop_done;
   }
-  __pyx_t_6 = (__pyx_v_r > ((double)1e-2));
+  __pyx_t_6 = (__pyx_v_r > ((double)0.001));
   __pyx_t_5 = __pyx_t_6;
   __pyx_L6_bool_binop_done:;
   if (__pyx_t_5) {
 
-    /* "cosmomia/subgrid.pyx":1022
+    /* "cosmomia/subgrid.pyx":1023
  * 
- *     if (r < <floating> dist_upper_bound) and (r > <floating> 1e-2):
+ *     if (r < <floating> dist_upper_bound) and (r > <floating> 0.001):
  *         cos_phi = coordinate_separation[floating](sat_pos[2], cen_pos[2], box_size[2]) / r             # <<<<<<<<<<<<<<
  *         sin_phi = sinx[floating](cos_phi**2)
  *         #sin_phi = sin(acos(cos_phi))
@@ -45527,8 +45599,8 @@ static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
     __pyx_t_9 = 2;
     __pyx_v_cos_phi = (__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_coordinate_separation((*((double *) ( /* dim=0 */ (__pyx_v_sat_pos.data + __pyx_t_7 * __pyx_v_sat_pos.strides[0]) ))), (*((double *) ( /* dim=0 */ (__pyx_v_cen_pos.data + __pyx_t_8 * __pyx_v_cen_pos.strides[0]) ))), (*((double *) ( /* dim=0 */ (__pyx_v_box_size.data + __pyx_t_9 * __pyx_v_box_size.strides[0]) )))) / __pyx_v_r);
 
-    /* "cosmomia/subgrid.pyx":1023
- *     if (r < <floating> dist_upper_bound) and (r > <floating> 1e-2):
+    /* "cosmomia/subgrid.pyx":1024
+ *     if (r < <floating> dist_upper_bound) and (r > <floating> 0.001):
  *         cos_phi = coordinate_separation[floating](sat_pos[2], cen_pos[2], box_size[2]) / r
  *         sin_phi = sinx[floating](cos_phi**2)             # <<<<<<<<<<<<<<
  *         #sin_phi = sin(acos(cos_phi))
@@ -45536,7 +45608,7 @@ static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
  */
     __pyx_v_sin_phi = __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_sinx(pow(__pyx_v_cos_phi, 2.0));
 
-    /* "cosmomia/subgrid.pyx":1025
+    /* "cosmomia/subgrid.pyx":1026
  *         sin_phi = sinx[floating](cos_phi**2)
  *         #sin_phi = sin(acos(cos_phi))
  *         cos_theta = (coordinate_separation[floating](sat_pos[0], cen_pos[0], box_size[0]))/ (r * sin_phi) if sin_phi != 0 else sqrt(2) / 2             # <<<<<<<<<<<<<<
@@ -45554,7 +45626,7 @@ static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
     }
     __pyx_v_cos_theta = __pyx_t_10;
 
-    /* "cosmomia/subgrid.pyx":1030
+    /* "cosmomia/subgrid.pyx":1031
  *         #    printf("Found cos(theta) = %lf > 1 with x = %lf, r= %lf, sin(phi) = %lf\n ", cos_theta, coordinate_separation[floating](sat_pos[0], cen_pos[0], box_size[0]), r, sin_phi)
  *         #    abort()
  *         sin_theta = sinx[floating](cos_theta**2)             # <<<<<<<<<<<<<<
@@ -45563,7 +45635,7 @@ static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
  */
     __pyx_v_sin_theta = __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_sinx(pow(__pyx_v_cos_theta, 2.0));
 
-    /* "cosmomia/subgrid.pyx":1032
+    /* "cosmomia/subgrid.pyx":1033
  *         sin_theta = sinx[floating](cos_theta**2)
  *         #sin_theta = sin(acos(cos_theta))
  *         if (cos_phi != cos_phi) or (sin_phi != sin_phi) or (cos_theta != cos_theta) or (sin_theta != sin_theta):             # <<<<<<<<<<<<<<
@@ -45593,7 +45665,7 @@ static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
     __pyx_L9_bool_binop_done:;
     if (__pyx_t_5) {
 
-      /* "cosmomia/subgrid.pyx":1033
+      /* "cosmomia/subgrid.pyx":1034
  *         #sin_theta = sin(acos(cos_theta))
  *         if (cos_phi != cos_phi) or (sin_phi != sin_phi) or (cos_theta != cos_theta) or (sin_theta != sin_theta):
  *             printf("%lf %lf, %lf, %lf, %lf\n", r, cos_phi, sin_phi, cos_theta, sin_theta)             # <<<<<<<<<<<<<<
@@ -45602,7 +45674,7 @@ static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
  */
       (void)(printf(((char const *)"%lf %lf, %lf, %lf, %lf\n"), __pyx_v_r, __pyx_v_cos_phi, __pyx_v_sin_phi, __pyx_v_cos_theta, __pyx_v_sin_theta));
 
-      /* "cosmomia/subgrid.pyx":1034
+      /* "cosmomia/subgrid.pyx":1035
  *         if (cos_phi != cos_phi) or (sin_phi != sin_phi) or (cos_theta != cos_theta) or (sin_theta != sin_theta):
  *             printf("%lf %lf, %lf, %lf, %lf\n", r, cos_phi, sin_phi, cos_theta, sin_theta)
  *             fflush(stdout)             # <<<<<<<<<<<<<<
@@ -45611,16 +45683,16 @@ static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
  */
       (void)(fflush(stdout));
 
-      /* "cosmomia/subgrid.pyx":1035
+      /* "cosmomia/subgrid.pyx":1036
  *             printf("%lf %lf, %lf, %lf, %lf\n", r, cos_phi, sin_phi, cos_theta, sin_theta)
  *             fflush(stdout)
  *             abort()             # <<<<<<<<<<<<<<
  * 
- *         r = r * <floating> collapse_frac
+ *         if (r > <floating> 1):
  */
       abort();
 
-      /* "cosmomia/subgrid.pyx":1032
+      /* "cosmomia/subgrid.pyx":1033
  *         sin_theta = sinx[floating](cos_theta**2)
  *         #sin_theta = sin(acos(cos_theta))
  *         if (cos_phi != cos_phi) or (sin_phi != sin_phi) or (cos_theta != cos_theta) or (sin_theta != sin_theta):             # <<<<<<<<<<<<<<
@@ -45629,17 +45701,67 @@ static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
  */
     }
 
-    /* "cosmomia/subgrid.pyx":1037
+    /* "cosmomia/subgrid.pyx":1038
  *             abort()
  * 
- *         r = r * <floating> collapse_frac             # <<<<<<<<<<<<<<
+ *         if (r > <floating> 1):             # <<<<<<<<<<<<<<
+ *             #r -= collapse_frac / r**2
+ *             r = r * (<floating> collapse_frac + sqrt(collapse_frac) * random_gauss_z * 0.1)
+ */
+    __pyx_t_5 = (__pyx_v_r > ((double)1));
+    if (__pyx_t_5) {
+
+      /* "cosmomia/subgrid.pyx":1040
+ *         if (r > <floating> 1):
+ *             #r -= collapse_frac / r**2
+ *             r = r * (<floating> collapse_frac + sqrt(collapse_frac) * random_gauss_z * 0.1)             # <<<<<<<<<<<<<<
+ *             final_vel_disp = velocity_disp
+ *         else:
+ */
+      __pyx_v_r = (__pyx_v_r * (((double)__pyx_v_collapse_frac) + ((sqrt(__pyx_v_collapse_frac) * __pyx_v_random_gauss_z) * 0.1)));
+
+      /* "cosmomia/subgrid.pyx":1041
+ *             #r -= collapse_frac / r**2
+ *             r = r * (<floating> collapse_frac + sqrt(collapse_frac) * random_gauss_z * 0.1)
+ *             final_vel_disp = velocity_disp             # <<<<<<<<<<<<<<
+ *         else:
+ *             #r = r / <floating> (collapse_frac * 2 * random_gauss_y)
+ */
+      __pyx_v_final_vel_disp = __pyx_v_velocity_disp;
+
+      /* "cosmomia/subgrid.pyx":1038
+ *             abort()
+ * 
+ *         if (r > <floating> 1):             # <<<<<<<<<<<<<<
+ *             #r -= collapse_frac / r**2
+ *             r = r * (<floating> collapse_frac + sqrt(collapse_frac) * random_gauss_z * 0.1)
+ */
+      goto __pyx_L13;
+    }
+
+    /* "cosmomia/subgrid.pyx":1044
+ *         else:
+ *             #r = r / <floating> (collapse_frac * 2 * random_gauss_y)
+ *             r = r * (<floating> collapse_frac + sqrt(collapse_frac) * random_gauss_z * 0.1)             # <<<<<<<<<<<<<<
+ *             #r -= collapse_frac / r**2
+ *             final_vel_disp = 0
+ */
+    /*else*/ {
+      __pyx_v_r = (__pyx_v_r * (((double)__pyx_v_collapse_frac) + ((sqrt(__pyx_v_collapse_frac) * __pyx_v_random_gauss_z) * 0.1)));
+
+      /* "cosmomia/subgrid.pyx":1046
+ *             r = r * (<floating> collapse_frac + sqrt(collapse_frac) * random_gauss_z * 0.1)
+ *             #r -= collapse_frac / r**2
+ *             final_vel_disp = 0             # <<<<<<<<<<<<<<
  * 
  *         out_sat_pos[0] = cen_pos[0] + r * cos_theta * sin_phi
  */
-    __pyx_v_r = (__pyx_v_r * ((double)__pyx_v_collapse_frac));
+      __pyx_v_final_vel_disp = 0.0;
+    }
+    __pyx_L13:;
 
-    /* "cosmomia/subgrid.pyx":1039
- *         r = r * <floating> collapse_frac
+    /* "cosmomia/subgrid.pyx":1048
+ *             final_vel_disp = 0
  * 
  *         out_sat_pos[0] = cen_pos[0] + r * cos_theta * sin_phi             # <<<<<<<<<<<<<<
  *         out_sat_pos[1] = cen_pos[1] + r * sin_theta * sin_phi
@@ -45649,34 +45771,34 @@ static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
     __pyx_t_8 = 0;
     *((double *) ( /* dim=0 */ (__pyx_v_out_sat_pos.data + __pyx_t_8 * __pyx_v_out_sat_pos.strides[0]) )) = ((*((double *) ( /* dim=0 */ (__pyx_v_cen_pos.data + __pyx_t_7 * __pyx_v_cen_pos.strides[0]) ))) + ((__pyx_v_r * __pyx_v_cos_theta) * __pyx_v_sin_phi));
 
-    /* "cosmomia/subgrid.pyx":1040
+    /* "cosmomia/subgrid.pyx":1049
  * 
  *         out_sat_pos[0] = cen_pos[0] + r * cos_theta * sin_phi
  *         out_sat_pos[1] = cen_pos[1] + r * sin_theta * sin_phi             # <<<<<<<<<<<<<<
  *         out_sat_pos[2] = cen_pos[2] + r * cos_phi
- * 
+ *         #accel = -collapse_frac / r**2
  */
     __pyx_t_7 = 1;
     __pyx_t_8 = 1;
     *((double *) ( /* dim=0 */ (__pyx_v_out_sat_pos.data + __pyx_t_8 * __pyx_v_out_sat_pos.strides[0]) )) = ((*((double *) ( /* dim=0 */ (__pyx_v_cen_pos.data + __pyx_t_7 * __pyx_v_cen_pos.strides[0]) ))) + ((__pyx_v_r * __pyx_v_sin_theta) * __pyx_v_sin_phi));
 
-    /* "cosmomia/subgrid.pyx":1041
+    /* "cosmomia/subgrid.pyx":1050
  *         out_sat_pos[0] = cen_pos[0] + r * cos_theta * sin_phi
  *         out_sat_pos[1] = cen_pos[1] + r * sin_theta * sin_phi
  *         out_sat_pos[2] = cen_pos[2] + r * cos_phi             # <<<<<<<<<<<<<<
- * 
- *         out_sat_vel[0] = out_sat_vel[0] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+ *         #accel = -collapse_frac / r**2
+ *         #out_sat_pos[0] = sat_pos[0] + out_sat_vel[0] * dt + 0.5 * accel * dt**2 * out_sat_pos[0] / r
  */
     __pyx_t_7 = 2;
     __pyx_t_8 = 2;
     *((double *) ( /* dim=0 */ (__pyx_v_out_sat_pos.data + __pyx_t_8 * __pyx_v_out_sat_pos.strides[0]) )) = ((*((double *) ( /* dim=0 */ (__pyx_v_cen_pos.data + __pyx_t_7 * __pyx_v_cen_pos.strides[0]) ))) + (__pyx_v_r * __pyx_v_cos_phi));
 
-    /* "cosmomia/subgrid.pyx":1043
- *         out_sat_pos[2] = cen_pos[2] + r * cos_phi
+    /* "cosmomia/subgrid.pyx":1070
+ *         #out_sat_vel[2] = out_cen_vel[2] + (out_cen_vel[2] - out_sat_vel[2]) * random_gauss_x * 1e1 * final_vel_disp #* (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
  * 
- *         out_sat_vel[0] = out_sat_vel[0] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5             # <<<<<<<<<<<<<<
- *         out_sat_vel[1] = out_sat_vel[1] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
- *         out_sat_vel[2] = out_sat_vel[2] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+ *         out_sat_vel[0] = out_sat_vel[0] +  random_gauss_x * 1e1 * final_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5             # <<<<<<<<<<<<<<
+ *         out_sat_vel[1] = out_sat_vel[1] +  random_gauss_x * 1e1 * final_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+ *         out_sat_vel[2] = out_sat_vel[2] +  random_gauss_x * 1e1 * final_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
  */
     __pyx_t_7 = 0;
     __pyx_t_5 = (__pyx_v_dm_at_cen <= 0.0);
@@ -45685,15 +45807,15 @@ static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
     } else {
       __pyx_t_10 = __pyx_v_dm_at_cen;
     }
-    __pyx_t_11 = __Pyx_SoftComplexToDouble(__Pyx_c_sum_double(__pyx_t_double_complex_from_parts((*((double *) ( /* dim=0 */ (__pyx_v_out_sat_vel.data + __pyx_t_7 * __pyx_v_out_sat_vel.strides[0]) ))), 0), __Pyx_c_prod_double(__pyx_t_double_complex_from_parts(((__pyx_v_random_gauss_x * 1e1) * __pyx_v_velocity_disp), 0), __Pyx_c_pow_double(__pyx_t_double_complex_from_parts((1.0 + __pyx_t_10), 0), __pyx_t_double_complex_from_parts(0.5, 0)))), 0); if (unlikely(__pyx_t_11 == ((double)-1) && __Pyx_ErrOccurredWithGIL())) __PYX_ERR(0, 1043, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_SoftComplexToDouble(__Pyx_c_sum_double(__pyx_t_double_complex_from_parts((*((double *) ( /* dim=0 */ (__pyx_v_out_sat_vel.data + __pyx_t_7 * __pyx_v_out_sat_vel.strides[0]) ))), 0), __Pyx_c_prod_double(__pyx_t_double_complex_from_parts(((__pyx_v_random_gauss_x * 1e1) * __pyx_v_final_vel_disp), 0), __Pyx_c_pow_double(__pyx_t_double_complex_from_parts((1.0 + __pyx_t_10), 0), __pyx_t_double_complex_from_parts(0.5, 0)))), 0); if (unlikely(__pyx_t_11 == ((double)-1) && __Pyx_ErrOccurredWithGIL())) __PYX_ERR(0, 1070, __pyx_L1_error)
     __pyx_t_7 = 0;
     *((double *) ( /* dim=0 */ (__pyx_v_out_sat_vel.data + __pyx_t_7 * __pyx_v_out_sat_vel.strides[0]) )) = __pyx_t_11;
 
-    /* "cosmomia/subgrid.pyx":1044
+    /* "cosmomia/subgrid.pyx":1071
  * 
- *         out_sat_vel[0] = out_sat_vel[0] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
- *         out_sat_vel[1] = out_sat_vel[1] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5             # <<<<<<<<<<<<<<
- *         out_sat_vel[2] = out_sat_vel[2] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+ *         out_sat_vel[0] = out_sat_vel[0] +  random_gauss_x * 1e1 * final_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+ *         out_sat_vel[1] = out_sat_vel[1] +  random_gauss_x * 1e1 * final_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5             # <<<<<<<<<<<<<<
+ *         out_sat_vel[2] = out_sat_vel[2] +  random_gauss_x * 1e1 * final_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
  * 
  */
     __pyx_t_7 = 1;
@@ -45703,14 +45825,14 @@ static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
     } else {
       __pyx_t_11 = __pyx_v_dm_at_cen;
     }
-    __pyx_t_10 = __Pyx_SoftComplexToDouble(__Pyx_c_sum_double(__pyx_t_double_complex_from_parts((*((double *) ( /* dim=0 */ (__pyx_v_out_sat_vel.data + __pyx_t_7 * __pyx_v_out_sat_vel.strides[0]) ))), 0), __Pyx_c_prod_double(__pyx_t_double_complex_from_parts(((__pyx_v_random_gauss_x * 1e1) * __pyx_v_velocity_disp), 0), __Pyx_c_pow_double(__pyx_t_double_complex_from_parts((1.0 + __pyx_t_11), 0), __pyx_t_double_complex_from_parts(0.5, 0)))), 0); if (unlikely(__pyx_t_10 == ((double)-1) && __Pyx_ErrOccurredWithGIL())) __PYX_ERR(0, 1044, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_SoftComplexToDouble(__Pyx_c_sum_double(__pyx_t_double_complex_from_parts((*((double *) ( /* dim=0 */ (__pyx_v_out_sat_vel.data + __pyx_t_7 * __pyx_v_out_sat_vel.strides[0]) ))), 0), __Pyx_c_prod_double(__pyx_t_double_complex_from_parts(((__pyx_v_random_gauss_x * 1e1) * __pyx_v_final_vel_disp), 0), __Pyx_c_pow_double(__pyx_t_double_complex_from_parts((1.0 + __pyx_t_11), 0), __pyx_t_double_complex_from_parts(0.5, 0)))), 0); if (unlikely(__pyx_t_10 == ((double)-1) && __Pyx_ErrOccurredWithGIL())) __PYX_ERR(0, 1071, __pyx_L1_error)
     __pyx_t_7 = 1;
     *((double *) ( /* dim=0 */ (__pyx_v_out_sat_vel.data + __pyx_t_7 * __pyx_v_out_sat_vel.strides[0]) )) = __pyx_t_10;
 
-    /* "cosmomia/subgrid.pyx":1045
- *         out_sat_vel[0] = out_sat_vel[0] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
- *         out_sat_vel[1] = out_sat_vel[1] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
- *         out_sat_vel[2] = out_sat_vel[2] + random_gauss_x * 1e1 * velocity_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5             # <<<<<<<<<<<<<<
+    /* "cosmomia/subgrid.pyx":1072
+ *         out_sat_vel[0] = out_sat_vel[0] +  random_gauss_x * 1e1 * final_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+ *         out_sat_vel[1] = out_sat_vel[1] +  random_gauss_x * 1e1 * final_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5
+ *         out_sat_vel[2] = out_sat_vel[2] +  random_gauss_x * 1e1 * final_vel_disp * (1 + (0 if dm_at_cen <= 0 else dm_at_cen))**0.5             # <<<<<<<<<<<<<<
  * 
  * 
  */
@@ -45721,14 +45843,14 @@ static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
     } else {
       __pyx_t_10 = __pyx_v_dm_at_cen;
     }
-    __pyx_t_11 = __Pyx_SoftComplexToDouble(__Pyx_c_sum_double(__pyx_t_double_complex_from_parts((*((double *) ( /* dim=0 */ (__pyx_v_out_sat_vel.data + __pyx_t_7 * __pyx_v_out_sat_vel.strides[0]) ))), 0), __Pyx_c_prod_double(__pyx_t_double_complex_from_parts(((__pyx_v_random_gauss_x * 1e1) * __pyx_v_velocity_disp), 0), __Pyx_c_pow_double(__pyx_t_double_complex_from_parts((1.0 + __pyx_t_10), 0), __pyx_t_double_complex_from_parts(0.5, 0)))), 0); if (unlikely(__pyx_t_11 == ((double)-1) && __Pyx_ErrOccurredWithGIL())) __PYX_ERR(0, 1045, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_SoftComplexToDouble(__Pyx_c_sum_double(__pyx_t_double_complex_from_parts((*((double *) ( /* dim=0 */ (__pyx_v_out_sat_vel.data + __pyx_t_7 * __pyx_v_out_sat_vel.strides[0]) ))), 0), __Pyx_c_prod_double(__pyx_t_double_complex_from_parts(((__pyx_v_random_gauss_x * 1e1) * __pyx_v_final_vel_disp), 0), __Pyx_c_pow_double(__pyx_t_double_complex_from_parts((1.0 + __pyx_t_10), 0), __pyx_t_double_complex_from_parts(0.5, 0)))), 0); if (unlikely(__pyx_t_11 == ((double)-1) && __Pyx_ErrOccurredWithGIL())) __PYX_ERR(0, 1072, __pyx_L1_error)
     __pyx_t_7 = 2;
     *((double *) ( /* dim=0 */ (__pyx_v_out_sat_vel.data + __pyx_t_7 * __pyx_v_out_sat_vel.strides[0]) )) = __pyx_t_11;
 
-    /* "cosmomia/subgrid.pyx":1021
+    /* "cosmomia/subgrid.pyx":1022
  * 
  * 
- *     if (r < <floating> dist_upper_bound) and (r > <floating> 1e-2):             # <<<<<<<<<<<<<<
+ *     if (r < <floating> dist_upper_bound) and (r > <floating> 0.001):             # <<<<<<<<<<<<<<
  *         cos_phi = coordinate_separation[floating](sat_pos[2], cen_pos[2], box_size[2]) / r
  *         sin_phi = sinx[floating](cos_phi**2)
  */
@@ -45739,7 +45861,7 @@ static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
  * 
  * cdef void collapse(floating[:] out_sat_pos, floating[:] sat_pos, floating[:] cen_pos, floating dist,             # <<<<<<<<<<<<<<
  *                    double collapse_frac, double dist_upper_bound,
- *                    floating[:] out_sat_vel,
+ *                    floating[:] out_sat_vel, floating[:] out_cen_vel,
  */
 
   /* function exit code */
@@ -45755,7 +45877,7 @@ static void __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__Pyx_memviewslice 
   __pyx_L0:;
 }
 
-/* "cosmomia/subgrid.pyx":1050
+/* "cosmomia/subgrid.pyx":1076
  * 
  * 
  * cpdef dict subgrid_collapse(dict catalog, floating[:] params, floating[:] box_size, is_attractor_mask, size_t seed, size_t num_threads, debug = False):             # <<<<<<<<<<<<<<
@@ -45814,7 +45936,7 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_15subgrid_collapse(PyObject *__pyx
           (void)__Pyx_Arg_NewRef_VARARGS(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -45822,9 +45944,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_15subgrid_collapse(PyObject *__pyx
           (void)__Pyx_Arg_NewRef_VARARGS(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fused_cpdef", 0, 4, 5, 1); __PYX_ERR(0, 1050, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fused_cpdef", 0, 4, 5, 1); __PYX_ERR(0, 1076, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -45832,9 +45954,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_15subgrid_collapse(PyObject *__pyx
           (void)__Pyx_Arg_NewRef_VARARGS(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fused_cpdef", 0, 4, 5, 2); __PYX_ERR(0, 1050, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fused_cpdef", 0, 4, 5, 2); __PYX_ERR(0, 1076, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -45842,21 +45964,21 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_15subgrid_collapse(PyObject *__pyx
           (void)__Pyx_Arg_NewRef_VARARGS(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fused_cpdef", 0, 4, 5, 3); __PYX_ERR(0, 1050, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fused_cpdef", 0, 4, 5, 3); __PYX_ERR(0, 1076, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_fused_sigindex);
           if (value) { values[4] = __Pyx_Arg_NewRef_VARARGS(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__pyx_fused_cpdef") < 0)) __PYX_ERR(0, 1050, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__pyx_fused_cpdef") < 0)) __PYX_ERR(0, 1076, __pyx_L3_error)
       }
     } else {
       switch (__pyx_nargs) {
@@ -45878,7 +46000,7 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_15subgrid_collapse(PyObject *__pyx
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__pyx_fused_cpdef", 0, 4, 5, __pyx_nargs); __PYX_ERR(0, 1050, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__pyx_fused_cpdef", 0, 4, 5, __pyx_nargs); __PYX_ERR(0, 1076, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -45956,11 +46078,11 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("subgrid_collapse", 0);
   __Pyx_INCREF(__pyx_v_kwargs);
-  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(Py_None);
   __Pyx_GIVEREF(Py_None);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_1, 0, Py_None)) __PYX_ERR(0, 1050, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_1, 0, Py_None)) __PYX_ERR(0, 1076, __pyx_L1_error);
   __pyx_v_dest_sig = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
   __pyx_t_3 = (__pyx_v_kwargs != Py_None);
@@ -45969,7 +46091,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
     __pyx_t_2 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_v_kwargs); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_v_kwargs); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
   __pyx_t_4 = (!__pyx_t_3);
   __pyx_t_2 = __pyx_t_4;
   __pyx_L4_bool_binop_done:;
@@ -45977,21 +46099,21 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
     __Pyx_INCREF(Py_None);
     __Pyx_DECREF_SET(__pyx_v_kwargs, Py_None);
   }
-  __pyx_t_1 = ((PyObject *)__Pyx_ImportNumPyArrayTypeIfAvailable()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)__Pyx_ImportNumPyArrayTypeIfAvailable()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_ndarray = ((PyTypeObject*)__pyx_t_1);
   __pyx_t_1 = 0;
   __pyx_v_itemsize = -1L;
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 1050, __pyx_L1_error)
+    __PYX_ERR(0, 1076, __pyx_L1_error)
   }
-  __pyx_t_5 = __Pyx_PyTuple_GET_SIZE(((PyObject*)__pyx_v_args)); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyTuple_GET_SIZE(((PyObject*)__pyx_v_args)); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 1076, __pyx_L1_error)
   __pyx_t_2 = (1 < __pyx_t_5);
   if (__pyx_t_2) {
     if (unlikely(__pyx_v_args == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 1050, __pyx_L1_error)
+      __PYX_ERR(0, 1076, __pyx_L1_error)
     }
     __pyx_t_1 = PyTuple_GET_ITEM(((PyObject*)__pyx_v_args), 1);
     __Pyx_INCREF(__pyx_t_1);
@@ -46007,17 +46129,17 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
   }
   if (unlikely(__pyx_v_kwargs == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-    __PYX_ERR(0, 1050, __pyx_L1_error)
+    __PYX_ERR(0, 1076, __pyx_L1_error)
   }
-  __pyx_t_4 = (__Pyx_PyDict_ContainsTF(__pyx_n_s_params, ((PyObject*)__pyx_v_kwargs), Py_EQ)); if (unlikely((__pyx_t_4 < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_t_4 = (__Pyx_PyDict_ContainsTF(__pyx_n_s_params, ((PyObject*)__pyx_v_kwargs), Py_EQ)); if (unlikely((__pyx_t_4 < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
   __pyx_t_2 = __pyx_t_4;
   __pyx_L7_bool_binop_done:;
   if (likely(__pyx_t_2)) {
     if (unlikely(__pyx_v_kwargs == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 1050, __pyx_L1_error)
+      __PYX_ERR(0, 1076, __pyx_L1_error)
     }
-    __pyx_t_1 = __Pyx_PyDict_GetItem(((PyObject*)__pyx_v_kwargs), __pyx_n_s_params); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1050, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyDict_GetItem(((PyObject*)__pyx_v_kwargs), __pyx_n_s_params); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1076, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_arg = __pyx_t_1;
     __pyx_t_1 = 0;
@@ -46026,31 +46148,31 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
   /*else*/ {
     if (unlikely(__pyx_v_args == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-      __PYX_ERR(0, 1050, __pyx_L1_error)
+      __PYX_ERR(0, 1076, __pyx_L1_error)
     }
-    __pyx_t_5 = __Pyx_PyTuple_GET_SIZE(((PyObject*)__pyx_v_args)); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 1050, __pyx_L1_error)
-    __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1050, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyTuple_GET_SIZE(((PyObject*)__pyx_v_args)); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 1076, __pyx_L1_error)
+    __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1076, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = PyTuple_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1050, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1076, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_int_6);
     __Pyx_GIVEREF(__pyx_int_6);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_int_6)) __PYX_ERR(0, 1050, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_int_6)) __PYX_ERR(0, 1076, __pyx_L1_error);
     __Pyx_INCREF(__pyx_n_s_s);
     __Pyx_GIVEREF(__pyx_n_s_s);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_n_s_s)) __PYX_ERR(0, 1050, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_n_s_s)) __PYX_ERR(0, 1076, __pyx_L1_error);
     __Pyx_GIVEREF(__pyx_t_1);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 2, __pyx_t_1)) __PYX_ERR(0, 1050, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 2, __pyx_t_1)) __PYX_ERR(0, 1076, __pyx_L1_error);
     __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyString_Format(__pyx_kp_s_Expected_at_least_d_argument_s_g, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1050, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyString_Format(__pyx_kp_s_Expected_at_least_d_argument_s_g, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1076, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_builtin_TypeError, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1050, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_builtin_TypeError, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1076, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_Raise(__pyx_t_6, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __PYX_ERR(0, 1050, __pyx_L1_error)
+    __PYX_ERR(0, 1076, __pyx_L1_error)
   }
   __pyx_L6:;
   while (1) {
@@ -46058,7 +46180,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
     if (__pyx_t_2) {
       __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_arg, __pyx_v_ndarray); 
       if (__pyx_t_2) {
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_arg, __pyx_n_s_dtype); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1050, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_arg, __pyx_n_s_dtype); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1076, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __pyx_v_dtype = __pyx_t_6;
         __pyx_t_6 = 0;
@@ -46066,13 +46188,13 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
       }
       __pyx_t_2 = __pyx_memoryview_check(__pyx_v_arg); 
       if (__pyx_t_2) {
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_arg, __pyx_n_s_base); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1050, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_arg, __pyx_n_s_base); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1076, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __pyx_v_arg_base = __pyx_t_6;
         __pyx_t_6 = 0;
         __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_arg_base, __pyx_v_ndarray); 
         if (__pyx_t_2) {
-          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_arg_base, __pyx_n_s_dtype); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1050, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_arg_base, __pyx_n_s_dtype); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1076, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           __pyx_v_dtype = __pyx_t_6;
           __pyx_t_6 = 0;
@@ -46093,14 +46215,14 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
       __pyx_v_itemsize = -1L;
       __pyx_t_2 = (__pyx_v_dtype != Py_None);
       if (__pyx_t_2) {
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_dtype, __pyx_n_s_itemsize); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1050, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_dtype, __pyx_n_s_itemsize); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1076, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_6); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_6); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __pyx_v_itemsize = __pyx_t_5;
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_dtype, __pyx_n_s_kind); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1050, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_dtype, __pyx_n_s_kind); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1076, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_7 = __Pyx_PyObject_Ord(__pyx_t_6); if (unlikely(__pyx_t_7 == ((long)(long)(Py_UCS4)-1))) __PYX_ERR(0, 1050, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_Ord(__pyx_t_6); if (unlikely(__pyx_t_7 == ((long)(long)(Py_UCS4)-1))) __PYX_ERR(0, 1076, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __pyx_v_kind = __pyx_t_7;
         __pyx_v_dtype_signed = (__pyx_v_kind == 0x69);
@@ -46115,15 +46237,15 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
             __pyx_t_2 = __pyx_t_4;
             goto __pyx_L16_bool_binop_done;
           }
-          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_arg, __pyx_n_s_ndim); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1050, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_arg, __pyx_n_s_ndim); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1076, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
-          __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_6); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L1_error)
+          __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_6); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
           __pyx_t_4 = (((Py_ssize_t)__pyx_t_5) == 1);
           __pyx_t_2 = __pyx_t_4;
           __pyx_L16_bool_binop_done:;
           if (__pyx_t_2) {
-            if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, __pyx_n_s_float, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+            if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, __pyx_n_s_float, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
             goto __pyx_L10_break;
           }
           __pyx_t_4 = ((sizeof(double)) == __pyx_v_itemsize);
@@ -46132,15 +46254,15 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
             __pyx_t_2 = __pyx_t_4;
             goto __pyx_L19_bool_binop_done;
           }
-          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_arg, __pyx_n_s_ndim); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1050, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_arg, __pyx_n_s_ndim); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1076, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
-          __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_6); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L1_error)
+          __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_6); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
           __pyx_t_4 = (((Py_ssize_t)__pyx_t_5) == 1);
           __pyx_t_2 = __pyx_t_4;
           __pyx_L19_bool_binop_done:;
           if (__pyx_t_2) {
-            if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, __pyx_n_s_double, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+            if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, __pyx_n_s_double, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
             goto __pyx_L10_break;
           }
           break;
@@ -46154,7 +46276,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
     }
     __pyx_t_2 = (__pyx_v_arg == Py_None);
     if (__pyx_t_2) {
-      if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, __pyx_n_s_float, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+      if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, __pyx_n_s_float, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
       goto __pyx_L10_break;
     }
     {
@@ -46165,7 +46287,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
       __Pyx_XGOTREF(__pyx_t_9);
       __Pyx_XGOTREF(__pyx_t_10);
       /*try:*/ {
-        __pyx_t_6 = PyMemoryView_FromObject(__pyx_v_arg); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1050, __pyx_L22_error)
+        __pyx_t_6 = PyMemoryView_FromObject(__pyx_v_arg); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1076, __pyx_L22_error)
         __Pyx_GOTREF(__pyx_t_6);
         __pyx_v_arg_as_memoryview = ((PyObject*)__pyx_t_6);
         __pyx_t_6 = 0;
@@ -46176,7 +46298,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
           goto __pyx_L33_next_or;
         } else {
         }
-        __pyx_t_5 = __Pyx_PyMemoryView_Get_itemsize(__pyx_v_arg_as_memoryview); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L24_except_error)
+        __pyx_t_5 = __Pyx_PyMemoryView_Get_itemsize(__pyx_v_arg_as_memoryview); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L24_except_error)
         __pyx_t_4 = (__pyx_t_5 == (sizeof(float)));
         if (!__pyx_t_4) {
         } else {
@@ -46190,7 +46312,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
           goto __pyx_L31_bool_binop_done;
         }
         __pyx_L32_next_and:;
-        __pyx_t_11 = __Pyx_PyMemoryView_Get_ndim(__pyx_v_arg_as_memoryview); if (unlikely(__pyx_t_11 == ((int)-1) && PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L24_except_error)
+        __pyx_t_11 = __Pyx_PyMemoryView_Get_ndim(__pyx_v_arg_as_memoryview); if (unlikely(__pyx_t_11 == ((int)-1) && PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L24_except_error)
         __pyx_t_4 = (__pyx_t_11 == 1);
         __pyx_t_2 = __pyx_t_4;
         __pyx_L31_bool_binop_done:;
@@ -46200,7 +46322,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
           __pyx_t_2 = (__pyx_v_memslice.memview != 0);
           if (__pyx_t_2) {
             __PYX_XCLEAR_MEMVIEW((&__pyx_v_memslice), 1); 
-            if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, __pyx_n_s_float, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1050, __pyx_L24_except_error)
+            if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, __pyx_n_s_float, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1076, __pyx_L24_except_error)
             goto __pyx_L27_try_break;
           }
           /*else*/ {
@@ -46212,7 +46334,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
           goto __pyx_L39_next_or;
         } else {
         }
-        __pyx_t_5 = __Pyx_PyMemoryView_Get_itemsize(__pyx_v_arg_as_memoryview); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L24_except_error)
+        __pyx_t_5 = __Pyx_PyMemoryView_Get_itemsize(__pyx_v_arg_as_memoryview); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L24_except_error)
         __pyx_t_4 = (__pyx_t_5 == (sizeof(double)));
         if (!__pyx_t_4) {
         } else {
@@ -46226,7 +46348,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
           goto __pyx_L37_bool_binop_done;
         }
         __pyx_L38_next_and:;
-        __pyx_t_11 = __Pyx_PyMemoryView_Get_ndim(__pyx_v_arg_as_memoryview); if (unlikely(__pyx_t_11 == ((int)-1) && PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L24_except_error)
+        __pyx_t_11 = __Pyx_PyMemoryView_Get_ndim(__pyx_v_arg_as_memoryview); if (unlikely(__pyx_t_11 == ((int)-1) && PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L24_except_error)
         __pyx_t_4 = (__pyx_t_11 == 1);
         __pyx_t_2 = __pyx_t_4;
         __pyx_L37_bool_binop_done:;
@@ -46236,7 +46358,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
           __pyx_t_2 = (__pyx_v_memslice.memview != 0);
           if (__pyx_t_2) {
             __PYX_XCLEAR_MEMVIEW((&__pyx_v_memslice), 1); 
-            if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, __pyx_n_s_double, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1050, __pyx_L24_except_error)
+            if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, __pyx_n_s_double, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1076, __pyx_L24_except_error)
             goto __pyx_L27_try_break;
           }
           /*else*/ {
@@ -46254,7 +46376,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
       __pyx_t_11 = __Pyx_PyErr_ExceptionMatches2(__pyx_builtin_ValueError, __pyx_builtin_TypeError);
       if (__pyx_t_11) {
         __Pyx_AddTraceback("cosmomia.cosmomia.__pyx_fused_cpdef", __pyx_clineno, __pyx_lineno, __pyx_filename);
-        if (__Pyx_GetException(&__pyx_t_6, &__pyx_t_1, &__pyx_t_13) < 0) __PYX_ERR(0, 1050, __pyx_L24_except_error)
+        if (__Pyx_GetException(&__pyx_t_6, &__pyx_t_1, &__pyx_t_13) < 0) __PYX_ERR(0, 1076, __pyx_L24_except_error)
         __Pyx_XGOTREF(__pyx_t_6);
         __Pyx_XGOTREF(__pyx_t_1);
         __Pyx_XGOTREF(__pyx_t_13);
@@ -46283,19 +46405,19 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
       __Pyx_ExceptionReset(__pyx_t_8, __pyx_t_9, __pyx_t_10);
       __pyx_L29_try_end:;
     }
-    if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, Py_None, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+    if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, Py_None, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
     goto __pyx_L10_break;
   }
   __pyx_L10_break:;
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v__fused_sigindex); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v__fused_sigindex); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
   __pyx_t_4 = (!__pyx_t_2);
   if (__pyx_t_4) {
     __pyx_t_5 = 0;
     if (unlikely(__pyx_v_signatures == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-      __PYX_ERR(0, 1050, __pyx_L1_error)
+      __PYX_ERR(0, 1076, __pyx_L1_error)
     }
-    __pyx_t_1 = __Pyx_dict_iterator(((PyObject*)__pyx_v_signatures), 1, ((PyObject *)NULL), (&__pyx_t_14), (&__pyx_t_11)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1050, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_dict_iterator(((PyObject*)__pyx_v_signatures), 1, ((PyObject *)NULL), (&__pyx_t_14), (&__pyx_t_11)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1076, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_XDECREF(__pyx_t_13);
     __pyx_t_13 = __pyx_t_1;
@@ -46303,7 +46425,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
     while (1) {
       __pyx_t_15 = __Pyx_dict_iter_next(__pyx_t_13, __pyx_t_14, &__pyx_t_5, &__pyx_t_1, NULL, NULL, __pyx_t_11);
       if (unlikely(__pyx_t_15 == 0)) break;
-      if (unlikely(__pyx_t_15 == -1)) __PYX_ERR(0, 1050, __pyx_L1_error)
+      if (unlikely(__pyx_t_15 == -1)) __PYX_ERR(0, 1076, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_sig, __pyx_t_1);
       __pyx_t_1 = 0;
@@ -46311,7 +46433,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
       __Pyx_INCREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_sigindex_node, ((PyObject*)__pyx_t_1));
       __pyx_t_1 = 0;
-      __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_v_sig, __pyx_n_s_strip); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1050, __pyx_L1_error)
+      __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_v_sig, __pyx_n_s_strip); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1076, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_16);
       __pyx_t_17 = NULL;
       __pyx_t_15 = 0;
@@ -46331,11 +46453,11 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
         PyObject *__pyx_callargs[2] = {__pyx_t_17, __pyx_kp_s__11};
         __pyx_t_6 = __Pyx_PyObject_FastCall(__pyx_t_16, __pyx_callargs+1-__pyx_t_15, 1+__pyx_t_15);
         __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-        if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1050, __pyx_L1_error)
+        if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1076, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
       }
-      __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_split); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1050, __pyx_L1_error)
+      __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_split); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1076, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_16);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __pyx_t_6 = NULL;
@@ -46356,16 +46478,16 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
         PyObject *__pyx_callargs[2] = {__pyx_t_6, __pyx_kp_s__12};
         __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_16, __pyx_callargs+1-__pyx_t_15, 1+__pyx_t_15);
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-        if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1050, __pyx_L1_error)
+        if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1076, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
       }
-      __pyx_t_16 = __Pyx_PySequence_ListKeepNew(__pyx_t_1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1050, __pyx_L1_error)
+      __pyx_t_16 = __Pyx_PySequence_ListKeepNew(__pyx_t_1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1076, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_16);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_18 = PyList_GET_SIZE(__pyx_t_16);
       if (unlikely(__pyx_t_18 < 1)) {
-        __Pyx_RaiseNeedMoreValuesError(0+__pyx_t_18); __PYX_ERR(0, 1050, __pyx_L1_error)
+        __Pyx_RaiseNeedMoreValuesError(0+__pyx_t_18); __PYX_ERR(0, 1076, __pyx_L1_error)
       }
       #if CYTHON_COMPILING_IN_CPYTHON
       __pyx_t_6 = PyList_GET_ITEM(__pyx_t_16, __pyx_t_18-1); 
@@ -46375,7 +46497,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
       #endif
       __Pyx_GOTREF(__pyx_t_6);
       #if !CYTHON_COMPILING_IN_CPYTHON
-      __pyx_t_17 = PySequence_GetSlice(__pyx_t_16, 0, __pyx_t_18-1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1050, __pyx_L1_error)
+      __pyx_t_17 = PySequence_GetSlice(__pyx_t_16, 0, __pyx_t_18-1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1076, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_17);
       __Pyx_DECREF(__pyx_t_16);
       __pyx_t_16 = __pyx_t_17; __pyx_t_17 = NULL;
@@ -46392,31 +46514,31 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
         {
           Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_1);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
           #endif
           if (__pyx_t_18 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_6 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_18); __Pyx_INCREF(__pyx_t_6); __pyx_t_18++; if (unlikely((0 < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+        __pyx_t_6 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_18); __Pyx_INCREF(__pyx_t_6); __pyx_t_18++; if (unlikely((0 < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
         #else
-        __pyx_t_6 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_18); __pyx_t_18++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1050, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_18); __pyx_t_18++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1076, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         #endif
         __Pyx_XDECREF_SET(__pyx_v_sig_type, __pyx_t_6);
         __pyx_t_6 = 0;
         if (unlikely(__pyx_v_sigindex_node == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-          __PYX_ERR(0, 1050, __pyx_L1_error)
+          __PYX_ERR(0, 1076, __pyx_L1_error)
         }
-        __pyx_t_4 = (__Pyx_PyDict_ContainsTF(__pyx_v_sig_type, __pyx_v_sigindex_node, Py_NE)); if (unlikely((__pyx_t_4 < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+        __pyx_t_4 = (__Pyx_PyDict_ContainsTF(__pyx_v_sig_type, __pyx_v_sigindex_node, Py_NE)); if (unlikely((__pyx_t_4 < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
         if (__pyx_t_4) {
-          __pyx_t_6 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1050, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1076, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           if (unlikely(__pyx_v_sigindex_node == Py_None)) {
             PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-            __PYX_ERR(0, 1050, __pyx_L1_error)
+            __PYX_ERR(0, 1076, __pyx_L1_error)
           }
-          if (unlikely((PyDict_SetItem(__pyx_v_sigindex_node, __pyx_v_sig_type, __pyx_t_6) < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+          if (unlikely((PyDict_SetItem(__pyx_v_sigindex_node, __pyx_v_sig_type, __pyx_t_6) < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
           __Pyx_INCREF(__pyx_t_6);
           __Pyx_DECREF_SET(__pyx_v_sigindex_node, __pyx_t_6);
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -46425,9 +46547,9 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
         /*else*/ {
           if (unlikely(__pyx_v_sigindex_node == Py_None)) {
             PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-            __PYX_ERR(0, 1050, __pyx_L1_error)
+            __PYX_ERR(0, 1076, __pyx_L1_error)
           }
-          __pyx_t_6 = __Pyx_PyDict_GetItem(__pyx_v_sigindex_node, __pyx_v_sig_type); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1050, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyDict_GetItem(__pyx_v_sigindex_node, __pyx_v_sig_type); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1076, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           __pyx_t_16 = __pyx_t_6;
           __Pyx_INCREF(__pyx_t_16);
@@ -46440,21 +46562,21 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (unlikely(__pyx_v_sigindex_node == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 1050, __pyx_L1_error)
+        __PYX_ERR(0, 1076, __pyx_L1_error)
       }
-      if (unlikely((PyDict_SetItem(__pyx_v_sigindex_node, __pyx_v_last_type, __pyx_v_sig) < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+      if (unlikely((PyDict_SetItem(__pyx_v_sigindex_node, __pyx_v_last_type, __pyx_v_sig) < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
   }
-  __pyx_t_13 = PyList_New(0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_t_13 = PyList_New(0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
   __pyx_v_sigindex_matches = ((PyObject*)__pyx_t_13);
   __pyx_t_13 = 0;
-  __pyx_t_13 = PyList_New(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_t_13 = PyList_New(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
   __Pyx_INCREF(__pyx_v__fused_sigindex);
   __Pyx_GIVEREF(__pyx_v__fused_sigindex);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_13, 0, __pyx_v__fused_sigindex)) __PYX_ERR(0, 1050, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_13, 0, __pyx_v__fused_sigindex)) __PYX_ERR(0, 1076, __pyx_L1_error);
   __pyx_v_sigindex_candidates = ((PyObject*)__pyx_t_13);
   __pyx_t_13 = 0;
   __pyx_t_13 = __pyx_v_dest_sig; __Pyx_INCREF(__pyx_t_13);
@@ -46463,23 +46585,23 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
     {
       Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_13);
       #if !CYTHON_ASSUME_SAFE_MACROS
-      if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+      if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
       #endif
       if (__pyx_t_14 >= __pyx_temp) break;
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_1 = PyList_GET_ITEM(__pyx_t_13, __pyx_t_14); __Pyx_INCREF(__pyx_t_1); __pyx_t_14++; if (unlikely((0 < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+    __pyx_t_1 = PyList_GET_ITEM(__pyx_t_13, __pyx_t_14); __Pyx_INCREF(__pyx_t_1); __pyx_t_14++; if (unlikely((0 < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
     #else
-    __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_13, __pyx_t_14); __pyx_t_14++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1050, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_13, __pyx_t_14); __pyx_t_14++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1076, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     #endif
     __Pyx_XDECREF_SET(__pyx_v_dst_type, __pyx_t_1);
     __pyx_t_1 = 0;
-    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1050, __pyx_L1_error)
+    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1076, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_XDECREF_SET(__pyx_v_found_matches, ((PyObject*)__pyx_t_1));
     __pyx_t_1 = 0;
-    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1050, __pyx_L1_error)
+    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1076, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_XDECREF_SET(__pyx_v_found_candidates, ((PyObject*)__pyx_t_1));
     __pyx_t_1 = 0;
@@ -46491,25 +46613,25 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
         {
           Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_1);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
           #endif
           if (__pyx_t_5 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_16 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_5); __Pyx_INCREF(__pyx_t_16); __pyx_t_5++; if (unlikely((0 < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+        __pyx_t_16 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_5); __Pyx_INCREF(__pyx_t_16); __pyx_t_5++; if (unlikely((0 < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
         #else
-        __pyx_t_16 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1050, __pyx_L1_error)
+        __pyx_t_16 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1076, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
         #endif
         __Pyx_XDECREF_SET(__pyx_v_sn, __pyx_t_16);
         __pyx_t_16 = 0;
         if (unlikely(__pyx_v_sn == Py_None)) {
           PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "values");
-          __PYX_ERR(0, 1050, __pyx_L1_error)
+          __PYX_ERR(0, 1076, __pyx_L1_error)
         }
-        __pyx_t_16 = __Pyx_PyDict_Values(((PyObject*)__pyx_v_sn)); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1050, __pyx_L1_error)
+        __pyx_t_16 = __Pyx_PyDict_Values(((PyObject*)__pyx_v_sn)); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1076, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
-        __pyx_t_19 = __Pyx_PyList_Extend(__pyx_v_found_matches, __pyx_t_16); if (unlikely(__pyx_t_19 == ((int)-1))) __PYX_ERR(0, 1050, __pyx_L1_error)
+        __pyx_t_19 = __Pyx_PyList_Extend(__pyx_v_found_matches, __pyx_t_16); if (unlikely(__pyx_t_19 == ((int)-1))) __PYX_ERR(0, 1076, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -46519,55 +46641,55 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
         {
           Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_1);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
           #endif
           if (__pyx_t_5 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_16 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_5); __Pyx_INCREF(__pyx_t_16); __pyx_t_5++; if (unlikely((0 < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+        __pyx_t_16 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_5); __Pyx_INCREF(__pyx_t_16); __pyx_t_5++; if (unlikely((0 < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
         #else
-        __pyx_t_16 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1050, __pyx_L1_error)
+        __pyx_t_16 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1076, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
         #endif
         __Pyx_XDECREF_SET(__pyx_v_sn, __pyx_t_16);
         __pyx_t_16 = 0;
         if (unlikely(__pyx_v_sn == Py_None)) {
           PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "values");
-          __PYX_ERR(0, 1050, __pyx_L1_error)
+          __PYX_ERR(0, 1076, __pyx_L1_error)
         }
-        __pyx_t_16 = __Pyx_PyDict_Values(((PyObject*)__pyx_v_sn)); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1050, __pyx_L1_error)
+        __pyx_t_16 = __Pyx_PyDict_Values(((PyObject*)__pyx_v_sn)); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1076, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
-        __pyx_t_19 = __Pyx_PyList_Extend(__pyx_v_found_candidates, __pyx_t_16); if (unlikely(__pyx_t_19 == ((int)-1))) __PYX_ERR(0, 1050, __pyx_L1_error)
+        __pyx_t_19 = __Pyx_PyList_Extend(__pyx_v_found_candidates, __pyx_t_16); if (unlikely(__pyx_t_19 == ((int)-1))) __PYX_ERR(0, 1076, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       goto __pyx_L53;
     }
     /*else*/ {
-      __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1050, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1076, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_v_sigindex_matches);
       __Pyx_GIVEREF(__pyx_v_sigindex_matches);
-      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_sigindex_matches)) __PYX_ERR(0, 1050, __pyx_L1_error);
+      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_sigindex_matches)) __PYX_ERR(0, 1076, __pyx_L1_error);
       __Pyx_INCREF(__pyx_v_sigindex_candidates);
       __Pyx_GIVEREF(__pyx_v_sigindex_candidates);
-      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_sigindex_candidates)) __PYX_ERR(0, 1050, __pyx_L1_error);
+      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_sigindex_candidates)) __PYX_ERR(0, 1076, __pyx_L1_error);
       __pyx_t_16 = __pyx_t_1; __Pyx_INCREF(__pyx_t_16);
       __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       for (;;) {
         if (__pyx_t_5 >= 2) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_16, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely((0 < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_16, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely((0 < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
         #else
-        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_16, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1050, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_16, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1076, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
         __Pyx_XDECREF_SET(__pyx_v_search_list, ((PyObject*)__pyx_t_1));
         __pyx_t_1 = 0;
         if (unlikely(__pyx_v_search_list == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-          __PYX_ERR(0, 1050, __pyx_L1_error)
+          __PYX_ERR(0, 1076, __pyx_L1_error)
         }
         __pyx_t_1 = __pyx_v_search_list; __Pyx_INCREF(__pyx_t_1);
         __pyx_t_18 = 0;
@@ -46575,29 +46697,29 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
           {
             Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_1);
             #if !CYTHON_ASSUME_SAFE_MACROS
-            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
             #endif
             if (__pyx_t_18 >= __pyx_temp) break;
           }
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_6 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_18); __Pyx_INCREF(__pyx_t_6); __pyx_t_18++; if (unlikely((0 < 0))) __PYX_ERR(0, 1050, __pyx_L1_error)
+          __pyx_t_6 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_18); __Pyx_INCREF(__pyx_t_6); __pyx_t_18++; if (unlikely((0 < 0))) __PYX_ERR(0, 1076, __pyx_L1_error)
           #else
-          __pyx_t_6 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_18); __pyx_t_18++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1050, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_18); __pyx_t_18++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1076, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           #endif
           __Pyx_XDECREF_SET(__pyx_v_sn, __pyx_t_6);
           __pyx_t_6 = 0;
           if (unlikely(__pyx_v_sn == Py_None)) {
             PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "get");
-            __PYX_ERR(0, 1050, __pyx_L1_error)
+            __PYX_ERR(0, 1076, __pyx_L1_error)
           }
-          __pyx_t_6 = __Pyx_PyDict_GetItemDefault(((PyObject*)__pyx_v_sn), __pyx_v_dst_type, Py_None); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1050, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyDict_GetItemDefault(((PyObject*)__pyx_v_sn), __pyx_v_dst_type, Py_None); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1076, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           __Pyx_XDECREF_SET(__pyx_v_type_match, __pyx_t_6);
           __pyx_t_6 = 0;
           __pyx_t_4 = (__pyx_v_type_match != Py_None);
           if (__pyx_t_4) {
-            __pyx_t_19 = __Pyx_PyList_Append(__pyx_v_found_matches, __pyx_v_type_match); if (unlikely(__pyx_t_19 == ((int)-1))) __PYX_ERR(0, 1050, __pyx_L1_error)
+            __pyx_t_19 = __Pyx_PyList_Append(__pyx_v_found_matches, __pyx_v_type_match); if (unlikely(__pyx_t_19 == ((int)-1))) __PYX_ERR(0, 1076, __pyx_L1_error)
           }
         }
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -46634,28 +46756,28 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_14subgrid_collapse(CYTHON_UNUSED P
   __pyx_t_2 = (PyList_GET_SIZE(__pyx_v_candidates) != 0);
   __pyx_t_4 = (!__pyx_t_2);
   if (unlikely(__pyx_t_4)) {
-    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__13, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1050, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__13, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1076, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __Pyx_Raise(__pyx_t_13, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __PYX_ERR(0, 1050, __pyx_L1_error)
+    __PYX_ERR(0, 1076, __pyx_L1_error)
   }
-  __pyx_t_14 = __Pyx_PyList_GET_SIZE(__pyx_v_candidates); if (unlikely(__pyx_t_14 == ((Py_ssize_t)-1))) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyList_GET_SIZE(__pyx_v_candidates); if (unlikely(__pyx_t_14 == ((Py_ssize_t)-1))) __PYX_ERR(0, 1076, __pyx_L1_error)
   __pyx_t_4 = (__pyx_t_14 > 1);
   if (unlikely(__pyx_t_4)) {
-    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1050, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1076, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __Pyx_Raise(__pyx_t_13, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __PYX_ERR(0, 1050, __pyx_L1_error)
+    __PYX_ERR(0, 1076, __pyx_L1_error)
   }
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
     if (unlikely(__pyx_v_signatures == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 1050, __pyx_L1_error)
+      __PYX_ERR(0, 1076, __pyx_L1_error)
     }
-    __pyx_t_13 = __Pyx_PyDict_GetItem(((PyObject*)__pyx_v_signatures), PyList_GET_ITEM(__pyx_v_candidates, 0)); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1050, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyDict_GetItem(((PyObject*)__pyx_v_signatures), PyList_GET_ITEM(__pyx_v_candidates, 0)); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1076, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __pyx_r = __pyx_t_13;
     __pyx_t_13 = 0;
@@ -46768,11 +46890,12 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
   Py_ssize_t __pyx_t_24;
   Py_ssize_t __pyx_t_25;
   __Pyx_memviewslice __pyx_t_26 = { 0, 0, { 0 }, { 0 }, { 0 } };
-  Py_ssize_t __pyx_t_27;
-  int __pyx_t_28;
-  Py_UCS4 __pyx_t_29;
-  size_t __pyx_t_30;
-  PyObject *__pyx_t_31 = NULL;
+  __Pyx_memviewslice __pyx_t_27 = { 0, 0, { 0 }, { 0 }, { 0 } };
+  Py_ssize_t __pyx_t_28;
+  int __pyx_t_29;
+  Py_UCS4 __pyx_t_30;
+  size_t __pyx_t_31;
+  PyObject *__pyx_t_32 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -46811,7 +46934,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
   __pyx_pybuffernd_not_attractors_ids.data = NULL;
   __pyx_pybuffernd_not_attractors_ids.rcbuffer = &__pyx_pybuffer_not_attractors_ids;
 
-  /* "cosmomia/subgrid.pyx":1052
+  /* "cosmomia/subgrid.pyx":1078
  * cpdef dict subgrid_collapse(dict catalog, floating[:] params, floating[:] box_size, is_attractor_mask, size_t seed, size_t num_threads, debug = False):
  * 
  *     cdef mt19937 gen = mt19937(seed)             # <<<<<<<<<<<<<<
@@ -46820,7 +46943,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
  */
   __pyx_v_gen = std::mt19937(__pyx_v_seed);
 
-  /* "cosmomia/subgrid.pyx":1053
+  /* "cosmomia/subgrid.pyx":1079
  * 
  *     cdef mt19937 gen = mt19937(seed)
  *     cdef normal_distribution[floating] dist_gauss = normal_distribution[floating](0., 1.)             # <<<<<<<<<<<<<<
@@ -46829,7 +46952,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
  */
   __pyx_v_dist_gauss = std::normal_distribution<float> (0., 1.);
 
-  /* "cosmomia/subgrid.pyx":1064
+  /* "cosmomia/subgrid.pyx":1090
  * 
  *     cdef floating[:,:] pos_view, vel_view
  *     pos_view = catalog['pos']             # <<<<<<<<<<<<<<
@@ -46838,17 +46961,17 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
  */
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1064, __pyx_L1_error)
+    __PYX_ERR(0, 1090, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_pos); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1064, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_pos); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1090, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1064, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1090, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_pos_view = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1074
+  /* "cosmomia/subgrid.pyx":1100
  * 
  *     #mask = catalog['is_dm'].astype(bool) & (catalog['dweb'] < 4)
  *     cdef cnp.ndarray[floating, ndim=2] attractors = catalog['pos'][is_attractor_mask]             # <<<<<<<<<<<<<<
@@ -46857,20 +46980,20 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
  */
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1074, __pyx_L1_error)
+    __PYX_ERR(0, 1100, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_pos); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1074, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_pos); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1100, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1074, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1100, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1074, __pyx_L1_error)
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1100, __pyx_L1_error)
   __pyx_t_4 = ((PyArrayObject *)__pyx_t_3);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_t_4, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_attractors = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_attractors.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1074, __pyx_L1_error)
+      __PYX_ERR(0, 1100, __pyx_L1_error)
     } else {__pyx_pybuffernd_attractors.diminfo[0].strides = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_attractors.diminfo[0].shape = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_attractors.diminfo[1].strides = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_attractors.diminfo[1].shape = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -46878,7 +47001,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
   __pyx_v_attractors = ((PyArrayObject *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "cosmomia/subgrid.pyx":1075
+  /* "cosmomia/subgrid.pyx":1101
  *     #mask = catalog['is_dm'].astype(bool) & (catalog['dweb'] < 4)
  *     cdef cnp.ndarray[floating, ndim=2] attractors = catalog['pos'][is_attractor_mask]
  *     cdef cnp.ndarray[floating, ndim=2] not_attractors = catalog['pos'][~is_attractor_mask]             # <<<<<<<<<<<<<<
@@ -46887,23 +47010,23 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
  */
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1075, __pyx_L1_error)
+    __PYX_ERR(0, 1101, __pyx_L1_error)
   }
-  __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_pos); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1075, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_pos); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = PyNumber_Invert(__pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1075, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Invert(__pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1075, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1075, __pyx_L1_error)
+  if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1101, __pyx_L1_error)
   __pyx_t_6 = ((PyArrayObject *)__pyx_t_5);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_not_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_t_6, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_not_attractors = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1075, __pyx_L1_error)
+      __PYX_ERR(0, 1101, __pyx_L1_error)
     } else {__pyx_pybuffernd_not_attractors.diminfo[0].strides = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_not_attractors.diminfo[0].shape = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_not_attractors.diminfo[1].strides = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_not_attractors.diminfo[1].shape = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -46911,7 +47034,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
   __pyx_v_not_attractors = ((PyArrayObject *)__pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "cosmomia/subgrid.pyx":1076
+  /* "cosmomia/subgrid.pyx":1102
  *     cdef cnp.ndarray[floating, ndim=2] attractors = catalog['pos'][is_attractor_mask]
  *     cdef cnp.ndarray[floating, ndim=2] not_attractors = catalog['pos'][~is_attractor_mask]
  *     cdef cnp.ndarray[floating, ndim=2] vel_attractors = catalog['vel'][is_attractor_mask]             # <<<<<<<<<<<<<<
@@ -46920,20 +47043,20 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
  */
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1076, __pyx_L1_error)
+    __PYX_ERR(0, 1102, __pyx_L1_error)
   }
-  __pyx_t_5 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_vel); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1076, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_vel); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1076, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1076, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1102, __pyx_L1_error)
   __pyx_t_7 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_t_7, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_vel_attractors = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1076, __pyx_L1_error)
+      __PYX_ERR(0, 1102, __pyx_L1_error)
     } else {__pyx_pybuffernd_vel_attractors.diminfo[0].strides = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_vel_attractors.diminfo[0].shape = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_vel_attractors.diminfo[1].strides = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_vel_attractors.diminfo[1].shape = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -46941,7 +47064,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
   __pyx_v_vel_attractors = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "cosmomia/subgrid.pyx":1077
+  /* "cosmomia/subgrid.pyx":1103
  *     cdef cnp.ndarray[floating, ndim=2] not_attractors = catalog['pos'][~is_attractor_mask]
  *     cdef cnp.ndarray[floating, ndim=2] vel_attractors = catalog['vel'][is_attractor_mask]
  *     cdef cnp.ndarray[floating, ndim=2] vel_not_attractors = catalog['vel'][~is_attractor_mask]             # <<<<<<<<<<<<<<
@@ -46950,23 +47073,23 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
  */
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1077, __pyx_L1_error)
+    __PYX_ERR(0, 1103, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_vel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1077, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_vel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = PyNumber_Invert(__pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1077, __pyx_L1_error)
+  __pyx_t_5 = PyNumber_Invert(__pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1077, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1077, __pyx_L1_error)
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1103, __pyx_L1_error)
   __pyx_t_8 = ((PyArrayObject *)__pyx_t_3);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_t_8, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_vel_not_attractors = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1077, __pyx_L1_error)
+      __PYX_ERR(0, 1103, __pyx_L1_error)
     } else {__pyx_pybuffernd_vel_not_attractors.diminfo[0].strides = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_vel_not_attractors.diminfo[0].shape = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_vel_not_attractors.diminfo[1].strides = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_vel_not_attractors.diminfo[1].shape = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -46974,7 +47097,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
   __pyx_v_vel_not_attractors = ((PyArrayObject *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "cosmomia/subgrid.pyx":1078
+  /* "cosmomia/subgrid.pyx":1104
  *     cdef cnp.ndarray[floating, ndim=2] vel_attractors = catalog['vel'][is_attractor_mask]
  *     cdef cnp.ndarray[floating, ndim=2] vel_not_attractors = catalog['vel'][~is_attractor_mask]
  *     cdef cnp.ndarray[floating, ndim=1] dm = catalog['delta_dm'][is_attractor_mask]             # <<<<<<<<<<<<<<
@@ -46983,20 +47106,20 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
  */
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1078, __pyx_L1_error)
+    __PYX_ERR(0, 1104, __pyx_L1_error)
   }
-  __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_delta_dm); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1078, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_delta_dm); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1078, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1078, __pyx_L1_error)
+  if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1104, __pyx_L1_error)
   __pyx_t_9 = ((PyArrayObject *)__pyx_t_5);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_dm.rcbuffer->pybuffer, (PyObject*)__pyx_t_9, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_dm = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_dm.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1078, __pyx_L1_error)
+      __PYX_ERR(0, 1104, __pyx_L1_error)
     } else {__pyx_pybuffernd_dm.diminfo[0].strides = __pyx_pybuffernd_dm.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_dm.diminfo[0].shape = __pyx_pybuffernd_dm.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -47004,55 +47127,55 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
   __pyx_v_dm = ((PyArrayObject *)__pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "cosmomia/subgrid.pyx":1085
+  /* "cosmomia/subgrid.pyx":1111
  * 
  *     cdef floating[:,:] attractors_view, not_attractors_view, vel_attractors_view, vel_not_attractors_view#, attractors_copy_view, not_attractors_copy_view
  *     attractors_view = attractors             # <<<<<<<<<<<<<<
  *     not_attractors_view = not_attractors
  *     vel_attractors_view = vel_attractors
  */
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(((PyObject *)__pyx_v_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1085, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(((PyObject *)__pyx_v_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1111, __pyx_L1_error)
   __pyx_v_attractors_view = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1086
+  /* "cosmomia/subgrid.pyx":1112
  *     cdef floating[:,:] attractors_view, not_attractors_view, vel_attractors_view, vel_not_attractors_view#, attractors_copy_view, not_attractors_copy_view
  *     attractors_view = attractors
  *     not_attractors_view = not_attractors             # <<<<<<<<<<<<<<
  *     vel_attractors_view = vel_attractors
  *     vel_not_attractors_view = vel_not_attractors
  */
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(((PyObject *)__pyx_v_not_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1086, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(((PyObject *)__pyx_v_not_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1112, __pyx_L1_error)
   __pyx_v_not_attractors_view = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1087
+  /* "cosmomia/subgrid.pyx":1113
  *     attractors_view = attractors
  *     not_attractors_view = not_attractors
  *     vel_attractors_view = vel_attractors             # <<<<<<<<<<<<<<
  *     vel_not_attractors_view = vel_not_attractors
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(((PyObject *)__pyx_v_vel_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1087, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(((PyObject *)__pyx_v_vel_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1113, __pyx_L1_error)
   __pyx_v_vel_attractors_view = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1088
+  /* "cosmomia/subgrid.pyx":1114
  *     not_attractors_view = not_attractors
  *     vel_attractors_view = vel_attractors
  *     vel_not_attractors_view = vel_not_attractors             # <<<<<<<<<<<<<<
  * 
  *     cdef cnp.ndarray[long, ndim=1] attractors_ids = catalog['order'][is_attractor_mask]
  */
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(((PyObject *)__pyx_v_vel_not_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1088, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(((PyObject *)__pyx_v_vel_not_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1114, __pyx_L1_error)
   __pyx_v_vel_not_attractors_view = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1090
+  /* "cosmomia/subgrid.pyx":1116
  *     vel_not_attractors_view = vel_not_attractors
  * 
  *     cdef cnp.ndarray[long, ndim=1] attractors_ids = catalog['order'][is_attractor_mask]             # <<<<<<<<<<<<<<
@@ -47061,20 +47184,20 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
  */
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1090, __pyx_L1_error)
+    __PYX_ERR(0, 1116, __pyx_L1_error)
   }
-  __pyx_t_5 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_order); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1090, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_order); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1090, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1090, __pyx_L1_error)
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1116, __pyx_L1_error)
   __pyx_t_10 = ((PyArrayObject *)__pyx_t_3);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_attractors_ids.rcbuffer->pybuffer, (PyObject*)__pyx_t_10, &__Pyx_TypeInfo_long, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_attractors_ids = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_attractors_ids.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1090, __pyx_L1_error)
+      __PYX_ERR(0, 1116, __pyx_L1_error)
     } else {__pyx_pybuffernd_attractors_ids.diminfo[0].strides = __pyx_pybuffernd_attractors_ids.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_attractors_ids.diminfo[0].shape = __pyx_pybuffernd_attractors_ids.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -47082,7 +47205,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
   __pyx_v_attractors_ids = ((PyArrayObject *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "cosmomia/subgrid.pyx":1091
+  /* "cosmomia/subgrid.pyx":1117
  * 
  *     cdef cnp.ndarray[long, ndim=1] attractors_ids = catalog['order'][is_attractor_mask]
  *     cdef cnp.ndarray[long, ndim=1] not_attractors_ids = catalog['order'][~is_attractor_mask]             # <<<<<<<<<<<<<<
@@ -47091,23 +47214,23 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
  */
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1091, __pyx_L1_error)
+    __PYX_ERR(0, 1117, __pyx_L1_error)
   }
-  __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_order); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1091, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_order); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = PyNumber_Invert(__pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1091, __pyx_L1_error)
+  __pyx_t_5 = PyNumber_Invert(__pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1091, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1091, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1117, __pyx_L1_error)
   __pyx_t_11 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_not_attractors_ids.rcbuffer->pybuffer, (PyObject*)__pyx_t_11, &__Pyx_TypeInfo_long, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_not_attractors_ids = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_not_attractors_ids.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1091, __pyx_L1_error)
+      __PYX_ERR(0, 1117, __pyx_L1_error)
     } else {__pyx_pybuffernd_not_attractors_ids.diminfo[0].strides = __pyx_pybuffernd_not_attractors_ids.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_not_attractors_ids.diminfo[0].shape = __pyx_pybuffernd_not_attractors_ids.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -47115,26 +47238,26 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
   __pyx_v_not_attractors_ids = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "cosmomia/subgrid.pyx":1097
+  /* "cosmomia/subgrid.pyx":1123
  * 
  * 
  *     cdef floating[:] dm_view = dm             # <<<<<<<<<<<<<<
  *     #attractors_copy_view = attractors_copy
  *     #not_attractors_copy_view = not_attractors_copy
  */
-  __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_ds_float(((PyObject *)__pyx_v_dm), PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 1097, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_ds_float(((PyObject *)__pyx_v_dm), PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 1123, __pyx_L1_error)
   __pyx_v_dm_view = __pyx_t_12;
   __pyx_t_12.memview = NULL;
   __pyx_t_12.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1103
+  /* "cosmomia/subgrid.pyx":1129
  *     #tic = time.time()
  *     #tree = pybosque.Tree(not_attractors, idxs)
  *     tree = KDTree(attractors)#, boxsize = box_size)             # <<<<<<<<<<<<<<
  *     #print(f"Tree built in {time.time() - tic}s", flush=True)
  *     #tic = time.time()
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_KDTree); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1103, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_KDTree); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1129, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_3 = NULL;
   __pyx_t_13 = 0;
@@ -47154,34 +47277,34 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
     PyObject *__pyx_callargs[2] = {__pyx_t_3, ((PyObject *)__pyx_v_attractors)};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_13, 1+__pyx_t_13);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1103, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1129, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __pyx_v_tree = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "cosmomia/subgrid.pyx":1108
+  /* "cosmomia/subgrid.pyx":1134
  *     #r, ids = tree.query(attractors, 2, [0,1])
  *     #r, ids = tree.query(not_attractors, k = 2)
  *     dists, ids = tree.query(attractors, k = 2, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)             # <<<<<<<<<<<<<<
  *     cdef floating[:] dists_view
  *     dists_view = dists[:,1]
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_tree, __pyx_n_s_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1108, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_tree, __pyx_n_s_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1108, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_INCREF((PyObject *)__pyx_v_attractors);
   __Pyx_GIVEREF((PyObject *)__pyx_v_attractors);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, ((PyObject *)__pyx_v_attractors))) __PYX_ERR(0, 1108, __pyx_L1_error);
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1108, __pyx_L1_error)
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, ((PyObject *)__pyx_v_attractors))) __PYX_ERR(0, 1134, __pyx_L1_error);
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_k, __pyx_int_2) < 0) __PYX_ERR(0, 1108, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_eps, __pyx_float_0_) < 0) __PYX_ERR(0, 1108, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_distance_upper_bound, Py_None) < 0) __PYX_ERR(0, 1108, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_sqr_dists, Py_True) < 0) __PYX_ERR(0, 1108, __pyx_L1_error)
-  __pyx_t_14 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1108, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_k, __pyx_int_2) < 0) __PYX_ERR(0, 1134, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_eps, __pyx_float_0_) < 0) __PYX_ERR(0, 1134, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_distance_upper_bound, Py_None) < 0) __PYX_ERR(0, 1134, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_sqr_dists, Py_True) < 0) __PYX_ERR(0, 1134, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -47192,7 +47315,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
     if (unlikely(size != 2)) {
       if (size > 2) __Pyx_RaiseTooManyValuesError(2);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 1108, __pyx_L1_error)
+      __PYX_ERR(0, 1134, __pyx_L1_error)
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -47205,15 +47328,15 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
     __Pyx_INCREF(__pyx_t_3);
     __Pyx_INCREF(__pyx_t_5);
     #else
-    __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1108, __pyx_L1_error)
+    __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1134, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1108, __pyx_L1_error)
+    __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1134, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     #endif
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_1 = PyObject_GetIter(__pyx_t_14); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1108, __pyx_L1_error)
+    __pyx_t_1 = PyObject_GetIter(__pyx_t_14); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1134, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
     __pyx_t_15 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_1);
@@ -47221,7 +47344,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
     __Pyx_GOTREF(__pyx_t_3);
     index = 1; __pyx_t_5 = __pyx_t_15(__pyx_t_1); if (unlikely(!__pyx_t_5)) goto __pyx_L3_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_5);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_1), 2) < 0) __PYX_ERR(0, 1108, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_1), 2) < 0) __PYX_ERR(0, 1134, __pyx_L1_error)
     __pyx_t_15 = NULL;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     goto __pyx_L4_unpacking_done;
@@ -47229,7 +47352,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_15 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 1108, __pyx_L1_error)
+    __PYX_ERR(0, 1134, __pyx_L1_error)
     __pyx_L4_unpacking_done:;
   }
   __pyx_v_dists = __pyx_t_3;
@@ -47237,46 +47360,46 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
   __pyx_v_ids = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "cosmomia/subgrid.pyx":1110
+  /* "cosmomia/subgrid.pyx":1136
  *     dists, ids = tree.query(attractors, k = 2, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)
  *     cdef floating[:] dists_view
  *     dists_view = dists[:,1]             # <<<<<<<<<<<<<<
  *     cdef unsigned[:] ids_view
  *     ids_view = ids[:,1]
  */
-  __pyx_t_14 = __Pyx_PyObject_GetItem(__pyx_v_dists, __pyx_tuple__20); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1110, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyObject_GetItem(__pyx_v_dists, __pyx_tuple__20); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
-  __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_ds_float(__pyx_t_14, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 1110, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_ds_float(__pyx_t_14, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 1136, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
   __pyx_v_dists_view = __pyx_t_12;
   __pyx_t_12.memview = NULL;
   __pyx_t_12.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1112
+  /* "cosmomia/subgrid.pyx":1138
  *     dists_view = dists[:,1]
  *     cdef unsigned[:] ids_view
  *     ids_view = ids[:,1]             # <<<<<<<<<<<<<<
  *     #ids is the array of ids in not_attractors that are closest to eah attractor
  *     #print(f"Tree query in {time.time() - tic}s", flush=True)
  */
-  __pyx_t_14 = __Pyx_PyObject_GetItem(__pyx_v_ids, __pyx_tuple__20); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1112, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyObject_GetItem(__pyx_v_ids, __pyx_tuple__20); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1138, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
-  __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_int(__pyx_t_14, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 1112, __pyx_L1_error)
+  __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_int(__pyx_t_14, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 1138, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
   __pyx_v_ids_view = __pyx_t_16;
   __pyx_t_16.memview = NULL;
   __pyx_t_16.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1118
+  /* "cosmomia/subgrid.pyx":1144
  *     cdef floating collapse_frac, gauss_rand
  * 
  *     tic = time.time()             # <<<<<<<<<<<<<<
  *     for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):
  *         #gauss_rand = dist_gauss(gen)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_time); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1118, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_time); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1144, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1118, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1144, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_5 = NULL;
@@ -47297,14 +47420,14 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
     PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
     __pyx_t_14 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_13, 0+__pyx_t_13);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1118, __pyx_L1_error)
+    if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1144, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_tic = __pyx_t_14;
   __pyx_t_14 = 0;
 
-  /* "cosmomia/subgrid.pyx":1119
+  /* "cosmomia/subgrid.pyx":1145
  * 
  *     tic = time.time()
  *     for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):             # <<<<<<<<<<<<<<
@@ -47319,7 +47442,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
       __Pyx_FastGIL_Remember();
       #endif
       /*try:*/ {
-        if (unlikely(!__pyx_v_ids_view.memview)) { __Pyx_RaiseUnboundMemoryviewSliceNogil("ids_view"); __PYX_ERR(0, 1119, __pyx_L6_error) }
+        if (unlikely(!__pyx_v_ids_view.memview)) { __Pyx_RaiseUnboundMemoryviewSliceNogil("ids_view"); __PYX_ERR(0, 1145, __pyx_L6_error) }
         __pyx_t_17 = (__pyx_v_ids_view.shape[0]);
         {
             #if ((defined(__APPLE__) || defined(__OSX__)) && (defined(__GNUC__) && (__GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95)))))
@@ -47332,7 +47455,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
             if (__pyx_t_19 > 0)
             {
                 #ifdef _OPENMP
-                #pragma omp parallel num_threads(__pyx_v_num_threads) private(__pyx_t_20, __pyx_t_23, __pyx_t_24, __pyx_t_25, __pyx_t_27) firstprivate(__pyx_t_12, __pyx_t_21, __pyx_t_22, __pyx_t_26)
+                #pragma omp parallel num_threads(__pyx_v_num_threads) private(__pyx_t_20, __pyx_t_23, __pyx_t_24, __pyx_t_25, __pyx_t_28) firstprivate(__pyx_t_12, __pyx_t_21, __pyx_t_22, __pyx_t_26, __pyx_t_27)
                 #endif /* _OPENMP */
                 {
                     #ifdef _OPENMP
@@ -47344,22 +47467,22 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
                             /* Initialize private variables to invalid values */
                             __pyx_v_collapse_frac = ((float)__PYX_NAN());
 
-                            /* "cosmomia/subgrid.pyx":1121
+                            /* "cosmomia/subgrid.pyx":1147
  *     for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):
  *         #gauss_rand = dist_gauss(gen)
  *         collapse_frac = params[0] #* (1 + gauss_rand * 0.5) if gauss_rand > 0 else exp(gauss_rand * 0.5)             # <<<<<<<<<<<<<<
  *         collapse[floating](attractors_view[ids_view[i],:], attractors_view[ids_view[i],:], attractors_view[i,:], dists_view[i], params[0], params[1],
- *                                                             vel_attractors_view[ids_view[i],:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[i], params[4],
+ *                                                             vel_attractors_view[ids_view[i],:], vel_attractors_view[i,:],
  */
                             __pyx_t_20 = 0;
                             __pyx_v_collapse_frac = (*((float *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_20 * __pyx_v_params.strides[0]) )));
 
-                            /* "cosmomia/subgrid.pyx":1122
+                            /* "cosmomia/subgrid.pyx":1148
  *         #gauss_rand = dist_gauss(gen)
  *         collapse_frac = params[0] #* (1 + gauss_rand * 0.5) if gauss_rand > 0 else exp(gauss_rand * 0.5)
  *         collapse[floating](attractors_view[ids_view[i],:], attractors_view[ids_view[i],:], attractors_view[i,:], dists_view[i], params[0], params[1],             # <<<<<<<<<<<<<<
- *                                                             vel_attractors_view[ids_view[i],:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[i], params[4],
- *                                                             box_size)
+ *                                                             vel_attractors_view[ids_view[i],:], vel_attractors_view[i,:],
+ *                                                             dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[i], params[4],
  */
                             __pyx_t_20 = __pyx_v_i;
                             __pyx_t_12.data = __pyx_v_attractors_view.data;
@@ -47406,12 +47529,12 @@ __pyx_t_20 = __pyx_v_i;
                             __pyx_t_23 = 0;
                             __pyx_t_24 = 1;
 
-                            /* "cosmomia/subgrid.pyx":1123
+                            /* "cosmomia/subgrid.pyx":1149
  *         collapse_frac = params[0] #* (1 + gauss_rand * 0.5) if gauss_rand > 0 else exp(gauss_rand * 0.5)
  *         collapse[floating](attractors_view[ids_view[i],:], attractors_view[ids_view[i],:], attractors_view[i,:], dists_view[i], params[0], params[1],
- *                                                             vel_attractors_view[ids_view[i],:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[i], params[4],             # <<<<<<<<<<<<<<
+ *                                                             vel_attractors_view[ids_view[i],:], vel_attractors_view[i,:],             # <<<<<<<<<<<<<<
+ *                                                             dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[i], params[4],
  *                                                             box_size)
- *     #print(f"Collapse in {time.time() - tic}s", flush=True)
  */
                             __pyx_t_25 = __pyx_v_i;
                             __pyx_t_26.data = __pyx_v_vel_attractors_view.data;
@@ -47427,17 +47550,38 @@ __pyx_t_26.shape[0] = __pyx_v_vel_attractors_view.shape[1];
 __pyx_t_26.strides[0] = __pyx_v_vel_attractors_view.strides[1];
     __pyx_t_26.suboffsets[0] = -1;
 
-__pyx_t_25 = __pyx_v_i;
-                            __pyx_t_27 = 4;
+__pyx_t_27.data = __pyx_v_vel_attractors_view.data;
+                            __pyx_t_27.memview = __pyx_v_vel_attractors_view.memview;
+                            __PYX_INC_MEMVIEW(&__pyx_t_27, 0);
+                            {
+    Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
+    Py_ssize_t __pyx_tmp_stride = __pyx_v_vel_attractors_view.strides[0];
+        __pyx_t_27.data += __pyx_tmp_idx * __pyx_tmp_stride;
+}
 
-                            /* "cosmomia/subgrid.pyx":1122
+__pyx_t_27.shape[0] = __pyx_v_vel_attractors_view.shape[1];
+__pyx_t_27.strides[0] = __pyx_v_vel_attractors_view.strides[1];
+    __pyx_t_27.suboffsets[0] = -1;
+
+__pyx_t_25 = __pyx_v_i;
+
+                            /* "cosmomia/subgrid.pyx":1150
+ *         collapse[floating](attractors_view[ids_view[i],:], attractors_view[ids_view[i],:], attractors_view[i,:], dists_view[i], params[0], params[1],
+ *                                                             vel_attractors_view[ids_view[i],:], vel_attractors_view[i,:],
+ *                                                             dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[i], params[4],             # <<<<<<<<<<<<<<
+ *                                                             box_size)
+ *     #print(f"Collapse in {time.time() - tic}s", flush=True)
+ */
+                            __pyx_t_28 = 4;
+
+                            /* "cosmomia/subgrid.pyx":1148
  *         #gauss_rand = dist_gauss(gen)
  *         collapse_frac = params[0] #* (1 + gauss_rand * 0.5) if gauss_rand > 0 else exp(gauss_rand * 0.5)
  *         collapse[floating](attractors_view[ids_view[i],:], attractors_view[ids_view[i],:], attractors_view[i,:], dists_view[i], params[0], params[1],             # <<<<<<<<<<<<<<
- *                                                             vel_attractors_view[ids_view[i],:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[i], params[4],
- *                                                             box_size)
+ *                                                             vel_attractors_view[ids_view[i],:], vel_attractors_view[i,:],
+ *                                                             dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[i], params[4],
  */
-                            __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__pyx_t_12, __pyx_t_21, __pyx_t_22, (*((float *) ( /* dim=0 */ (__pyx_v_dists_view.data + __pyx_t_20 * __pyx_v_dists_view.strides[0]) ))), (*((float *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_23 * __pyx_v_params.strides[0]) ))), (*((float *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_24 * __pyx_v_params.strides[0]) ))), __pyx_t_26, __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), (*((float *) ( /* dim=0 */ (__pyx_v_dm_view.data + __pyx_t_25 * __pyx_v_dm_view.strides[0]) ))), (*((float *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_27 * __pyx_v_params.strides[0]) ))), __pyx_v_box_size);
+                            __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__pyx_t_12, __pyx_t_21, __pyx_t_22, (*((float *) ( /* dim=0 */ (__pyx_v_dists_view.data + __pyx_t_20 * __pyx_v_dists_view.strides[0]) ))), (*((float *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_23 * __pyx_v_params.strides[0]) ))), (*((float *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_24 * __pyx_v_params.strides[0]) ))), __pyx_t_26, __pyx_t_27, __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), (*((float *) ( /* dim=0 */ (__pyx_v_dm_view.data + __pyx_t_25 * __pyx_v_dm_view.strides[0]) ))), (*((float *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_28 * __pyx_v_params.strides[0]) ))), __pyx_v_box_size);
                             __PYX_XCLEAR_MEMVIEW(&__pyx_t_12, 0);
                             __pyx_t_12.memview = NULL; __pyx_t_12.data = NULL;
                             __PYX_XCLEAR_MEMVIEW(&__pyx_t_21, 0);
@@ -47446,6 +47590,8 @@ __pyx_t_25 = __pyx_v_i;
                             __pyx_t_22.memview = NULL; __pyx_t_22.data = NULL;
                             __PYX_XCLEAR_MEMVIEW(&__pyx_t_26, 0);
                             __pyx_t_26.memview = NULL; __pyx_t_26.data = NULL;
+                            __PYX_XCLEAR_MEMVIEW(&__pyx_t_27, 0);
+                            __pyx_t_27.memview = NULL; __pyx_t_27.data = NULL;
                         }
                     }
                 }
@@ -47459,7 +47605,7 @@ __pyx_t_25 = __pyx_v_i;
         #endif
       }
 
-      /* "cosmomia/subgrid.pyx":1119
+      /* "cosmomia/subgrid.pyx":1145
  * 
  *     tic = time.time()
  *     for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):             # <<<<<<<<<<<<<<
@@ -47485,37 +47631,37 @@ __pyx_t_25 = __pyx_v_i;
       }
   }
 
-  /* "cosmomia/subgrid.pyx":1126
+  /* "cosmomia/subgrid.pyx":1153
  *                                                             box_size)
  *     #print(f"Collapse in {time.time() - tic}s", flush=True)
  *     if debug:             # <<<<<<<<<<<<<<
  *         print(dists)
  *         tic = time.time()
  */
-  __pyx_t_28 = __Pyx_PyObject_IsTrue(__pyx_v_debug); if (unlikely((__pyx_t_28 < 0))) __PYX_ERR(0, 1126, __pyx_L1_error)
-  if (__pyx_t_28) {
+  __pyx_t_29 = __Pyx_PyObject_IsTrue(__pyx_v_debug); if (unlikely((__pyx_t_29 < 0))) __PYX_ERR(0, 1153, __pyx_L1_error)
+  if (__pyx_t_29) {
 
-    /* "cosmomia/subgrid.pyx":1127
+    /* "cosmomia/subgrid.pyx":1154
  *     #print(f"Collapse in {time.time() - tic}s", flush=True)
  *     if debug:
  *         print(dists)             # <<<<<<<<<<<<<<
  *         tic = time.time()
  *         tree = KDTree(attractors)#, boxsize = box_size)
  */
-    __pyx_t_14 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_v_dists); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1127, __pyx_L1_error)
+    __pyx_t_14 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_v_dists); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1154, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
 
-    /* "cosmomia/subgrid.pyx":1128
+    /* "cosmomia/subgrid.pyx":1155
  *     if debug:
  *         print(dists)
  *         tic = time.time()             # <<<<<<<<<<<<<<
  *         tree = KDTree(attractors)#, boxsize = box_size)
  *         print(f"Tree built in {time.time() - tic}s", flush=True)
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1128, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1155, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1128, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1155, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -47536,21 +47682,21 @@ __pyx_t_25 = __pyx_v_i;
       PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
       __pyx_t_14 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_13, 0+__pyx_t_13);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1128, __pyx_L1_error)
+      if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1155, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
     __Pyx_DECREF_SET(__pyx_v_tic, __pyx_t_14);
     __pyx_t_14 = 0;
 
-    /* "cosmomia/subgrid.pyx":1129
+    /* "cosmomia/subgrid.pyx":1156
  *         print(dists)
  *         tic = time.time()
  *         tree = KDTree(attractors)#, boxsize = box_size)             # <<<<<<<<<<<<<<
  *         print(f"Tree built in {time.time() - tic}s", flush=True)
  *         tic = time.time()
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_KDTree); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1129, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_KDTree); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1156, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_3 = NULL;
     __pyx_t_13 = 0;
@@ -47570,31 +47716,31 @@ __pyx_t_25 = __pyx_v_i;
       PyObject *__pyx_callargs[2] = {__pyx_t_3, ((PyObject *)__pyx_v_attractors)};
       __pyx_t_14 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_13, 1+__pyx_t_13);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1129, __pyx_L1_error)
+      if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1156, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
     __Pyx_DECREF_SET(__pyx_v_tree, __pyx_t_14);
     __pyx_t_14 = 0;
 
-    /* "cosmomia/subgrid.pyx":1130
+    /* "cosmomia/subgrid.pyx":1157
  *         tic = time.time()
  *         tree = KDTree(attractors)#, boxsize = box_size)
  *         print(f"Tree built in {time.time() - tic}s", flush=True)             # <<<<<<<<<<<<<<
  *         tic = time.time()
  *         dists, ids = tree.query(attractors, k = 2, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)
  */
-    __pyx_t_14 = PyTuple_New(3); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1130, __pyx_L1_error)
+    __pyx_t_14 = PyTuple_New(3); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     __pyx_t_19 = 0;
-    __pyx_t_29 = 127;
+    __pyx_t_30 = 127;
     __Pyx_INCREF(__pyx_kp_u_Tree_built_in);
     __pyx_t_19 += 14;
     __Pyx_GIVEREF(__pyx_kp_u_Tree_built_in);
     PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_kp_u_Tree_built_in);
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1130, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1130, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -47615,17 +47761,17 @@ __pyx_t_25 = __pyx_v_i;
       PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
       __pyx_t_5 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_13, 0+__pyx_t_13);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1130, __pyx_L1_error)
+      if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1157, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
-    __pyx_t_1 = PyNumber_Subtract(__pyx_t_5, __pyx_v_tic); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1130, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Subtract(__pyx_t_5, __pyx_v_tic); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_FormatSimple(__pyx_t_1, __pyx_empty_unicode); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1130, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_FormatSimple(__pyx_t_1, __pyx_empty_unicode); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_29 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) > __pyx_t_29) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) : __pyx_t_29;
+    __pyx_t_30 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) > __pyx_t_30) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) : __pyx_t_30;
     __pyx_t_19 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_5);
     PyTuple_SET_ITEM(__pyx_t_14, 1, __pyx_t_5);
@@ -47634,33 +47780,33 @@ __pyx_t_25 = __pyx_v_i;
     __pyx_t_19 += 1;
     __Pyx_GIVEREF(__pyx_n_u_s);
     PyTuple_SET_ITEM(__pyx_t_14, 2, __pyx_n_u_s);
-    __pyx_t_5 = __Pyx_PyUnicode_Join(__pyx_t_14, 3, __pyx_t_19, __pyx_t_29); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1130, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyUnicode_Join(__pyx_t_14, 3, __pyx_t_19, __pyx_t_30); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-    __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1130, __pyx_L1_error)
+    __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     __Pyx_GIVEREF(__pyx_t_5);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_5)) __PYX_ERR(0, 1130, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_5)) __PYX_ERR(0, 1157, __pyx_L1_error);
     __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1130, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_flush, Py_True) < 0) __PYX_ERR(0, 1130, __pyx_L1_error)
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_14, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1130, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_flush, Py_True) < 0) __PYX_ERR(0, 1157, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_14, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "cosmomia/subgrid.pyx":1131
+    /* "cosmomia/subgrid.pyx":1158
  *         tree = KDTree(attractors)#, boxsize = box_size)
  *         print(f"Tree built in {time.time() - tic}s", flush=True)
  *         tic = time.time()             # <<<<<<<<<<<<<<
  *         dists, ids = tree.query(attractors, k = 2, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)
  *         print(dists)
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_time); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1131, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_time); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_time); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1131, __pyx_L1_error)
+    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_time); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_5 = NULL;
@@ -47681,34 +47827,34 @@ __pyx_t_25 = __pyx_v_i;
       PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
       __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_14, __pyx_callargs+1-__pyx_t_13, 0+__pyx_t_13);
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1131, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1158, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
     }
     __Pyx_DECREF_SET(__pyx_v_tic, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "cosmomia/subgrid.pyx":1132
+    /* "cosmomia/subgrid.pyx":1159
  *         print(f"Tree built in {time.time() - tic}s", flush=True)
  *         tic = time.time()
  *         dists, ids = tree.query(attractors, k = 2, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)             # <<<<<<<<<<<<<<
  *         print(dists)
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_tree, __pyx_n_s_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1132, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_tree, __pyx_n_s_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1159, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1132, __pyx_L1_error)
+    __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1159, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     __Pyx_INCREF((PyObject *)__pyx_v_attractors);
     __Pyx_GIVEREF((PyObject *)__pyx_v_attractors);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 0, ((PyObject *)__pyx_v_attractors))) __PYX_ERR(0, 1132, __pyx_L1_error);
-    __pyx_t_5 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1132, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 0, ((PyObject *)__pyx_v_attractors))) __PYX_ERR(0, 1159, __pyx_L1_error);
+    __pyx_t_5 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1159, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_k, __pyx_int_2) < 0) __PYX_ERR(0, 1132, __pyx_L1_error)
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_eps, __pyx_float_0_) < 0) __PYX_ERR(0, 1132, __pyx_L1_error)
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_distance_upper_bound, Py_None) < 0) __PYX_ERR(0, 1132, __pyx_L1_error)
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_sqr_dists, Py_True) < 0) __PYX_ERR(0, 1132, __pyx_L1_error)
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_14, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1132, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_k, __pyx_int_2) < 0) __PYX_ERR(0, 1159, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_eps, __pyx_float_0_) < 0) __PYX_ERR(0, 1159, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_distance_upper_bound, Py_None) < 0) __PYX_ERR(0, 1159, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_sqr_dists, Py_True) < 0) __PYX_ERR(0, 1159, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_14, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1159, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -47719,7 +47865,7 @@ __pyx_t_25 = __pyx_v_i;
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 1132, __pyx_L1_error)
+        __PYX_ERR(0, 1159, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -47732,15 +47878,15 @@ __pyx_t_25 = __pyx_v_i;
       __Pyx_INCREF(__pyx_t_5);
       __Pyx_INCREF(__pyx_t_14);
       #else
-      __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1132, __pyx_L1_error)
+      __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1159, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_14 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1132, __pyx_L1_error)
+      __pyx_t_14 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1159, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       #endif
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_1 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1132, __pyx_L1_error)
+      __pyx_t_1 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1159, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __pyx_t_15 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_1);
@@ -47748,7 +47894,7 @@ __pyx_t_25 = __pyx_v_i;
       __Pyx_GOTREF(__pyx_t_5);
       index = 1; __pyx_t_14 = __pyx_t_15(__pyx_t_1); if (unlikely(!__pyx_t_14)) goto __pyx_L15_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_14);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_1), 2) < 0) __PYX_ERR(0, 1132, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_1), 2) < 0) __PYX_ERR(0, 1159, __pyx_L1_error)
       __pyx_t_15 = NULL;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       goto __pyx_L16_unpacking_done;
@@ -47756,7 +47902,7 @@ __pyx_t_25 = __pyx_v_i;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_15 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 1132, __pyx_L1_error)
+      __PYX_ERR(0, 1159, __pyx_L1_error)
       __pyx_L16_unpacking_done:;
     }
     __Pyx_DECREF_SET(__pyx_v_dists, __pyx_t_5);
@@ -47764,18 +47910,18 @@ __pyx_t_25 = __pyx_v_i;
     __Pyx_DECREF_SET(__pyx_v_ids, __pyx_t_14);
     __pyx_t_14 = 0;
 
-    /* "cosmomia/subgrid.pyx":1133
+    /* "cosmomia/subgrid.pyx":1160
  *         tic = time.time()
  *         dists, ids = tree.query(attractors, k = 2, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)
  *         print(dists)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_v_dists); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1133, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_v_dists); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1160, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "cosmomia/subgrid.pyx":1126
+    /* "cosmomia/subgrid.pyx":1153
  *                                                             box_size)
  *     #print(f"Collapse in {time.time() - tic}s", flush=True)
  *     if debug:             # <<<<<<<<<<<<<<
@@ -47784,40 +47930,40 @@ __pyx_t_25 = __pyx_v_i;
  */
   }
 
-  /* "cosmomia/subgrid.pyx":1146
+  /* "cosmomia/subgrid.pyx":1173
  * 
  * 
  *     attractors_view = attractors             # <<<<<<<<<<<<<<
  *     not_attractors_view = not_attractors
  *     #attractors_copy_view = attractors_copy
  */
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(((PyObject *)__pyx_v_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1146, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(((PyObject *)__pyx_v_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1173, __pyx_L1_error)
   __PYX_XCLEAR_MEMVIEW(&__pyx_v_attractors_view, 1);
   __pyx_v_attractors_view = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1147
+  /* "cosmomia/subgrid.pyx":1174
  * 
  *     attractors_view = attractors
  *     not_attractors_view = not_attractors             # <<<<<<<<<<<<<<
  *     #attractors_copy_view = attractors_copy
  *     #not_attractors_copy_view = not_attractors_copy
  */
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(((PyObject *)__pyx_v_not_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1147, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(((PyObject *)__pyx_v_not_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1174, __pyx_L1_error)
   __PYX_XCLEAR_MEMVIEW(&__pyx_v_not_attractors_view, 1);
   __pyx_v_not_attractors_view = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1152
+  /* "cosmomia/subgrid.pyx":1179
  * 
  *     #tic = time.time()
  *     tree = KDTree(attractors)#, boxsize = box_size)             # <<<<<<<<<<<<<<
  *     #print(f"Tree built in {time.time() - tic}s", flush=True)
  *     #tic = time.time()
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_14, __pyx_n_s_KDTree); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1152, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_14, __pyx_n_s_KDTree); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1179, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
   __pyx_t_5 = NULL;
   __pyx_t_13 = 0;
@@ -47837,34 +47983,34 @@ __pyx_t_25 = __pyx_v_i;
     PyObject *__pyx_callargs[2] = {__pyx_t_5, ((PyObject *)__pyx_v_attractors)};
     __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_14, __pyx_callargs+1-__pyx_t_13, 1+__pyx_t_13);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1152, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1179, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
   }
   __Pyx_DECREF_SET(__pyx_v_tree, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "cosmomia/subgrid.pyx":1155
+  /* "cosmomia/subgrid.pyx":1182
  *     #print(f"Tree built in {time.time() - tic}s", flush=True)
  *     #tic = time.time()
  *     dists, ids = tree.query(not_attractors, k = 1, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)             # <<<<<<<<<<<<<<
  *     dists_view = dists
  *     ids_view = ids
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_tree, __pyx_n_s_query); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1155, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_tree, __pyx_n_s_query); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1155, __pyx_L1_error)
+  __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
   __Pyx_INCREF((PyObject *)__pyx_v_not_attractors);
   __Pyx_GIVEREF((PyObject *)__pyx_v_not_attractors);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 0, ((PyObject *)__pyx_v_not_attractors))) __PYX_ERR(0, 1155, __pyx_L1_error);
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1155, __pyx_L1_error)
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 0, ((PyObject *)__pyx_v_not_attractors))) __PYX_ERR(0, 1182, __pyx_L1_error);
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_k, __pyx_int_1) < 0) __PYX_ERR(0, 1155, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_eps, __pyx_float_0_) < 0) __PYX_ERR(0, 1155, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_distance_upper_bound, Py_None) < 0) __PYX_ERR(0, 1155, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_sqr_dists, Py_True) < 0) __PYX_ERR(0, 1155, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_14, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1155, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_k, __pyx_int_1) < 0) __PYX_ERR(0, 1182, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_eps, __pyx_float_0_) < 0) __PYX_ERR(0, 1182, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_distance_upper_bound, Py_None) < 0) __PYX_ERR(0, 1182, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_sqr_dists, Py_True) < 0) __PYX_ERR(0, 1182, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_14, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -47875,7 +48021,7 @@ __pyx_t_25 = __pyx_v_i;
     if (unlikely(size != 2)) {
       if (size > 2) __Pyx_RaiseTooManyValuesError(2);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 1155, __pyx_L1_error)
+      __PYX_ERR(0, 1182, __pyx_L1_error)
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -47888,15 +48034,15 @@ __pyx_t_25 = __pyx_v_i;
     __Pyx_INCREF(__pyx_t_5);
     __Pyx_INCREF(__pyx_t_14);
     #else
-    __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1155, __pyx_L1_error)
+    __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1182, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_14 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1155, __pyx_L1_error)
+    __pyx_t_14 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1182, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     #endif
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1155, __pyx_L1_error)
+    __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1182, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_15 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_3);
@@ -47904,7 +48050,7 @@ __pyx_t_25 = __pyx_v_i;
     __Pyx_GOTREF(__pyx_t_5);
     index = 1; __pyx_t_14 = __pyx_t_15(__pyx_t_3); if (unlikely(!__pyx_t_14)) goto __pyx_L17_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_14);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_3), 2) < 0) __PYX_ERR(0, 1155, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_3), 2) < 0) __PYX_ERR(0, 1182, __pyx_L1_error)
     __pyx_t_15 = NULL;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     goto __pyx_L18_unpacking_done;
@@ -47912,7 +48058,7 @@ __pyx_t_25 = __pyx_v_i;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_15 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 1155, __pyx_L1_error)
+    __PYX_ERR(0, 1182, __pyx_L1_error)
     __pyx_L18_unpacking_done:;
   }
   __Pyx_DECREF_SET(__pyx_v_dists, __pyx_t_5);
@@ -47920,42 +48066,42 @@ __pyx_t_25 = __pyx_v_i;
   __Pyx_DECREF_SET(__pyx_v_ids, __pyx_t_14);
   __pyx_t_14 = 0;
 
-  /* "cosmomia/subgrid.pyx":1156
+  /* "cosmomia/subgrid.pyx":1183
  *     #tic = time.time()
  *     dists, ids = tree.query(not_attractors, k = 1, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)
  *     dists_view = dists             # <<<<<<<<<<<<<<
  *     ids_view = ids
  *     mask = np.isfinite(dists)
  */
-  __pyx_t_26 = __Pyx_PyObject_to_MemoryviewSlice_ds_float(__pyx_v_dists, PyBUF_WRITABLE); if (unlikely(!__pyx_t_26.memview)) __PYX_ERR(0, 1156, __pyx_L1_error)
+  __pyx_t_27 = __Pyx_PyObject_to_MemoryviewSlice_ds_float(__pyx_v_dists, PyBUF_WRITABLE); if (unlikely(!__pyx_t_27.memview)) __PYX_ERR(0, 1183, __pyx_L1_error)
   __PYX_XCLEAR_MEMVIEW(&__pyx_v_dists_view, 1);
-  __pyx_v_dists_view = __pyx_t_26;
-  __pyx_t_26.memview = NULL;
-  __pyx_t_26.data = NULL;
+  __pyx_v_dists_view = __pyx_t_27;
+  __pyx_t_27.memview = NULL;
+  __pyx_t_27.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1157
+  /* "cosmomia/subgrid.pyx":1184
  *     dists, ids = tree.query(not_attractors, k = 1, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)
  *     dists_view = dists
  *     ids_view = ids             # <<<<<<<<<<<<<<
  *     mask = np.isfinite(dists)
  *     #dist_corr = (not_attractors[mask,3] - attractors[ids[mask],3])**2
  */
-  __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_int(__pyx_v_ids, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 1157, __pyx_L1_error)
+  __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_int(__pyx_v_ids, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 1184, __pyx_L1_error)
   __PYX_XCLEAR_MEMVIEW(&__pyx_v_ids_view, 1);
   __pyx_v_ids_view = __pyx_t_16;
   __pyx_t_16.memview = NULL;
   __pyx_t_16.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1158
+  /* "cosmomia/subgrid.pyx":1185
  *     dists_view = dists
  *     ids_view = ids
  *     mask = np.isfinite(dists)             # <<<<<<<<<<<<<<
  *     #dist_corr = (not_attractors[mask,3] - attractors[ids[mask],3])**2
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_14, __pyx_n_s_np); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1158, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_14, __pyx_n_s_np); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_isfinite); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1158, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_isfinite); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
   __pyx_t_14 = NULL;
@@ -47976,14 +48122,14 @@ __pyx_t_25 = __pyx_v_i;
     PyObject *__pyx_callargs[2] = {__pyx_t_14, __pyx_v_dists};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_13, 1+__pyx_t_13);
     __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1158, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1185, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __pyx_v_mask = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "cosmomia/subgrid.pyx":1164
+  /* "cosmomia/subgrid.pyx":1191
  * 
  * 
  *     for i in prange(ids_view.shape[0], nogil = True):#, use_threads_if=ids_view.shape[0] > 1e6):             # <<<<<<<<<<<<<<
@@ -47998,7 +48144,7 @@ __pyx_t_25 = __pyx_v_i;
       __Pyx_FastGIL_Remember();
       #endif
       /*try:*/ {
-        if (unlikely(!__pyx_v_ids_view.memview)) { __Pyx_RaiseUnboundMemoryviewSliceNogil("ids_view"); __PYX_ERR(0, 1164, __pyx_L20_error) }
+        if (unlikely(!__pyx_v_ids_view.memview)) { __Pyx_RaiseUnboundMemoryviewSliceNogil("ids_view"); __PYX_ERR(0, 1191, __pyx_L20_error) }
         __pyx_t_19 = (__pyx_v_ids_view.shape[0]);
         {
             #if ((defined(__APPLE__) || defined(__OSX__)) && (defined(__GNUC__) && (__GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95)))))
@@ -48011,7 +48157,7 @@ __pyx_t_25 = __pyx_v_i;
             if (__pyx_t_17 > 0)
             {
                 #ifdef _OPENMP
-                #pragma omp parallel private(__pyx_t_23, __pyx_t_24, __pyx_t_25, __pyx_t_27, __pyx_t_30) firstprivate(__pyx_t_12, __pyx_t_21, __pyx_t_22, __pyx_t_26)
+                #pragma omp parallel private(__pyx_t_23, __pyx_t_24, __pyx_t_25, __pyx_t_28, __pyx_t_31) firstprivate(__pyx_t_12, __pyx_t_21, __pyx_t_22, __pyx_t_26, __pyx_t_27)
                 #endif /* _OPENMP */
                 {
                     #ifdef _OPENMP
@@ -48023,24 +48169,37 @@ __pyx_t_25 = __pyx_v_i;
                             /* Initialize private variables to invalid values */
                             __pyx_v_collapse_frac = ((float)__PYX_NAN());
 
-                            /* "cosmomia/subgrid.pyx":1166
+                            /* "cosmomia/subgrid.pyx":1193
  *     for i in prange(ids_view.shape[0], nogil = True):#, use_threads_if=ids_view.shape[0] > 1e6):
  *         #gauss_rand = dist_gauss(gen)
  *         collapse_frac = params[2]             # <<<<<<<<<<<<<<
  *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], collapse_frac , params[3],
- *                                                       vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[4],
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],
  */
-                            __pyx_t_27 = 2;
-                            __pyx_v_collapse_frac = (*((float *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_27 * __pyx_v_params.strides[0]) )));
+                            __pyx_t_28 = 2;
+                            __pyx_v_collapse_frac = (*((float *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_28 * __pyx_v_params.strides[0]) )));
 
-                            /* "cosmomia/subgrid.pyx":1167
+                            /* "cosmomia/subgrid.pyx":1194
  *         #gauss_rand = dist_gauss(gen)
  *         collapse_frac = params[2]
  *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], collapse_frac , params[3],             # <<<<<<<<<<<<<<
- *                                                       vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[4],
- *                                                       box_size)
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],
+ *                                                       dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[4],
  */
-                            __pyx_t_26.data = __pyx_v_not_attractors_view.data;
+                            __pyx_t_27.data = __pyx_v_not_attractors_view.data;
+                            __pyx_t_27.memview = __pyx_v_not_attractors_view.memview;
+                            __PYX_INC_MEMVIEW(&__pyx_t_27, 0);
+                            {
+    Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
+    Py_ssize_t __pyx_tmp_stride = __pyx_v_not_attractors_view.strides[0];
+        __pyx_t_27.data += __pyx_tmp_idx * __pyx_tmp_stride;
+}
+
+__pyx_t_27.shape[0] = __pyx_v_not_attractors_view.shape[1];
+__pyx_t_27.strides[0] = __pyx_v_not_attractors_view.strides[1];
+    __pyx_t_27.suboffsets[0] = -1;
+
+__pyx_t_26.data = __pyx_v_not_attractors_view.data;
                             __pyx_t_26.memview = __pyx_v_not_attractors_view.memview;
                             __PYX_INC_MEMVIEW(&__pyx_t_26, 0);
                             {
@@ -48053,68 +48212,79 @@ __pyx_t_26.shape[0] = __pyx_v_not_attractors_view.shape[1];
 __pyx_t_26.strides[0] = __pyx_v_not_attractors_view.strides[1];
     __pyx_t_26.suboffsets[0] = -1;
 
-__pyx_t_22.data = __pyx_v_not_attractors_view.data;
-                            __pyx_t_22.memview = __pyx_v_not_attractors_view.memview;
+__pyx_t_28 = __pyx_v_i;
+                            __pyx_t_22.data = __pyx_v_attractors_view.data;
+                            __pyx_t_22.memview = __pyx_v_attractors_view.memview;
                             __PYX_INC_MEMVIEW(&__pyx_t_22, 0);
                             {
-    Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
-    Py_ssize_t __pyx_tmp_stride = __pyx_v_not_attractors_view.strides[0];
+    Py_ssize_t __pyx_tmp_idx = (*((unsigned int *) ( /* dim=0 */ (__pyx_v_ids_view.data + __pyx_t_28 * __pyx_v_ids_view.strides[0]) )));
+    Py_ssize_t __pyx_tmp_stride = __pyx_v_attractors_view.strides[0];
         __pyx_t_22.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
-__pyx_t_22.shape[0] = __pyx_v_not_attractors_view.shape[1];
-__pyx_t_22.strides[0] = __pyx_v_not_attractors_view.strides[1];
+__pyx_t_22.shape[0] = __pyx_v_attractors_view.shape[1];
+__pyx_t_22.strides[0] = __pyx_v_attractors_view.strides[1];
     __pyx_t_22.suboffsets[0] = -1;
 
-__pyx_t_27 = __pyx_v_i;
-                            __pyx_t_21.data = __pyx_v_attractors_view.data;
-                            __pyx_t_21.memview = __pyx_v_attractors_view.memview;
-                            __PYX_INC_MEMVIEW(&__pyx_t_21, 0);
-                            {
-    Py_ssize_t __pyx_tmp_idx = (*((unsigned int *) ( /* dim=0 */ (__pyx_v_ids_view.data + __pyx_t_27 * __pyx_v_ids_view.strides[0]) )));
-    Py_ssize_t __pyx_tmp_stride = __pyx_v_attractors_view.strides[0];
-        __pyx_t_21.data += __pyx_tmp_idx * __pyx_tmp_stride;
-}
-
-__pyx_t_21.shape[0] = __pyx_v_attractors_view.shape[1];
-__pyx_t_21.strides[0] = __pyx_v_attractors_view.strides[1];
-    __pyx_t_21.suboffsets[0] = -1;
-
-__pyx_t_27 = __pyx_v_i;
+__pyx_t_28 = __pyx_v_i;
                             __pyx_t_25 = 3;
 
-                            /* "cosmomia/subgrid.pyx":1168
+                            /* "cosmomia/subgrid.pyx":1195
  *         collapse_frac = params[2]
  *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], collapse_frac , params[3],
- *                                                       vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[4],             # <<<<<<<<<<<<<<
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],             # <<<<<<<<<<<<<<
+ *                                                       dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[4],
  *                                                       box_size)
- *     #print(f"Collapse in {time.time() - tic}s", flush=True)
  */
-                            __pyx_t_12.data = __pyx_v_vel_not_attractors_view.data;
-                            __pyx_t_12.memview = __pyx_v_vel_not_attractors_view.memview;
-                            __PYX_INC_MEMVIEW(&__pyx_t_12, 0);
+                            __pyx_t_21.data = __pyx_v_vel_not_attractors_view.data;
+                            __pyx_t_21.memview = __pyx_v_vel_not_attractors_view.memview;
+                            __PYX_INC_MEMVIEW(&__pyx_t_21, 0);
                             {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_vel_not_attractors_view.strides[0];
+        __pyx_t_21.data += __pyx_tmp_idx * __pyx_tmp_stride;
+}
+
+__pyx_t_21.shape[0] = __pyx_v_vel_not_attractors_view.shape[1];
+__pyx_t_21.strides[0] = __pyx_v_vel_not_attractors_view.strides[1];
+    __pyx_t_21.suboffsets[0] = -1;
+
+__pyx_t_24 = __pyx_v_i;
+                            __pyx_t_12.data = __pyx_v_vel_attractors_view.data;
+                            __pyx_t_12.memview = __pyx_v_vel_attractors_view.memview;
+                            __PYX_INC_MEMVIEW(&__pyx_t_12, 0);
+                            {
+    Py_ssize_t __pyx_tmp_idx = (*((unsigned int *) ( /* dim=0 */ (__pyx_v_ids_view.data + __pyx_t_24 * __pyx_v_ids_view.strides[0]) )));
+    Py_ssize_t __pyx_tmp_stride = __pyx_v_vel_attractors_view.strides[0];
         __pyx_t_12.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
-__pyx_t_12.shape[0] = __pyx_v_vel_not_attractors_view.shape[1];
-__pyx_t_12.strides[0] = __pyx_v_vel_not_attractors_view.strides[1];
+__pyx_t_12.shape[0] = __pyx_v_vel_attractors_view.shape[1];
+__pyx_t_12.strides[0] = __pyx_v_vel_attractors_view.strides[1];
     __pyx_t_12.suboffsets[0] = -1;
 
 __pyx_t_24 = __pyx_v_i;
-                            __pyx_t_30 = (*((unsigned int *) ( /* dim=0 */ (__pyx_v_ids_view.data + __pyx_t_24 * __pyx_v_ids_view.strides[0]) )));
+
+                            /* "cosmomia/subgrid.pyx":1196
+ *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], collapse_frac , params[3],
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],
+ *                                                       dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[4],             # <<<<<<<<<<<<<<
+ *                                                       box_size)
+ *     #print(f"Collapse in {time.time() - tic}s", flush=True)
+ */
+                            __pyx_t_31 = (*((unsigned int *) ( /* dim=0 */ (__pyx_v_ids_view.data + __pyx_t_24 * __pyx_v_ids_view.strides[0]) )));
                             __pyx_t_23 = 4;
 
-                            /* "cosmomia/subgrid.pyx":1167
+                            /* "cosmomia/subgrid.pyx":1194
  *         #gauss_rand = dist_gauss(gen)
  *         collapse_frac = params[2]
  *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], collapse_frac , params[3],             # <<<<<<<<<<<<<<
- *                                                       vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[4],
- *                                                       box_size)
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],
+ *                                                       dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[4],
  */
-                            __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__pyx_t_26, __pyx_t_22, __pyx_t_21, (*((float *) ( /* dim=0 */ (__pyx_v_dists_view.data + __pyx_t_27 * __pyx_v_dists_view.strides[0]) ))), __pyx_v_collapse_frac, (*((float *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_25 * __pyx_v_params.strides[0]) ))), __pyx_t_12, __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), (*((float *) ( /* dim=0 */ (__pyx_v_dm_view.data + __pyx_t_30 * __pyx_v_dm_view.strides[0]) ))), (*((float *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_23 * __pyx_v_params.strides[0]) ))), __pyx_v_box_size);
+                            __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__pyx_t_27, __pyx_t_26, __pyx_t_22, (*((float *) ( /* dim=0 */ (__pyx_v_dists_view.data + __pyx_t_28 * __pyx_v_dists_view.strides[0]) ))), __pyx_v_collapse_frac, (*((float *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_25 * __pyx_v_params.strides[0]) ))), __pyx_t_21, __pyx_t_12, __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), (*((float *) ( /* dim=0 */ (__pyx_v_dm_view.data + __pyx_t_31 * __pyx_v_dm_view.strides[0]) ))), (*((float *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_23 * __pyx_v_params.strides[0]) ))), __pyx_v_box_size);
+                            __PYX_XCLEAR_MEMVIEW(&__pyx_t_27, 0);
+                            __pyx_t_27.memview = NULL; __pyx_t_27.data = NULL;
                             __PYX_XCLEAR_MEMVIEW(&__pyx_t_26, 0);
                             __pyx_t_26.memview = NULL; __pyx_t_26.data = NULL;
                             __PYX_XCLEAR_MEMVIEW(&__pyx_t_22, 0);
@@ -48136,7 +48306,7 @@ __pyx_t_24 = __pyx_v_i;
         #endif
       }
 
-      /* "cosmomia/subgrid.pyx":1164
+      /* "cosmomia/subgrid.pyx":1191
  * 
  * 
  *     for i in prange(ids_view.shape[0], nogil = True):#, use_threads_if=ids_view.shape[0] > 1e6):             # <<<<<<<<<<<<<<
@@ -48162,24 +48332,24 @@ __pyx_t_24 = __pyx_v_i;
       }
   }
 
-  /* "cosmomia/subgrid.pyx":1171
+  /* "cosmomia/subgrid.pyx":1199
  *                                                       box_size)
  *     #print(f"Collapse in {time.time() - tic}s", flush=True)
  *     if debug:             # <<<<<<<<<<<<<<
  *         #print(dists[mask] - dist_corr)
  *         #tic = time.time()
  */
-  __pyx_t_28 = __Pyx_PyObject_IsTrue(__pyx_v_debug); if (unlikely((__pyx_t_28 < 0))) __PYX_ERR(0, 1171, __pyx_L1_error)
-  if (__pyx_t_28) {
+  __pyx_t_29 = __Pyx_PyObject_IsTrue(__pyx_v_debug); if (unlikely((__pyx_t_29 < 0))) __PYX_ERR(0, 1199, __pyx_L1_error)
+  if (__pyx_t_29) {
 
-    /* "cosmomia/subgrid.pyx":1174
+    /* "cosmomia/subgrid.pyx":1202
  *         #print(dists[mask] - dist_corr)
  *         #tic = time.time()
  *         tree = KDTree(attractors)#, boxsize = box_size)             # <<<<<<<<<<<<<<
  *         #print(f"Tree built in {time.time() - tic}s", flush=True)
  *         #tic = time.time()
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_KDTree); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1174, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_KDTree); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1202, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_14 = NULL;
     __pyx_t_13 = 0;
@@ -48199,34 +48369,34 @@ __pyx_t_24 = __pyx_v_i;
       PyObject *__pyx_callargs[2] = {__pyx_t_14, ((PyObject *)__pyx_v_attractors)};
       __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_13, 1+__pyx_t_13);
       __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1174, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1202, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
     __Pyx_DECREF_SET(__pyx_v_tree, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "cosmomia/subgrid.pyx":1177
+    /* "cosmomia/subgrid.pyx":1205
  *         #print(f"Tree built in {time.time() - tic}s", flush=True)
  *         #tic = time.time()
  *         dists, ids = tree.query(not_attractors, k = 1, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)             # <<<<<<<<<<<<<<
  *         mask = np.isfinite(dists)
  *         #dist_corr = (not_attractors[mask,3] - attractors[ids[mask],3])**2
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_tree, __pyx_n_s_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1177, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_tree, __pyx_n_s_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1205, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1177, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1205, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_INCREF((PyObject *)__pyx_v_not_attractors);
     __Pyx_GIVEREF((PyObject *)__pyx_v_not_attractors);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, ((PyObject *)__pyx_v_not_attractors))) __PYX_ERR(0, 1177, __pyx_L1_error);
-    __pyx_t_14 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1177, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, ((PyObject *)__pyx_v_not_attractors))) __PYX_ERR(0, 1205, __pyx_L1_error);
+    __pyx_t_14 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1205, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
-    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_k, __pyx_int_1) < 0) __PYX_ERR(0, 1177, __pyx_L1_error)
-    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_eps, __pyx_float_0_) < 0) __PYX_ERR(0, 1177, __pyx_L1_error)
-    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_distance_upper_bound, Py_None) < 0) __PYX_ERR(0, 1177, __pyx_L1_error)
-    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_sqr_dists, Py_True) < 0) __PYX_ERR(0, 1177, __pyx_L1_error)
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_5, __pyx_t_14); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1177, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_k, __pyx_int_1) < 0) __PYX_ERR(0, 1205, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_eps, __pyx_float_0_) < 0) __PYX_ERR(0, 1205, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_distance_upper_bound, Py_None) < 0) __PYX_ERR(0, 1205, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_sqr_dists, Py_True) < 0) __PYX_ERR(0, 1205, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_5, __pyx_t_14); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1205, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -48237,7 +48407,7 @@ __pyx_t_24 = __pyx_v_i;
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 1177, __pyx_L1_error)
+        __PYX_ERR(0, 1205, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -48250,15 +48420,15 @@ __pyx_t_24 = __pyx_v_i;
       __Pyx_INCREF(__pyx_t_14);
       __Pyx_INCREF(__pyx_t_5);
       #else
-      __pyx_t_14 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1177, __pyx_L1_error)
+      __pyx_t_14 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1205, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
-      __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1177, __pyx_L1_error)
+      __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1205, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       #endif
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_1 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1177, __pyx_L1_error)
+      __pyx_t_1 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1205, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __pyx_t_15 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_1);
@@ -48266,7 +48436,7 @@ __pyx_t_24 = __pyx_v_i;
       __Pyx_GOTREF(__pyx_t_14);
       index = 1; __pyx_t_5 = __pyx_t_15(__pyx_t_1); if (unlikely(!__pyx_t_5)) goto __pyx_L29_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_5);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_1), 2) < 0) __PYX_ERR(0, 1177, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_1), 2) < 0) __PYX_ERR(0, 1205, __pyx_L1_error)
       __pyx_t_15 = NULL;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       goto __pyx_L30_unpacking_done;
@@ -48274,7 +48444,7 @@ __pyx_t_24 = __pyx_v_i;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_15 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 1177, __pyx_L1_error)
+      __PYX_ERR(0, 1205, __pyx_L1_error)
       __pyx_L30_unpacking_done:;
     }
     __Pyx_DECREF_SET(__pyx_v_dists, __pyx_t_14);
@@ -48282,16 +48452,16 @@ __pyx_t_24 = __pyx_v_i;
     __Pyx_DECREF_SET(__pyx_v_ids, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "cosmomia/subgrid.pyx":1178
+    /* "cosmomia/subgrid.pyx":1206
  *         #tic = time.time()
  *         dists, ids = tree.query(not_attractors, k = 1, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)
  *         mask = np.isfinite(dists)             # <<<<<<<<<<<<<<
  *         #dist_corr = (not_attractors[mask,3] - attractors[ids[mask],3])**2
  *         #print(dists[mask] - dist_corr)
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1178, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1206, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_isfinite); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1178, __pyx_L1_error)
+    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_isfinite); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1206, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_5 = NULL;
@@ -48312,14 +48482,14 @@ __pyx_t_24 = __pyx_v_i;
       PyObject *__pyx_callargs[2] = {__pyx_t_5, __pyx_v_dists};
       __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_14, __pyx_callargs+1-__pyx_t_13, 1+__pyx_t_13);
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1178, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1206, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
     }
     __Pyx_DECREF_SET(__pyx_v_mask, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "cosmomia/subgrid.pyx":1171
+    /* "cosmomia/subgrid.pyx":1199
  *                                                       box_size)
  *     #print(f"Collapse in {time.time() - tic}s", flush=True)
  *     if debug:             # <<<<<<<<<<<<<<
@@ -48328,28 +48498,28 @@ __pyx_t_24 = __pyx_v_i;
  */
   }
 
-  /* "cosmomia/subgrid.pyx":1182
+  /* "cosmomia/subgrid.pyx":1210
  *         #print(dists[mask] - dist_corr)
  * 
  *     catalog['pos'] = np.vstack((attractors[:,:3], not_attractors[:,:3]))             # <<<<<<<<<<<<<<
  *     catalog['vel'] = np.vstack((vel_attractors[:,:3], vel_not_attractors[:,:3]))
  *     catalog['order'] = np.concatenate((attractors_ids, not_attractors_ids))
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_14, __pyx_n_s_np); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1182, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_14, __pyx_n_s_np); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_vstack); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1182, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_vstack); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-  __pyx_t_14 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1182, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
-  __pyx_t_1 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_not_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1182, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_not_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_31 = PyTuple_New(2); if (unlikely(!__pyx_t_31)) __PYX_ERR(0, 1182, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_31);
+  __pyx_t_32 = PyTuple_New(2); if (unlikely(!__pyx_t_32)) __PYX_ERR(0, 1210, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_32);
   __Pyx_GIVEREF(__pyx_t_14);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_31, 0, __pyx_t_14)) __PYX_ERR(0, 1182, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_32, 0, __pyx_t_14)) __PYX_ERR(0, 1210, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_1);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_31, 1, __pyx_t_1)) __PYX_ERR(0, 1182, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_32, 1, __pyx_t_1)) __PYX_ERR(0, 1210, __pyx_L1_error);
   __pyx_t_14 = 0;
   __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
@@ -48367,95 +48537,95 @@ __pyx_t_24 = __pyx_v_i;
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_1, __pyx_t_31};
+    PyObject *__pyx_callargs[2] = {__pyx_t_1, __pyx_t_32};
     __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_13, 1+__pyx_t_13);
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_31); __pyx_t_31 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1182, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_32); __pyx_t_32 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1210, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1182, __pyx_L1_error)
+    __PYX_ERR(0, 1210, __pyx_L1_error)
   }
-  if (unlikely((PyDict_SetItem(__pyx_v_catalog, __pyx_n_u_pos, __pyx_t_3) < 0))) __PYX_ERR(0, 1182, __pyx_L1_error)
+  if (unlikely((PyDict_SetItem(__pyx_v_catalog, __pyx_n_u_pos, __pyx_t_3) < 0))) __PYX_ERR(0, 1210, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "cosmomia/subgrid.pyx":1183
+  /* "cosmomia/subgrid.pyx":1211
  * 
  *     catalog['pos'] = np.vstack((attractors[:,:3], not_attractors[:,:3]))
  *     catalog['vel'] = np.vstack((vel_attractors[:,:3], vel_not_attractors[:,:3]))             # <<<<<<<<<<<<<<
  *     catalog['order'] = np.concatenate((attractors_ids, not_attractors_ids))
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1183, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_31 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_vstack); if (unlikely(!__pyx_t_31)) __PYX_ERR(0, 1183, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_31);
+  __pyx_t_32 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_vstack); if (unlikely(!__pyx_t_32)) __PYX_ERR(0, 1211, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_32);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_vel_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1183, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_vel_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_vel_not_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1183, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_vel_not_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_14 = PyTuple_New(2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1183, __pyx_L1_error)
+  __pyx_t_14 = PyTuple_New(2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
   __Pyx_GIVEREF(__pyx_t_5);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_5)) __PYX_ERR(0, 1183, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_5)) __PYX_ERR(0, 1211, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_1);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 1, __pyx_t_1)) __PYX_ERR(0, 1183, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 1, __pyx_t_1)) __PYX_ERR(0, 1211, __pyx_L1_error);
   __pyx_t_5 = 0;
   __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
   __pyx_t_13 = 0;
   #if CYTHON_UNPACK_METHODS
-  if (unlikely(PyMethod_Check(__pyx_t_31))) {
-    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_31);
+  if (unlikely(PyMethod_Check(__pyx_t_32))) {
+    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_32);
     if (likely(__pyx_t_1)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_31);
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_32);
       __Pyx_INCREF(__pyx_t_1);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_31, function);
+      __Pyx_DECREF_SET(__pyx_t_32, function);
       __pyx_t_13 = 1;
     }
   }
   #endif
   {
     PyObject *__pyx_callargs[2] = {__pyx_t_1, __pyx_t_14};
-    __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_31, __pyx_callargs+1-__pyx_t_13, 1+__pyx_t_13);
+    __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_32, __pyx_callargs+1-__pyx_t_13, 1+__pyx_t_13);
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1183, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1211, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_DECREF(__pyx_t_31); __pyx_t_31 = 0;
+    __Pyx_DECREF(__pyx_t_32); __pyx_t_32 = 0;
   }
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1183, __pyx_L1_error)
+    __PYX_ERR(0, 1211, __pyx_L1_error)
   }
-  if (unlikely((PyDict_SetItem(__pyx_v_catalog, __pyx_n_u_vel, __pyx_t_3) < 0))) __PYX_ERR(0, 1183, __pyx_L1_error)
+  if (unlikely((PyDict_SetItem(__pyx_v_catalog, __pyx_n_u_vel, __pyx_t_3) < 0))) __PYX_ERR(0, 1211, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "cosmomia/subgrid.pyx":1184
+  /* "cosmomia/subgrid.pyx":1212
  *     catalog['pos'] = np.vstack((attractors[:,:3], not_attractors[:,:3]))
  *     catalog['vel'] = np.vstack((vel_attractors[:,:3], vel_not_attractors[:,:3]))
  *     catalog['order'] = np.concatenate((attractors_ids, not_attractors_ids))             # <<<<<<<<<<<<<<
  * 
  *     return catalog
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_31, __pyx_n_s_np); if (unlikely(!__pyx_t_31)) __PYX_ERR(0, 1184, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_31);
-  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_31, __pyx_n_s_concatenate); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1184, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_32, __pyx_n_s_np); if (unlikely(!__pyx_t_32)) __PYX_ERR(0, 1212, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_32);
+  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_32, __pyx_n_s_concatenate); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1212, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
-  __Pyx_DECREF(__pyx_t_31); __pyx_t_31 = 0;
-  __pyx_t_31 = PyTuple_New(2); if (unlikely(!__pyx_t_31)) __PYX_ERR(0, 1184, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_31);
+  __Pyx_DECREF(__pyx_t_32); __pyx_t_32 = 0;
+  __pyx_t_32 = PyTuple_New(2); if (unlikely(!__pyx_t_32)) __PYX_ERR(0, 1212, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_32);
   __Pyx_INCREF((PyObject *)__pyx_v_attractors_ids);
   __Pyx_GIVEREF((PyObject *)__pyx_v_attractors_ids);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_31, 0, ((PyObject *)__pyx_v_attractors_ids))) __PYX_ERR(0, 1184, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_32, 0, ((PyObject *)__pyx_v_attractors_ids))) __PYX_ERR(0, 1212, __pyx_L1_error);
   __Pyx_INCREF((PyObject *)__pyx_v_not_attractors_ids);
   __Pyx_GIVEREF((PyObject *)__pyx_v_not_attractors_ids);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_31, 1, ((PyObject *)__pyx_v_not_attractors_ids))) __PYX_ERR(0, 1184, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_32, 1, ((PyObject *)__pyx_v_not_attractors_ids))) __PYX_ERR(0, 1212, __pyx_L1_error);
   __pyx_t_1 = NULL;
   __pyx_t_13 = 0;
   #if CYTHON_UNPACK_METHODS
@@ -48471,22 +48641,22 @@ __pyx_t_24 = __pyx_v_i;
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_1, __pyx_t_31};
+    PyObject *__pyx_callargs[2] = {__pyx_t_1, __pyx_t_32};
     __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_14, __pyx_callargs+1-__pyx_t_13, 1+__pyx_t_13);
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_31); __pyx_t_31 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1184, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_32); __pyx_t_32 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1212, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
   }
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1184, __pyx_L1_error)
+    __PYX_ERR(0, 1212, __pyx_L1_error)
   }
-  if (unlikely((PyDict_SetItem(__pyx_v_catalog, __pyx_n_u_order, __pyx_t_3) < 0))) __PYX_ERR(0, 1184, __pyx_L1_error)
+  if (unlikely((PyDict_SetItem(__pyx_v_catalog, __pyx_n_u_order, __pyx_t_3) < 0))) __PYX_ERR(0, 1212, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "cosmomia/subgrid.pyx":1186
+  /* "cosmomia/subgrid.pyx":1214
  *     catalog['order'] = np.concatenate((attractors_ids, not_attractors_ids))
  * 
  *     return catalog             # <<<<<<<<<<<<<<
@@ -48498,7 +48668,7 @@ __pyx_t_24 = __pyx_v_i;
   __pyx_r = __pyx_v_catalog;
   goto __pyx_L0;
 
-  /* "cosmomia/subgrid.pyx":1050
+  /* "cosmomia/subgrid.pyx":1076
  * 
  * 
  * cpdef dict subgrid_collapse(dict catalog, floating[:] params, floating[:] box_size, is_attractor_mask, size_t seed, size_t num_threads, debug = False):             # <<<<<<<<<<<<<<
@@ -48518,7 +48688,8 @@ __pyx_t_24 = __pyx_v_i;
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_21, 1);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_22, 1);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_26, 1);
-  __Pyx_XDECREF(__pyx_t_31);
+  __PYX_XCLEAR_MEMVIEW(&__pyx_t_27, 1);
+  __Pyx_XDECREF(__pyx_t_32);
   { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
     __Pyx_PyThreadState_declare
     __Pyx_PyThreadState_assign
@@ -48624,7 +48795,7 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_55__pyx_fuse_0subgrid_collapse(PyO
           (void)__Pyx_Arg_NewRef_VARARGS(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -48632,9 +48803,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_55__pyx_fuse_0subgrid_collapse(PyO
           (void)__Pyx_Arg_NewRef_VARARGS(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0subgrid_collapse", 0, 6, 7, 1); __PYX_ERR(0, 1050, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0subgrid_collapse", 0, 6, 7, 1); __PYX_ERR(0, 1076, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -48642,9 +48813,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_55__pyx_fuse_0subgrid_collapse(PyO
           (void)__Pyx_Arg_NewRef_VARARGS(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0subgrid_collapse", 0, 6, 7, 2); __PYX_ERR(0, 1050, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0subgrid_collapse", 0, 6, 7, 2); __PYX_ERR(0, 1076, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -48652,9 +48823,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_55__pyx_fuse_0subgrid_collapse(PyO
           (void)__Pyx_Arg_NewRef_VARARGS(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0subgrid_collapse", 0, 6, 7, 3); __PYX_ERR(0, 1050, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0subgrid_collapse", 0, 6, 7, 3); __PYX_ERR(0, 1076, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
@@ -48662,9 +48833,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_55__pyx_fuse_0subgrid_collapse(PyO
           (void)__Pyx_Arg_NewRef_VARARGS(values[4]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0subgrid_collapse", 0, 6, 7, 4); __PYX_ERR(0, 1050, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0subgrid_collapse", 0, 6, 7, 4); __PYX_ERR(0, 1076, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
@@ -48672,21 +48843,21 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_55__pyx_fuse_0subgrid_collapse(PyO
           (void)__Pyx_Arg_NewRef_VARARGS(values[5]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0subgrid_collapse", 0, 6, 7, 5); __PYX_ERR(0, 1050, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0subgrid_collapse", 0, 6, 7, 5); __PYX_ERR(0, 1076, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  6:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_debug);
           if (value) { values[6] = __Pyx_Arg_NewRef_VARARGS(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__pyx_fuse_0subgrid_collapse") < 0)) __PYX_ERR(0, 1050, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__pyx_fuse_0subgrid_collapse") < 0)) __PYX_ERR(0, 1076, __pyx_L3_error)
       }
     } else {
       switch (__pyx_nargs) {
@@ -48703,16 +48874,16 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_55__pyx_fuse_0subgrid_collapse(PyO
       }
     }
     __pyx_v_catalog = ((PyObject*)values[0]);
-    __pyx_v_params = __Pyx_PyObject_to_MemoryviewSlice_ds_float(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_params.memview)) __PYX_ERR(0, 1050, __pyx_L3_error)
-    __pyx_v_box_size = __Pyx_PyObject_to_MemoryviewSlice_ds_float(values[2], PyBUF_WRITABLE); if (unlikely(!__pyx_v_box_size.memview)) __PYX_ERR(0, 1050, __pyx_L3_error)
+    __pyx_v_params = __Pyx_PyObject_to_MemoryviewSlice_ds_float(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_params.memview)) __PYX_ERR(0, 1076, __pyx_L3_error)
+    __pyx_v_box_size = __Pyx_PyObject_to_MemoryviewSlice_ds_float(values[2], PyBUF_WRITABLE); if (unlikely(!__pyx_v_box_size.memview)) __PYX_ERR(0, 1076, __pyx_L3_error)
     __pyx_v_is_attractor_mask = values[3];
-    __pyx_v_seed = __Pyx_PyInt_As_size_t(values[4]); if (unlikely((__pyx_v_seed == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
-    __pyx_v_num_threads = __Pyx_PyInt_As_size_t(values[5]); if (unlikely((__pyx_v_num_threads == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+    __pyx_v_seed = __Pyx_PyInt_As_size_t(values[4]); if (unlikely((__pyx_v_seed == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
+    __pyx_v_num_threads = __Pyx_PyInt_As_size_t(values[5]); if (unlikely((__pyx_v_num_threads == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
     __pyx_v_debug = values[6];
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0subgrid_collapse", 0, 6, 7, __pyx_nargs); __PYX_ERR(0, 1050, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0subgrid_collapse", 0, 6, 7, __pyx_nargs); __PYX_ERR(0, 1076, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -48728,7 +48899,7 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_55__pyx_fuse_0subgrid_collapse(PyO
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_catalog), (&PyDict_Type), 1, "catalog", 1))) __PYX_ERR(0, 1050, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_catalog), (&PyDict_Type), 1, "catalog", 1))) __PYX_ERR(0, 1076, __pyx_L1_error)
   __pyx_r = __pyx_pf_8cosmomia_8cosmomia_54__pyx_fuse_0subgrid_collapse(__pyx_self, __pyx_v_catalog, __pyx_v_params, __pyx_v_box_size, __pyx_v_is_attractor_mask, __pyx_v_seed, __pyx_v_num_threads, __pyx_v_debug);
 
   /* function exit code */
@@ -48758,11 +48929,11 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_54__pyx_fuse_0subgrid_collapse(CYT
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__pyx_fuse_0subgrid_collapse", 1);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_params.memview)) { __Pyx_RaiseUnboundLocalError("params"); __PYX_ERR(0, 1050, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_box_size.memview)) { __Pyx_RaiseUnboundLocalError("box_size"); __PYX_ERR(0, 1050, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_params.memview)) { __Pyx_RaiseUnboundLocalError("params"); __PYX_ERR(0, 1076, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_box_size.memview)) { __Pyx_RaiseUnboundLocalError("box_size"); __PYX_ERR(0, 1076, __pyx_L1_error) }
   __pyx_t_2.__pyx_n = 1;
   __pyx_t_2.debug = __pyx_v_debug;
-  __pyx_t_1 = __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(__pyx_v_catalog, __pyx_v_params, __pyx_v_box_size, __pyx_v_is_attractor_mask, __pyx_v_seed, __pyx_v_num_threads, 0, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_t_1 = __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(__pyx_v_catalog, __pyx_v_params, __pyx_v_box_size, __pyx_v_is_attractor_mask, __pyx_v_seed, __pyx_v_num_threads, 0, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -48849,11 +49020,12 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
   Py_ssize_t __pyx_t_24;
   Py_ssize_t __pyx_t_25;
   __Pyx_memviewslice __pyx_t_26 = { 0, 0, { 0 }, { 0 }, { 0 } };
-  Py_ssize_t __pyx_t_27;
-  int __pyx_t_28;
-  Py_UCS4 __pyx_t_29;
-  size_t __pyx_t_30;
-  PyObject *__pyx_t_31 = NULL;
+  __Pyx_memviewslice __pyx_t_27 = { 0, 0, { 0 }, { 0 }, { 0 } };
+  Py_ssize_t __pyx_t_28;
+  int __pyx_t_29;
+  Py_UCS4 __pyx_t_30;
+  size_t __pyx_t_31;
+  PyObject *__pyx_t_32 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -48892,7 +49064,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
   __pyx_pybuffernd_not_attractors_ids.data = NULL;
   __pyx_pybuffernd_not_attractors_ids.rcbuffer = &__pyx_pybuffer_not_attractors_ids;
 
-  /* "cosmomia/subgrid.pyx":1052
+  /* "cosmomia/subgrid.pyx":1078
  * cpdef dict subgrid_collapse(dict catalog, floating[:] params, floating[:] box_size, is_attractor_mask, size_t seed, size_t num_threads, debug = False):
  * 
  *     cdef mt19937 gen = mt19937(seed)             # <<<<<<<<<<<<<<
@@ -48901,7 +49073,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
  */
   __pyx_v_gen = std::mt19937(__pyx_v_seed);
 
-  /* "cosmomia/subgrid.pyx":1053
+  /* "cosmomia/subgrid.pyx":1079
  * 
  *     cdef mt19937 gen = mt19937(seed)
  *     cdef normal_distribution[floating] dist_gauss = normal_distribution[floating](0., 1.)             # <<<<<<<<<<<<<<
@@ -48910,7 +49082,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
  */
   __pyx_v_dist_gauss = std::normal_distribution<double> (0., 1.);
 
-  /* "cosmomia/subgrid.pyx":1064
+  /* "cosmomia/subgrid.pyx":1090
  * 
  *     cdef floating[:,:] pos_view, vel_view
  *     pos_view = catalog['pos']             # <<<<<<<<<<<<<<
@@ -48919,17 +49091,17 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
  */
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1064, __pyx_L1_error)
+    __PYX_ERR(0, 1090, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_pos); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1064, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_pos); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1090, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1064, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1090, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_pos_view = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1074
+  /* "cosmomia/subgrid.pyx":1100
  * 
  *     #mask = catalog['is_dm'].astype(bool) & (catalog['dweb'] < 4)
  *     cdef cnp.ndarray[floating, ndim=2] attractors = catalog['pos'][is_attractor_mask]             # <<<<<<<<<<<<<<
@@ -48938,20 +49110,20 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
  */
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1074, __pyx_L1_error)
+    __PYX_ERR(0, 1100, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_pos); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1074, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_pos); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1100, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1074, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1100, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1074, __pyx_L1_error)
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1100, __pyx_L1_error)
   __pyx_t_4 = ((PyArrayObject *)__pyx_t_3);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_t_4, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_attractors = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_attractors.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1074, __pyx_L1_error)
+      __PYX_ERR(0, 1100, __pyx_L1_error)
     } else {__pyx_pybuffernd_attractors.diminfo[0].strides = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_attractors.diminfo[0].shape = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_attractors.diminfo[1].strides = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_attractors.diminfo[1].shape = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -48959,7 +49131,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
   __pyx_v_attractors = ((PyArrayObject *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "cosmomia/subgrid.pyx":1075
+  /* "cosmomia/subgrid.pyx":1101
  *     #mask = catalog['is_dm'].astype(bool) & (catalog['dweb'] < 4)
  *     cdef cnp.ndarray[floating, ndim=2] attractors = catalog['pos'][is_attractor_mask]
  *     cdef cnp.ndarray[floating, ndim=2] not_attractors = catalog['pos'][~is_attractor_mask]             # <<<<<<<<<<<<<<
@@ -48968,23 +49140,23 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
  */
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1075, __pyx_L1_error)
+    __PYX_ERR(0, 1101, __pyx_L1_error)
   }
-  __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_pos); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1075, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_pos); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = PyNumber_Invert(__pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1075, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Invert(__pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1075, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1075, __pyx_L1_error)
+  if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1101, __pyx_L1_error)
   __pyx_t_6 = ((PyArrayObject *)__pyx_t_5);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_not_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_t_6, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_not_attractors = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1075, __pyx_L1_error)
+      __PYX_ERR(0, 1101, __pyx_L1_error)
     } else {__pyx_pybuffernd_not_attractors.diminfo[0].strides = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_not_attractors.diminfo[0].shape = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_not_attractors.diminfo[1].strides = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_not_attractors.diminfo[1].shape = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -48992,7 +49164,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
   __pyx_v_not_attractors = ((PyArrayObject *)__pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "cosmomia/subgrid.pyx":1076
+  /* "cosmomia/subgrid.pyx":1102
  *     cdef cnp.ndarray[floating, ndim=2] attractors = catalog['pos'][is_attractor_mask]
  *     cdef cnp.ndarray[floating, ndim=2] not_attractors = catalog['pos'][~is_attractor_mask]
  *     cdef cnp.ndarray[floating, ndim=2] vel_attractors = catalog['vel'][is_attractor_mask]             # <<<<<<<<<<<<<<
@@ -49001,20 +49173,20 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
  */
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1076, __pyx_L1_error)
+    __PYX_ERR(0, 1102, __pyx_L1_error)
   }
-  __pyx_t_5 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_vel); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1076, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_vel); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1076, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1076, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1102, __pyx_L1_error)
   __pyx_t_7 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_t_7, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_vel_attractors = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1076, __pyx_L1_error)
+      __PYX_ERR(0, 1102, __pyx_L1_error)
     } else {__pyx_pybuffernd_vel_attractors.diminfo[0].strides = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_vel_attractors.diminfo[0].shape = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_vel_attractors.diminfo[1].strides = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_vel_attractors.diminfo[1].shape = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -49022,7 +49194,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
   __pyx_v_vel_attractors = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "cosmomia/subgrid.pyx":1077
+  /* "cosmomia/subgrid.pyx":1103
  *     cdef cnp.ndarray[floating, ndim=2] not_attractors = catalog['pos'][~is_attractor_mask]
  *     cdef cnp.ndarray[floating, ndim=2] vel_attractors = catalog['vel'][is_attractor_mask]
  *     cdef cnp.ndarray[floating, ndim=2] vel_not_attractors = catalog['vel'][~is_attractor_mask]             # <<<<<<<<<<<<<<
@@ -49031,23 +49203,23 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
  */
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1077, __pyx_L1_error)
+    __PYX_ERR(0, 1103, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_vel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1077, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_vel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = PyNumber_Invert(__pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1077, __pyx_L1_error)
+  __pyx_t_5 = PyNumber_Invert(__pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1077, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1077, __pyx_L1_error)
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1103, __pyx_L1_error)
   __pyx_t_8 = ((PyArrayObject *)__pyx_t_3);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_t_8, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_vel_not_attractors = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1077, __pyx_L1_error)
+      __PYX_ERR(0, 1103, __pyx_L1_error)
     } else {__pyx_pybuffernd_vel_not_attractors.diminfo[0].strides = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_vel_not_attractors.diminfo[0].shape = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_vel_not_attractors.diminfo[1].strides = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_vel_not_attractors.diminfo[1].shape = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -49055,7 +49227,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
   __pyx_v_vel_not_attractors = ((PyArrayObject *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "cosmomia/subgrid.pyx":1078
+  /* "cosmomia/subgrid.pyx":1104
  *     cdef cnp.ndarray[floating, ndim=2] vel_attractors = catalog['vel'][is_attractor_mask]
  *     cdef cnp.ndarray[floating, ndim=2] vel_not_attractors = catalog['vel'][~is_attractor_mask]
  *     cdef cnp.ndarray[floating, ndim=1] dm = catalog['delta_dm'][is_attractor_mask]             # <<<<<<<<<<<<<<
@@ -49064,20 +49236,20 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
  */
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1078, __pyx_L1_error)
+    __PYX_ERR(0, 1104, __pyx_L1_error)
   }
-  __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_delta_dm); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1078, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_delta_dm); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1078, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1078, __pyx_L1_error)
+  if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1104, __pyx_L1_error)
   __pyx_t_9 = ((PyArrayObject *)__pyx_t_5);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_dm.rcbuffer->pybuffer, (PyObject*)__pyx_t_9, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_dm = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_dm.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1078, __pyx_L1_error)
+      __PYX_ERR(0, 1104, __pyx_L1_error)
     } else {__pyx_pybuffernd_dm.diminfo[0].strides = __pyx_pybuffernd_dm.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_dm.diminfo[0].shape = __pyx_pybuffernd_dm.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -49085,55 +49257,55 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
   __pyx_v_dm = ((PyArrayObject *)__pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "cosmomia/subgrid.pyx":1085
+  /* "cosmomia/subgrid.pyx":1111
  * 
  *     cdef floating[:,:] attractors_view, not_attractors_view, vel_attractors_view, vel_not_attractors_view#, attractors_copy_view, not_attractors_copy_view
  *     attractors_view = attractors             # <<<<<<<<<<<<<<
  *     not_attractors_view = not_attractors
  *     vel_attractors_view = vel_attractors
  */
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(((PyObject *)__pyx_v_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1085, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(((PyObject *)__pyx_v_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1111, __pyx_L1_error)
   __pyx_v_attractors_view = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1086
+  /* "cosmomia/subgrid.pyx":1112
  *     cdef floating[:,:] attractors_view, not_attractors_view, vel_attractors_view, vel_not_attractors_view#, attractors_copy_view, not_attractors_copy_view
  *     attractors_view = attractors
  *     not_attractors_view = not_attractors             # <<<<<<<<<<<<<<
  *     vel_attractors_view = vel_attractors
  *     vel_not_attractors_view = vel_not_attractors
  */
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(((PyObject *)__pyx_v_not_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1086, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(((PyObject *)__pyx_v_not_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1112, __pyx_L1_error)
   __pyx_v_not_attractors_view = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1087
+  /* "cosmomia/subgrid.pyx":1113
  *     attractors_view = attractors
  *     not_attractors_view = not_attractors
  *     vel_attractors_view = vel_attractors             # <<<<<<<<<<<<<<
  *     vel_not_attractors_view = vel_not_attractors
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(((PyObject *)__pyx_v_vel_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1087, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(((PyObject *)__pyx_v_vel_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1113, __pyx_L1_error)
   __pyx_v_vel_attractors_view = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1088
+  /* "cosmomia/subgrid.pyx":1114
  *     not_attractors_view = not_attractors
  *     vel_attractors_view = vel_attractors
  *     vel_not_attractors_view = vel_not_attractors             # <<<<<<<<<<<<<<
  * 
  *     cdef cnp.ndarray[long, ndim=1] attractors_ids = catalog['order'][is_attractor_mask]
  */
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(((PyObject *)__pyx_v_vel_not_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1088, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(((PyObject *)__pyx_v_vel_not_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1114, __pyx_L1_error)
   __pyx_v_vel_not_attractors_view = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1090
+  /* "cosmomia/subgrid.pyx":1116
  *     vel_not_attractors_view = vel_not_attractors
  * 
  *     cdef cnp.ndarray[long, ndim=1] attractors_ids = catalog['order'][is_attractor_mask]             # <<<<<<<<<<<<<<
@@ -49142,20 +49314,20 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
  */
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1090, __pyx_L1_error)
+    __PYX_ERR(0, 1116, __pyx_L1_error)
   }
-  __pyx_t_5 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_order); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1090, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_order); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1090, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1090, __pyx_L1_error)
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1116, __pyx_L1_error)
   __pyx_t_10 = ((PyArrayObject *)__pyx_t_3);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_attractors_ids.rcbuffer->pybuffer, (PyObject*)__pyx_t_10, &__Pyx_TypeInfo_long, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_attractors_ids = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_attractors_ids.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1090, __pyx_L1_error)
+      __PYX_ERR(0, 1116, __pyx_L1_error)
     } else {__pyx_pybuffernd_attractors_ids.diminfo[0].strides = __pyx_pybuffernd_attractors_ids.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_attractors_ids.diminfo[0].shape = __pyx_pybuffernd_attractors_ids.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -49163,7 +49335,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
   __pyx_v_attractors_ids = ((PyArrayObject *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "cosmomia/subgrid.pyx":1091
+  /* "cosmomia/subgrid.pyx":1117
  * 
  *     cdef cnp.ndarray[long, ndim=1] attractors_ids = catalog['order'][is_attractor_mask]
  *     cdef cnp.ndarray[long, ndim=1] not_attractors_ids = catalog['order'][~is_attractor_mask]             # <<<<<<<<<<<<<<
@@ -49172,23 +49344,23 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
  */
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1091, __pyx_L1_error)
+    __PYX_ERR(0, 1117, __pyx_L1_error)
   }
-  __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_order); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1091, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_catalog, __pyx_n_u_order); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = PyNumber_Invert(__pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1091, __pyx_L1_error)
+  __pyx_t_5 = PyNumber_Invert(__pyx_v_is_attractor_mask); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1091, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1091, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1117, __pyx_L1_error)
   __pyx_t_11 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_not_attractors_ids.rcbuffer->pybuffer, (PyObject*)__pyx_t_11, &__Pyx_TypeInfo_long, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_not_attractors_ids = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_not_attractors_ids.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1091, __pyx_L1_error)
+      __PYX_ERR(0, 1117, __pyx_L1_error)
     } else {__pyx_pybuffernd_not_attractors_ids.diminfo[0].strides = __pyx_pybuffernd_not_attractors_ids.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_not_attractors_ids.diminfo[0].shape = __pyx_pybuffernd_not_attractors_ids.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -49196,26 +49368,26 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
   __pyx_v_not_attractors_ids = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "cosmomia/subgrid.pyx":1097
+  /* "cosmomia/subgrid.pyx":1123
  * 
  * 
  *     cdef floating[:] dm_view = dm             # <<<<<<<<<<<<<<
  *     #attractors_copy_view = attractors_copy
  *     #not_attractors_copy_view = not_attractors_copy
  */
-  __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(((PyObject *)__pyx_v_dm), PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 1097, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(((PyObject *)__pyx_v_dm), PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 1123, __pyx_L1_error)
   __pyx_v_dm_view = __pyx_t_12;
   __pyx_t_12.memview = NULL;
   __pyx_t_12.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1103
+  /* "cosmomia/subgrid.pyx":1129
  *     #tic = time.time()
  *     #tree = pybosque.Tree(not_attractors, idxs)
  *     tree = KDTree(attractors)#, boxsize = box_size)             # <<<<<<<<<<<<<<
  *     #print(f"Tree built in {time.time() - tic}s", flush=True)
  *     #tic = time.time()
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_KDTree); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1103, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_KDTree); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1129, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_3 = NULL;
   __pyx_t_13 = 0;
@@ -49235,34 +49407,34 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
     PyObject *__pyx_callargs[2] = {__pyx_t_3, ((PyObject *)__pyx_v_attractors)};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_13, 1+__pyx_t_13);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1103, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1129, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __pyx_v_tree = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "cosmomia/subgrid.pyx":1108
+  /* "cosmomia/subgrid.pyx":1134
  *     #r, ids = tree.query(attractors, 2, [0,1])
  *     #r, ids = tree.query(not_attractors, k = 2)
  *     dists, ids = tree.query(attractors, k = 2, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)             # <<<<<<<<<<<<<<
  *     cdef floating[:] dists_view
  *     dists_view = dists[:,1]
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_tree, __pyx_n_s_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1108, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_tree, __pyx_n_s_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1108, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_INCREF((PyObject *)__pyx_v_attractors);
   __Pyx_GIVEREF((PyObject *)__pyx_v_attractors);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, ((PyObject *)__pyx_v_attractors))) __PYX_ERR(0, 1108, __pyx_L1_error);
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1108, __pyx_L1_error)
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, ((PyObject *)__pyx_v_attractors))) __PYX_ERR(0, 1134, __pyx_L1_error);
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_k, __pyx_int_2) < 0) __PYX_ERR(0, 1108, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_eps, __pyx_float_0_) < 0) __PYX_ERR(0, 1108, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_distance_upper_bound, Py_None) < 0) __PYX_ERR(0, 1108, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_sqr_dists, Py_True) < 0) __PYX_ERR(0, 1108, __pyx_L1_error)
-  __pyx_t_14 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1108, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_k, __pyx_int_2) < 0) __PYX_ERR(0, 1134, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_eps, __pyx_float_0_) < 0) __PYX_ERR(0, 1134, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_distance_upper_bound, Py_None) < 0) __PYX_ERR(0, 1134, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_sqr_dists, Py_True) < 0) __PYX_ERR(0, 1134, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -49273,7 +49445,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
     if (unlikely(size != 2)) {
       if (size > 2) __Pyx_RaiseTooManyValuesError(2);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 1108, __pyx_L1_error)
+      __PYX_ERR(0, 1134, __pyx_L1_error)
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -49286,15 +49458,15 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
     __Pyx_INCREF(__pyx_t_3);
     __Pyx_INCREF(__pyx_t_5);
     #else
-    __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1108, __pyx_L1_error)
+    __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1134, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1108, __pyx_L1_error)
+    __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1134, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     #endif
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_1 = PyObject_GetIter(__pyx_t_14); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1108, __pyx_L1_error)
+    __pyx_t_1 = PyObject_GetIter(__pyx_t_14); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1134, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
     __pyx_t_15 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_1);
@@ -49302,7 +49474,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
     __Pyx_GOTREF(__pyx_t_3);
     index = 1; __pyx_t_5 = __pyx_t_15(__pyx_t_1); if (unlikely(!__pyx_t_5)) goto __pyx_L3_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_5);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_1), 2) < 0) __PYX_ERR(0, 1108, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_1), 2) < 0) __PYX_ERR(0, 1134, __pyx_L1_error)
     __pyx_t_15 = NULL;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     goto __pyx_L4_unpacking_done;
@@ -49310,7 +49482,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_15 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 1108, __pyx_L1_error)
+    __PYX_ERR(0, 1134, __pyx_L1_error)
     __pyx_L4_unpacking_done:;
   }
   __pyx_v_dists = __pyx_t_3;
@@ -49318,46 +49490,46 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
   __pyx_v_ids = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "cosmomia/subgrid.pyx":1110
+  /* "cosmomia/subgrid.pyx":1136
  *     dists, ids = tree.query(attractors, k = 2, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)
  *     cdef floating[:] dists_view
  *     dists_view = dists[:,1]             # <<<<<<<<<<<<<<
  *     cdef unsigned[:] ids_view
  *     ids_view = ids[:,1]
  */
-  __pyx_t_14 = __Pyx_PyObject_GetItem(__pyx_v_dists, __pyx_tuple__20); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1110, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyObject_GetItem(__pyx_v_dists, __pyx_tuple__20); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
-  __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_14, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 1110, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_14, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 1136, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
   __pyx_v_dists_view = __pyx_t_12;
   __pyx_t_12.memview = NULL;
   __pyx_t_12.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1112
+  /* "cosmomia/subgrid.pyx":1138
  *     dists_view = dists[:,1]
  *     cdef unsigned[:] ids_view
  *     ids_view = ids[:,1]             # <<<<<<<<<<<<<<
  *     #ids is the array of ids in not_attractors that are closest to eah attractor
  *     #print(f"Tree query in {time.time() - tic}s", flush=True)
  */
-  __pyx_t_14 = __Pyx_PyObject_GetItem(__pyx_v_ids, __pyx_tuple__20); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1112, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyObject_GetItem(__pyx_v_ids, __pyx_tuple__20); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1138, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
-  __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_int(__pyx_t_14, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 1112, __pyx_L1_error)
+  __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_int(__pyx_t_14, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 1138, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
   __pyx_v_ids_view = __pyx_t_16;
   __pyx_t_16.memview = NULL;
   __pyx_t_16.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1118
+  /* "cosmomia/subgrid.pyx":1144
  *     cdef floating collapse_frac, gauss_rand
  * 
  *     tic = time.time()             # <<<<<<<<<<<<<<
  *     for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):
  *         #gauss_rand = dist_gauss(gen)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_time); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1118, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_time); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1144, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1118, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1144, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_5 = NULL;
@@ -49378,14 +49550,14 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
     PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
     __pyx_t_14 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_13, 0+__pyx_t_13);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1118, __pyx_L1_error)
+    if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1144, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_tic = __pyx_t_14;
   __pyx_t_14 = 0;
 
-  /* "cosmomia/subgrid.pyx":1119
+  /* "cosmomia/subgrid.pyx":1145
  * 
  *     tic = time.time()
  *     for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):             # <<<<<<<<<<<<<<
@@ -49400,7 +49572,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
       __Pyx_FastGIL_Remember();
       #endif
       /*try:*/ {
-        if (unlikely(!__pyx_v_ids_view.memview)) { __Pyx_RaiseUnboundMemoryviewSliceNogil("ids_view"); __PYX_ERR(0, 1119, __pyx_L6_error) }
+        if (unlikely(!__pyx_v_ids_view.memview)) { __Pyx_RaiseUnboundMemoryviewSliceNogil("ids_view"); __PYX_ERR(0, 1145, __pyx_L6_error) }
         __pyx_t_17 = (__pyx_v_ids_view.shape[0]);
         {
             #if ((defined(__APPLE__) || defined(__OSX__)) && (defined(__GNUC__) && (__GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95)))))
@@ -49413,7 +49585,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
             if (__pyx_t_19 > 0)
             {
                 #ifdef _OPENMP
-                #pragma omp parallel num_threads(__pyx_v_num_threads) private(__pyx_t_20, __pyx_t_23, __pyx_t_24, __pyx_t_25, __pyx_t_27) firstprivate(__pyx_t_12, __pyx_t_21, __pyx_t_22, __pyx_t_26)
+                #pragma omp parallel num_threads(__pyx_v_num_threads) private(__pyx_t_20, __pyx_t_23, __pyx_t_24, __pyx_t_25, __pyx_t_28) firstprivate(__pyx_t_12, __pyx_t_21, __pyx_t_22, __pyx_t_26, __pyx_t_27)
                 #endif /* _OPENMP */
                 {
                     #ifdef _OPENMP
@@ -49425,22 +49597,22 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(PyObje
                             /* Initialize private variables to invalid values */
                             __pyx_v_collapse_frac = ((double)__PYX_NAN());
 
-                            /* "cosmomia/subgrid.pyx":1121
+                            /* "cosmomia/subgrid.pyx":1147
  *     for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):
  *         #gauss_rand = dist_gauss(gen)
  *         collapse_frac = params[0] #* (1 + gauss_rand * 0.5) if gauss_rand > 0 else exp(gauss_rand * 0.5)             # <<<<<<<<<<<<<<
  *         collapse[floating](attractors_view[ids_view[i],:], attractors_view[ids_view[i],:], attractors_view[i,:], dists_view[i], params[0], params[1],
- *                                                             vel_attractors_view[ids_view[i],:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[i], params[4],
+ *                                                             vel_attractors_view[ids_view[i],:], vel_attractors_view[i,:],
  */
                             __pyx_t_20 = 0;
                             __pyx_v_collapse_frac = (*((double *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_20 * __pyx_v_params.strides[0]) )));
 
-                            /* "cosmomia/subgrid.pyx":1122
+                            /* "cosmomia/subgrid.pyx":1148
  *         #gauss_rand = dist_gauss(gen)
  *         collapse_frac = params[0] #* (1 + gauss_rand * 0.5) if gauss_rand > 0 else exp(gauss_rand * 0.5)
  *         collapse[floating](attractors_view[ids_view[i],:], attractors_view[ids_view[i],:], attractors_view[i,:], dists_view[i], params[0], params[1],             # <<<<<<<<<<<<<<
- *                                                             vel_attractors_view[ids_view[i],:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[i], params[4],
- *                                                             box_size)
+ *                                                             vel_attractors_view[ids_view[i],:], vel_attractors_view[i,:],
+ *                                                             dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[i], params[4],
  */
                             __pyx_t_20 = __pyx_v_i;
                             __pyx_t_12.data = __pyx_v_attractors_view.data;
@@ -49487,12 +49659,12 @@ __pyx_t_20 = __pyx_v_i;
                             __pyx_t_23 = 0;
                             __pyx_t_24 = 1;
 
-                            /* "cosmomia/subgrid.pyx":1123
+                            /* "cosmomia/subgrid.pyx":1149
  *         collapse_frac = params[0] #* (1 + gauss_rand * 0.5) if gauss_rand > 0 else exp(gauss_rand * 0.5)
  *         collapse[floating](attractors_view[ids_view[i],:], attractors_view[ids_view[i],:], attractors_view[i,:], dists_view[i], params[0], params[1],
- *                                                             vel_attractors_view[ids_view[i],:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[i], params[4],             # <<<<<<<<<<<<<<
+ *                                                             vel_attractors_view[ids_view[i],:], vel_attractors_view[i,:],             # <<<<<<<<<<<<<<
+ *                                                             dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[i], params[4],
  *                                                             box_size)
- *     #print(f"Collapse in {time.time() - tic}s", flush=True)
  */
                             __pyx_t_25 = __pyx_v_i;
                             __pyx_t_26.data = __pyx_v_vel_attractors_view.data;
@@ -49508,17 +49680,38 @@ __pyx_t_26.shape[0] = __pyx_v_vel_attractors_view.shape[1];
 __pyx_t_26.strides[0] = __pyx_v_vel_attractors_view.strides[1];
     __pyx_t_26.suboffsets[0] = -1;
 
-__pyx_t_25 = __pyx_v_i;
-                            __pyx_t_27 = 4;
+__pyx_t_27.data = __pyx_v_vel_attractors_view.data;
+                            __pyx_t_27.memview = __pyx_v_vel_attractors_view.memview;
+                            __PYX_INC_MEMVIEW(&__pyx_t_27, 0);
+                            {
+    Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
+    Py_ssize_t __pyx_tmp_stride = __pyx_v_vel_attractors_view.strides[0];
+        __pyx_t_27.data += __pyx_tmp_idx * __pyx_tmp_stride;
+}
 
-                            /* "cosmomia/subgrid.pyx":1122
+__pyx_t_27.shape[0] = __pyx_v_vel_attractors_view.shape[1];
+__pyx_t_27.strides[0] = __pyx_v_vel_attractors_view.strides[1];
+    __pyx_t_27.suboffsets[0] = -1;
+
+__pyx_t_25 = __pyx_v_i;
+
+                            /* "cosmomia/subgrid.pyx":1150
+ *         collapse[floating](attractors_view[ids_view[i],:], attractors_view[ids_view[i],:], attractors_view[i,:], dists_view[i], params[0], params[1],
+ *                                                             vel_attractors_view[ids_view[i],:], vel_attractors_view[i,:],
+ *                                                             dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[i], params[4],             # <<<<<<<<<<<<<<
+ *                                                             box_size)
+ *     #print(f"Collapse in {time.time() - tic}s", flush=True)
+ */
+                            __pyx_t_28 = 4;
+
+                            /* "cosmomia/subgrid.pyx":1148
  *         #gauss_rand = dist_gauss(gen)
  *         collapse_frac = params[0] #* (1 + gauss_rand * 0.5) if gauss_rand > 0 else exp(gauss_rand * 0.5)
  *         collapse[floating](attractors_view[ids_view[i],:], attractors_view[ids_view[i],:], attractors_view[i,:], dists_view[i], params[0], params[1],             # <<<<<<<<<<<<<<
- *                                                             vel_attractors_view[ids_view[i],:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[i], params[4],
- *                                                             box_size)
+ *                                                             vel_attractors_view[ids_view[i],:], vel_attractors_view[i,:],
+ *                                                             dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[i], params[4],
  */
-                            __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__pyx_t_12, __pyx_t_21, __pyx_t_22, (*((double *) ( /* dim=0 */ (__pyx_v_dists_view.data + __pyx_t_20 * __pyx_v_dists_view.strides[0]) ))), (*((double *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_23 * __pyx_v_params.strides[0]) ))), (*((double *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_24 * __pyx_v_params.strides[0]) ))), __pyx_t_26, __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), (*((double *) ( /* dim=0 */ (__pyx_v_dm_view.data + __pyx_t_25 * __pyx_v_dm_view.strides[0]) ))), (*((double *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_27 * __pyx_v_params.strides[0]) ))), __pyx_v_box_size);
+                            __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__pyx_t_12, __pyx_t_21, __pyx_t_22, (*((double *) ( /* dim=0 */ (__pyx_v_dists_view.data + __pyx_t_20 * __pyx_v_dists_view.strides[0]) ))), (*((double *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_23 * __pyx_v_params.strides[0]) ))), (*((double *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_24 * __pyx_v_params.strides[0]) ))), __pyx_t_26, __pyx_t_27, __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), (*((double *) ( /* dim=0 */ (__pyx_v_dm_view.data + __pyx_t_25 * __pyx_v_dm_view.strides[0]) ))), (*((double *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_28 * __pyx_v_params.strides[0]) ))), __pyx_v_box_size);
                             __PYX_XCLEAR_MEMVIEW(&__pyx_t_12, 0);
                             __pyx_t_12.memview = NULL; __pyx_t_12.data = NULL;
                             __PYX_XCLEAR_MEMVIEW(&__pyx_t_21, 0);
@@ -49527,6 +49720,8 @@ __pyx_t_25 = __pyx_v_i;
                             __pyx_t_22.memview = NULL; __pyx_t_22.data = NULL;
                             __PYX_XCLEAR_MEMVIEW(&__pyx_t_26, 0);
                             __pyx_t_26.memview = NULL; __pyx_t_26.data = NULL;
+                            __PYX_XCLEAR_MEMVIEW(&__pyx_t_27, 0);
+                            __pyx_t_27.memview = NULL; __pyx_t_27.data = NULL;
                         }
                     }
                 }
@@ -49540,7 +49735,7 @@ __pyx_t_25 = __pyx_v_i;
         #endif
       }
 
-      /* "cosmomia/subgrid.pyx":1119
+      /* "cosmomia/subgrid.pyx":1145
  * 
  *     tic = time.time()
  *     for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):             # <<<<<<<<<<<<<<
@@ -49566,37 +49761,37 @@ __pyx_t_25 = __pyx_v_i;
       }
   }
 
-  /* "cosmomia/subgrid.pyx":1126
+  /* "cosmomia/subgrid.pyx":1153
  *                                                             box_size)
  *     #print(f"Collapse in {time.time() - tic}s", flush=True)
  *     if debug:             # <<<<<<<<<<<<<<
  *         print(dists)
  *         tic = time.time()
  */
-  __pyx_t_28 = __Pyx_PyObject_IsTrue(__pyx_v_debug); if (unlikely((__pyx_t_28 < 0))) __PYX_ERR(0, 1126, __pyx_L1_error)
-  if (__pyx_t_28) {
+  __pyx_t_29 = __Pyx_PyObject_IsTrue(__pyx_v_debug); if (unlikely((__pyx_t_29 < 0))) __PYX_ERR(0, 1153, __pyx_L1_error)
+  if (__pyx_t_29) {
 
-    /* "cosmomia/subgrid.pyx":1127
+    /* "cosmomia/subgrid.pyx":1154
  *     #print(f"Collapse in {time.time() - tic}s", flush=True)
  *     if debug:
  *         print(dists)             # <<<<<<<<<<<<<<
  *         tic = time.time()
  *         tree = KDTree(attractors)#, boxsize = box_size)
  */
-    __pyx_t_14 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_v_dists); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1127, __pyx_L1_error)
+    __pyx_t_14 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_v_dists); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1154, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
 
-    /* "cosmomia/subgrid.pyx":1128
+    /* "cosmomia/subgrid.pyx":1155
  *     if debug:
  *         print(dists)
  *         tic = time.time()             # <<<<<<<<<<<<<<
  *         tree = KDTree(attractors)#, boxsize = box_size)
  *         print(f"Tree built in {time.time() - tic}s", flush=True)
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1128, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1155, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1128, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1155, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -49617,21 +49812,21 @@ __pyx_t_25 = __pyx_v_i;
       PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
       __pyx_t_14 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_13, 0+__pyx_t_13);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1128, __pyx_L1_error)
+      if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1155, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
     __Pyx_DECREF_SET(__pyx_v_tic, __pyx_t_14);
     __pyx_t_14 = 0;
 
-    /* "cosmomia/subgrid.pyx":1129
+    /* "cosmomia/subgrid.pyx":1156
  *         print(dists)
  *         tic = time.time()
  *         tree = KDTree(attractors)#, boxsize = box_size)             # <<<<<<<<<<<<<<
  *         print(f"Tree built in {time.time() - tic}s", flush=True)
  *         tic = time.time()
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_KDTree); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1129, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_KDTree); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1156, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_3 = NULL;
     __pyx_t_13 = 0;
@@ -49651,31 +49846,31 @@ __pyx_t_25 = __pyx_v_i;
       PyObject *__pyx_callargs[2] = {__pyx_t_3, ((PyObject *)__pyx_v_attractors)};
       __pyx_t_14 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_13, 1+__pyx_t_13);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1129, __pyx_L1_error)
+      if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1156, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
     __Pyx_DECREF_SET(__pyx_v_tree, __pyx_t_14);
     __pyx_t_14 = 0;
 
-    /* "cosmomia/subgrid.pyx":1130
+    /* "cosmomia/subgrid.pyx":1157
  *         tic = time.time()
  *         tree = KDTree(attractors)#, boxsize = box_size)
  *         print(f"Tree built in {time.time() - tic}s", flush=True)             # <<<<<<<<<<<<<<
  *         tic = time.time()
  *         dists, ids = tree.query(attractors, k = 2, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)
  */
-    __pyx_t_14 = PyTuple_New(3); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1130, __pyx_L1_error)
+    __pyx_t_14 = PyTuple_New(3); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     __pyx_t_19 = 0;
-    __pyx_t_29 = 127;
+    __pyx_t_30 = 127;
     __Pyx_INCREF(__pyx_kp_u_Tree_built_in);
     __pyx_t_19 += 14;
     __Pyx_GIVEREF(__pyx_kp_u_Tree_built_in);
     PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_kp_u_Tree_built_in);
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1130, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1130, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -49696,17 +49891,17 @@ __pyx_t_25 = __pyx_v_i;
       PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
       __pyx_t_5 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_13, 0+__pyx_t_13);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1130, __pyx_L1_error)
+      if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1157, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
-    __pyx_t_1 = PyNumber_Subtract(__pyx_t_5, __pyx_v_tic); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1130, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Subtract(__pyx_t_5, __pyx_v_tic); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_FormatSimple(__pyx_t_1, __pyx_empty_unicode); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1130, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_FormatSimple(__pyx_t_1, __pyx_empty_unicode); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_29 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) > __pyx_t_29) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) : __pyx_t_29;
+    __pyx_t_30 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) > __pyx_t_30) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) : __pyx_t_30;
     __pyx_t_19 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_5);
     PyTuple_SET_ITEM(__pyx_t_14, 1, __pyx_t_5);
@@ -49715,33 +49910,33 @@ __pyx_t_25 = __pyx_v_i;
     __pyx_t_19 += 1;
     __Pyx_GIVEREF(__pyx_n_u_s);
     PyTuple_SET_ITEM(__pyx_t_14, 2, __pyx_n_u_s);
-    __pyx_t_5 = __Pyx_PyUnicode_Join(__pyx_t_14, 3, __pyx_t_19, __pyx_t_29); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1130, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyUnicode_Join(__pyx_t_14, 3, __pyx_t_19, __pyx_t_30); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-    __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1130, __pyx_L1_error)
+    __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     __Pyx_GIVEREF(__pyx_t_5);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_5)) __PYX_ERR(0, 1130, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_5)) __PYX_ERR(0, 1157, __pyx_L1_error);
     __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1130, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_flush, Py_True) < 0) __PYX_ERR(0, 1130, __pyx_L1_error)
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_14, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1130, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_flush, Py_True) < 0) __PYX_ERR(0, 1157, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_14, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "cosmomia/subgrid.pyx":1131
+    /* "cosmomia/subgrid.pyx":1158
  *         tree = KDTree(attractors)#, boxsize = box_size)
  *         print(f"Tree built in {time.time() - tic}s", flush=True)
  *         tic = time.time()             # <<<<<<<<<<<<<<
  *         dists, ids = tree.query(attractors, k = 2, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)
  *         print(dists)
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_time); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1131, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_time); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_time); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1131, __pyx_L1_error)
+    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_time); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_5 = NULL;
@@ -49762,34 +49957,34 @@ __pyx_t_25 = __pyx_v_i;
       PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
       __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_14, __pyx_callargs+1-__pyx_t_13, 0+__pyx_t_13);
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1131, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1158, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
     }
     __Pyx_DECREF_SET(__pyx_v_tic, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "cosmomia/subgrid.pyx":1132
+    /* "cosmomia/subgrid.pyx":1159
  *         print(f"Tree built in {time.time() - tic}s", flush=True)
  *         tic = time.time()
  *         dists, ids = tree.query(attractors, k = 2, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)             # <<<<<<<<<<<<<<
  *         print(dists)
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_tree, __pyx_n_s_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1132, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_tree, __pyx_n_s_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1159, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1132, __pyx_L1_error)
+    __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1159, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     __Pyx_INCREF((PyObject *)__pyx_v_attractors);
     __Pyx_GIVEREF((PyObject *)__pyx_v_attractors);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 0, ((PyObject *)__pyx_v_attractors))) __PYX_ERR(0, 1132, __pyx_L1_error);
-    __pyx_t_5 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1132, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 0, ((PyObject *)__pyx_v_attractors))) __PYX_ERR(0, 1159, __pyx_L1_error);
+    __pyx_t_5 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1159, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_k, __pyx_int_2) < 0) __PYX_ERR(0, 1132, __pyx_L1_error)
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_eps, __pyx_float_0_) < 0) __PYX_ERR(0, 1132, __pyx_L1_error)
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_distance_upper_bound, Py_None) < 0) __PYX_ERR(0, 1132, __pyx_L1_error)
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_sqr_dists, Py_True) < 0) __PYX_ERR(0, 1132, __pyx_L1_error)
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_14, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1132, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_k, __pyx_int_2) < 0) __PYX_ERR(0, 1159, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_eps, __pyx_float_0_) < 0) __PYX_ERR(0, 1159, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_distance_upper_bound, Py_None) < 0) __PYX_ERR(0, 1159, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_sqr_dists, Py_True) < 0) __PYX_ERR(0, 1159, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_14, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1159, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -49800,7 +49995,7 @@ __pyx_t_25 = __pyx_v_i;
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 1132, __pyx_L1_error)
+        __PYX_ERR(0, 1159, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -49813,15 +50008,15 @@ __pyx_t_25 = __pyx_v_i;
       __Pyx_INCREF(__pyx_t_5);
       __Pyx_INCREF(__pyx_t_14);
       #else
-      __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1132, __pyx_L1_error)
+      __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1159, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_14 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1132, __pyx_L1_error)
+      __pyx_t_14 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1159, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       #endif
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_1 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1132, __pyx_L1_error)
+      __pyx_t_1 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1159, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __pyx_t_15 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_1);
@@ -49829,7 +50024,7 @@ __pyx_t_25 = __pyx_v_i;
       __Pyx_GOTREF(__pyx_t_5);
       index = 1; __pyx_t_14 = __pyx_t_15(__pyx_t_1); if (unlikely(!__pyx_t_14)) goto __pyx_L15_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_14);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_1), 2) < 0) __PYX_ERR(0, 1132, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_1), 2) < 0) __PYX_ERR(0, 1159, __pyx_L1_error)
       __pyx_t_15 = NULL;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       goto __pyx_L16_unpacking_done;
@@ -49837,7 +50032,7 @@ __pyx_t_25 = __pyx_v_i;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_15 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 1132, __pyx_L1_error)
+      __PYX_ERR(0, 1159, __pyx_L1_error)
       __pyx_L16_unpacking_done:;
     }
     __Pyx_DECREF_SET(__pyx_v_dists, __pyx_t_5);
@@ -49845,18 +50040,18 @@ __pyx_t_25 = __pyx_v_i;
     __Pyx_DECREF_SET(__pyx_v_ids, __pyx_t_14);
     __pyx_t_14 = 0;
 
-    /* "cosmomia/subgrid.pyx":1133
+    /* "cosmomia/subgrid.pyx":1160
  *         tic = time.time()
  *         dists, ids = tree.query(attractors, k = 2, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)
  *         print(dists)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_v_dists); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1133, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_v_dists); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1160, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "cosmomia/subgrid.pyx":1126
+    /* "cosmomia/subgrid.pyx":1153
  *                                                             box_size)
  *     #print(f"Collapse in {time.time() - tic}s", flush=True)
  *     if debug:             # <<<<<<<<<<<<<<
@@ -49865,40 +50060,40 @@ __pyx_t_25 = __pyx_v_i;
  */
   }
 
-  /* "cosmomia/subgrid.pyx":1146
+  /* "cosmomia/subgrid.pyx":1173
  * 
  * 
  *     attractors_view = attractors             # <<<<<<<<<<<<<<
  *     not_attractors_view = not_attractors
  *     #attractors_copy_view = attractors_copy
  */
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(((PyObject *)__pyx_v_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1146, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(((PyObject *)__pyx_v_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1173, __pyx_L1_error)
   __PYX_XCLEAR_MEMVIEW(&__pyx_v_attractors_view, 1);
   __pyx_v_attractors_view = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1147
+  /* "cosmomia/subgrid.pyx":1174
  * 
  *     attractors_view = attractors
  *     not_attractors_view = not_attractors             # <<<<<<<<<<<<<<
  *     #attractors_copy_view = attractors_copy
  *     #not_attractors_copy_view = not_attractors_copy
  */
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(((PyObject *)__pyx_v_not_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1147, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(((PyObject *)__pyx_v_not_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1174, __pyx_L1_error)
   __PYX_XCLEAR_MEMVIEW(&__pyx_v_not_attractors_view, 1);
   __pyx_v_not_attractors_view = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1152
+  /* "cosmomia/subgrid.pyx":1179
  * 
  *     #tic = time.time()
  *     tree = KDTree(attractors)#, boxsize = box_size)             # <<<<<<<<<<<<<<
  *     #print(f"Tree built in {time.time() - tic}s", flush=True)
  *     #tic = time.time()
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_14, __pyx_n_s_KDTree); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1152, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_14, __pyx_n_s_KDTree); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1179, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
   __pyx_t_5 = NULL;
   __pyx_t_13 = 0;
@@ -49918,34 +50113,34 @@ __pyx_t_25 = __pyx_v_i;
     PyObject *__pyx_callargs[2] = {__pyx_t_5, ((PyObject *)__pyx_v_attractors)};
     __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_14, __pyx_callargs+1-__pyx_t_13, 1+__pyx_t_13);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1152, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1179, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
   }
   __Pyx_DECREF_SET(__pyx_v_tree, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "cosmomia/subgrid.pyx":1155
+  /* "cosmomia/subgrid.pyx":1182
  *     #print(f"Tree built in {time.time() - tic}s", flush=True)
  *     #tic = time.time()
  *     dists, ids = tree.query(not_attractors, k = 1, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)             # <<<<<<<<<<<<<<
  *     dists_view = dists
  *     ids_view = ids
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_tree, __pyx_n_s_query); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1155, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_tree, __pyx_n_s_query); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1155, __pyx_L1_error)
+  __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
   __Pyx_INCREF((PyObject *)__pyx_v_not_attractors);
   __Pyx_GIVEREF((PyObject *)__pyx_v_not_attractors);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 0, ((PyObject *)__pyx_v_not_attractors))) __PYX_ERR(0, 1155, __pyx_L1_error);
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1155, __pyx_L1_error)
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 0, ((PyObject *)__pyx_v_not_attractors))) __PYX_ERR(0, 1182, __pyx_L1_error);
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_k, __pyx_int_1) < 0) __PYX_ERR(0, 1155, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_eps, __pyx_float_0_) < 0) __PYX_ERR(0, 1155, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_distance_upper_bound, Py_None) < 0) __PYX_ERR(0, 1155, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_sqr_dists, Py_True) < 0) __PYX_ERR(0, 1155, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_14, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1155, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_k, __pyx_int_1) < 0) __PYX_ERR(0, 1182, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_eps, __pyx_float_0_) < 0) __PYX_ERR(0, 1182, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_distance_upper_bound, Py_None) < 0) __PYX_ERR(0, 1182, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_sqr_dists, Py_True) < 0) __PYX_ERR(0, 1182, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_14, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -49956,7 +50151,7 @@ __pyx_t_25 = __pyx_v_i;
     if (unlikely(size != 2)) {
       if (size > 2) __Pyx_RaiseTooManyValuesError(2);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 1155, __pyx_L1_error)
+      __PYX_ERR(0, 1182, __pyx_L1_error)
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -49969,15 +50164,15 @@ __pyx_t_25 = __pyx_v_i;
     __Pyx_INCREF(__pyx_t_5);
     __Pyx_INCREF(__pyx_t_14);
     #else
-    __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1155, __pyx_L1_error)
+    __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1182, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_14 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1155, __pyx_L1_error)
+    __pyx_t_14 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1182, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     #endif
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1155, __pyx_L1_error)
+    __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1182, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_15 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_3);
@@ -49985,7 +50180,7 @@ __pyx_t_25 = __pyx_v_i;
     __Pyx_GOTREF(__pyx_t_5);
     index = 1; __pyx_t_14 = __pyx_t_15(__pyx_t_3); if (unlikely(!__pyx_t_14)) goto __pyx_L17_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_14);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_3), 2) < 0) __PYX_ERR(0, 1155, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_3), 2) < 0) __PYX_ERR(0, 1182, __pyx_L1_error)
     __pyx_t_15 = NULL;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     goto __pyx_L18_unpacking_done;
@@ -49993,7 +50188,7 @@ __pyx_t_25 = __pyx_v_i;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_15 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 1155, __pyx_L1_error)
+    __PYX_ERR(0, 1182, __pyx_L1_error)
     __pyx_L18_unpacking_done:;
   }
   __Pyx_DECREF_SET(__pyx_v_dists, __pyx_t_5);
@@ -50001,42 +50196,42 @@ __pyx_t_25 = __pyx_v_i;
   __Pyx_DECREF_SET(__pyx_v_ids, __pyx_t_14);
   __pyx_t_14 = 0;
 
-  /* "cosmomia/subgrid.pyx":1156
+  /* "cosmomia/subgrid.pyx":1183
  *     #tic = time.time()
  *     dists, ids = tree.query(not_attractors, k = 1, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)
  *     dists_view = dists             # <<<<<<<<<<<<<<
  *     ids_view = ids
  *     mask = np.isfinite(dists)
  */
-  __pyx_t_26 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_dists, PyBUF_WRITABLE); if (unlikely(!__pyx_t_26.memview)) __PYX_ERR(0, 1156, __pyx_L1_error)
+  __pyx_t_27 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_dists, PyBUF_WRITABLE); if (unlikely(!__pyx_t_27.memview)) __PYX_ERR(0, 1183, __pyx_L1_error)
   __PYX_XCLEAR_MEMVIEW(&__pyx_v_dists_view, 1);
-  __pyx_v_dists_view = __pyx_t_26;
-  __pyx_t_26.memview = NULL;
-  __pyx_t_26.data = NULL;
+  __pyx_v_dists_view = __pyx_t_27;
+  __pyx_t_27.memview = NULL;
+  __pyx_t_27.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1157
+  /* "cosmomia/subgrid.pyx":1184
  *     dists, ids = tree.query(not_attractors, k = 1, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)
  *     dists_view = dists
  *     ids_view = ids             # <<<<<<<<<<<<<<
  *     mask = np.isfinite(dists)
  *     #dist_corr = (not_attractors[mask,3] - attractors[ids[mask],3])**2
  */
-  __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_int(__pyx_v_ids, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 1157, __pyx_L1_error)
+  __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_int(__pyx_v_ids, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 1184, __pyx_L1_error)
   __PYX_XCLEAR_MEMVIEW(&__pyx_v_ids_view, 1);
   __pyx_v_ids_view = __pyx_t_16;
   __pyx_t_16.memview = NULL;
   __pyx_t_16.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1158
+  /* "cosmomia/subgrid.pyx":1185
  *     dists_view = dists
  *     ids_view = ids
  *     mask = np.isfinite(dists)             # <<<<<<<<<<<<<<
  *     #dist_corr = (not_attractors[mask,3] - attractors[ids[mask],3])**2
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_14, __pyx_n_s_np); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1158, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_14, __pyx_n_s_np); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_isfinite); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1158, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_isfinite); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
   __pyx_t_14 = NULL;
@@ -50057,14 +50252,14 @@ __pyx_t_25 = __pyx_v_i;
     PyObject *__pyx_callargs[2] = {__pyx_t_14, __pyx_v_dists};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_13, 1+__pyx_t_13);
     __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1158, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1185, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __pyx_v_mask = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "cosmomia/subgrid.pyx":1164
+  /* "cosmomia/subgrid.pyx":1191
  * 
  * 
  *     for i in prange(ids_view.shape[0], nogil = True):#, use_threads_if=ids_view.shape[0] > 1e6):             # <<<<<<<<<<<<<<
@@ -50079,7 +50274,7 @@ __pyx_t_25 = __pyx_v_i;
       __Pyx_FastGIL_Remember();
       #endif
       /*try:*/ {
-        if (unlikely(!__pyx_v_ids_view.memview)) { __Pyx_RaiseUnboundMemoryviewSliceNogil("ids_view"); __PYX_ERR(0, 1164, __pyx_L20_error) }
+        if (unlikely(!__pyx_v_ids_view.memview)) { __Pyx_RaiseUnboundMemoryviewSliceNogil("ids_view"); __PYX_ERR(0, 1191, __pyx_L20_error) }
         __pyx_t_19 = (__pyx_v_ids_view.shape[0]);
         {
             #if ((defined(__APPLE__) || defined(__OSX__)) && (defined(__GNUC__) && (__GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95)))))
@@ -50092,7 +50287,7 @@ __pyx_t_25 = __pyx_v_i;
             if (__pyx_t_17 > 0)
             {
                 #ifdef _OPENMP
-                #pragma omp parallel private(__pyx_t_23, __pyx_t_24, __pyx_t_25, __pyx_t_27, __pyx_t_30) firstprivate(__pyx_t_12, __pyx_t_21, __pyx_t_22, __pyx_t_26)
+                #pragma omp parallel private(__pyx_t_23, __pyx_t_24, __pyx_t_25, __pyx_t_28, __pyx_t_31) firstprivate(__pyx_t_12, __pyx_t_21, __pyx_t_22, __pyx_t_26, __pyx_t_27)
                 #endif /* _OPENMP */
                 {
                     #ifdef _OPENMP
@@ -50104,24 +50299,37 @@ __pyx_t_25 = __pyx_v_i;
                             /* Initialize private variables to invalid values */
                             __pyx_v_collapse_frac = ((double)__PYX_NAN());
 
-                            /* "cosmomia/subgrid.pyx":1166
+                            /* "cosmomia/subgrid.pyx":1193
  *     for i in prange(ids_view.shape[0], nogil = True):#, use_threads_if=ids_view.shape[0] > 1e6):
  *         #gauss_rand = dist_gauss(gen)
  *         collapse_frac = params[2]             # <<<<<<<<<<<<<<
  *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], collapse_frac , params[3],
- *                                                       vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[4],
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],
  */
-                            __pyx_t_27 = 2;
-                            __pyx_v_collapse_frac = (*((double *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_27 * __pyx_v_params.strides[0]) )));
+                            __pyx_t_28 = 2;
+                            __pyx_v_collapse_frac = (*((double *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_28 * __pyx_v_params.strides[0]) )));
 
-                            /* "cosmomia/subgrid.pyx":1167
+                            /* "cosmomia/subgrid.pyx":1194
  *         #gauss_rand = dist_gauss(gen)
  *         collapse_frac = params[2]
  *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], collapse_frac , params[3],             # <<<<<<<<<<<<<<
- *                                                       vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[4],
- *                                                       box_size)
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],
+ *                                                       dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[4],
  */
-                            __pyx_t_26.data = __pyx_v_not_attractors_view.data;
+                            __pyx_t_27.data = __pyx_v_not_attractors_view.data;
+                            __pyx_t_27.memview = __pyx_v_not_attractors_view.memview;
+                            __PYX_INC_MEMVIEW(&__pyx_t_27, 0);
+                            {
+    Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
+    Py_ssize_t __pyx_tmp_stride = __pyx_v_not_attractors_view.strides[0];
+        __pyx_t_27.data += __pyx_tmp_idx * __pyx_tmp_stride;
+}
+
+__pyx_t_27.shape[0] = __pyx_v_not_attractors_view.shape[1];
+__pyx_t_27.strides[0] = __pyx_v_not_attractors_view.strides[1];
+    __pyx_t_27.suboffsets[0] = -1;
+
+__pyx_t_26.data = __pyx_v_not_attractors_view.data;
                             __pyx_t_26.memview = __pyx_v_not_attractors_view.memview;
                             __PYX_INC_MEMVIEW(&__pyx_t_26, 0);
                             {
@@ -50134,68 +50342,79 @@ __pyx_t_26.shape[0] = __pyx_v_not_attractors_view.shape[1];
 __pyx_t_26.strides[0] = __pyx_v_not_attractors_view.strides[1];
     __pyx_t_26.suboffsets[0] = -1;
 
-__pyx_t_22.data = __pyx_v_not_attractors_view.data;
-                            __pyx_t_22.memview = __pyx_v_not_attractors_view.memview;
+__pyx_t_28 = __pyx_v_i;
+                            __pyx_t_22.data = __pyx_v_attractors_view.data;
+                            __pyx_t_22.memview = __pyx_v_attractors_view.memview;
                             __PYX_INC_MEMVIEW(&__pyx_t_22, 0);
                             {
-    Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
-    Py_ssize_t __pyx_tmp_stride = __pyx_v_not_attractors_view.strides[0];
+    Py_ssize_t __pyx_tmp_idx = (*((unsigned int *) ( /* dim=0 */ (__pyx_v_ids_view.data + __pyx_t_28 * __pyx_v_ids_view.strides[0]) )));
+    Py_ssize_t __pyx_tmp_stride = __pyx_v_attractors_view.strides[0];
         __pyx_t_22.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
-__pyx_t_22.shape[0] = __pyx_v_not_attractors_view.shape[1];
-__pyx_t_22.strides[0] = __pyx_v_not_attractors_view.strides[1];
+__pyx_t_22.shape[0] = __pyx_v_attractors_view.shape[1];
+__pyx_t_22.strides[0] = __pyx_v_attractors_view.strides[1];
     __pyx_t_22.suboffsets[0] = -1;
 
-__pyx_t_27 = __pyx_v_i;
-                            __pyx_t_21.data = __pyx_v_attractors_view.data;
-                            __pyx_t_21.memview = __pyx_v_attractors_view.memview;
-                            __PYX_INC_MEMVIEW(&__pyx_t_21, 0);
-                            {
-    Py_ssize_t __pyx_tmp_idx = (*((unsigned int *) ( /* dim=0 */ (__pyx_v_ids_view.data + __pyx_t_27 * __pyx_v_ids_view.strides[0]) )));
-    Py_ssize_t __pyx_tmp_stride = __pyx_v_attractors_view.strides[0];
-        __pyx_t_21.data += __pyx_tmp_idx * __pyx_tmp_stride;
-}
-
-__pyx_t_21.shape[0] = __pyx_v_attractors_view.shape[1];
-__pyx_t_21.strides[0] = __pyx_v_attractors_view.strides[1];
-    __pyx_t_21.suboffsets[0] = -1;
-
-__pyx_t_27 = __pyx_v_i;
+__pyx_t_28 = __pyx_v_i;
                             __pyx_t_25 = 3;
 
-                            /* "cosmomia/subgrid.pyx":1168
+                            /* "cosmomia/subgrid.pyx":1195
  *         collapse_frac = params[2]
  *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], collapse_frac , params[3],
- *                                                       vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[4],             # <<<<<<<<<<<<<<
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],             # <<<<<<<<<<<<<<
+ *                                                       dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[4],
  *                                                       box_size)
- *     #print(f"Collapse in {time.time() - tic}s", flush=True)
  */
-                            __pyx_t_12.data = __pyx_v_vel_not_attractors_view.data;
-                            __pyx_t_12.memview = __pyx_v_vel_not_attractors_view.memview;
-                            __PYX_INC_MEMVIEW(&__pyx_t_12, 0);
+                            __pyx_t_21.data = __pyx_v_vel_not_attractors_view.data;
+                            __pyx_t_21.memview = __pyx_v_vel_not_attractors_view.memview;
+                            __PYX_INC_MEMVIEW(&__pyx_t_21, 0);
                             {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_vel_not_attractors_view.strides[0];
+        __pyx_t_21.data += __pyx_tmp_idx * __pyx_tmp_stride;
+}
+
+__pyx_t_21.shape[0] = __pyx_v_vel_not_attractors_view.shape[1];
+__pyx_t_21.strides[0] = __pyx_v_vel_not_attractors_view.strides[1];
+    __pyx_t_21.suboffsets[0] = -1;
+
+__pyx_t_24 = __pyx_v_i;
+                            __pyx_t_12.data = __pyx_v_vel_attractors_view.data;
+                            __pyx_t_12.memview = __pyx_v_vel_attractors_view.memview;
+                            __PYX_INC_MEMVIEW(&__pyx_t_12, 0);
+                            {
+    Py_ssize_t __pyx_tmp_idx = (*((unsigned int *) ( /* dim=0 */ (__pyx_v_ids_view.data + __pyx_t_24 * __pyx_v_ids_view.strides[0]) )));
+    Py_ssize_t __pyx_tmp_stride = __pyx_v_vel_attractors_view.strides[0];
         __pyx_t_12.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
-__pyx_t_12.shape[0] = __pyx_v_vel_not_attractors_view.shape[1];
-__pyx_t_12.strides[0] = __pyx_v_vel_not_attractors_view.strides[1];
+__pyx_t_12.shape[0] = __pyx_v_vel_attractors_view.shape[1];
+__pyx_t_12.strides[0] = __pyx_v_vel_attractors_view.strides[1];
     __pyx_t_12.suboffsets[0] = -1;
 
 __pyx_t_24 = __pyx_v_i;
-                            __pyx_t_30 = (*((unsigned int *) ( /* dim=0 */ (__pyx_v_ids_view.data + __pyx_t_24 * __pyx_v_ids_view.strides[0]) )));
+
+                            /* "cosmomia/subgrid.pyx":1196
+ *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], collapse_frac , params[3],
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],
+ *                                                       dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[4],             # <<<<<<<<<<<<<<
+ *                                                       box_size)
+ *     #print(f"Collapse in {time.time() - tic}s", flush=True)
+ */
+                            __pyx_t_31 = (*((unsigned int *) ( /* dim=0 */ (__pyx_v_ids_view.data + __pyx_t_24 * __pyx_v_ids_view.strides[0]) )));
                             __pyx_t_23 = 4;
 
-                            /* "cosmomia/subgrid.pyx":1167
+                            /* "cosmomia/subgrid.pyx":1194
  *         #gauss_rand = dist_gauss(gen)
  *         collapse_frac = params[2]
  *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], collapse_frac , params[3],             # <<<<<<<<<<<<<<
- *                                                       vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[4],
- *                                                       box_size)
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],
+ *                                                       dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[4],
  */
-                            __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__pyx_t_26, __pyx_t_22, __pyx_t_21, (*((double *) ( /* dim=0 */ (__pyx_v_dists_view.data + __pyx_t_27 * __pyx_v_dists_view.strides[0]) ))), __pyx_v_collapse_frac, (*((double *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_25 * __pyx_v_params.strides[0]) ))), __pyx_t_12, __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), (*((double *) ( /* dim=0 */ (__pyx_v_dm_view.data + __pyx_t_30 * __pyx_v_dm_view.strides[0]) ))), (*((double *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_23 * __pyx_v_params.strides[0]) ))), __pyx_v_box_size);
+                            __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__pyx_t_27, __pyx_t_26, __pyx_t_22, (*((double *) ( /* dim=0 */ (__pyx_v_dists_view.data + __pyx_t_28 * __pyx_v_dists_view.strides[0]) ))), __pyx_v_collapse_frac, (*((double *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_25 * __pyx_v_params.strides[0]) ))), __pyx_t_21, __pyx_t_12, __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), (*((double *) ( /* dim=0 */ (__pyx_v_dm_view.data + __pyx_t_31 * __pyx_v_dm_view.strides[0]) ))), (*((double *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_23 * __pyx_v_params.strides[0]) ))), __pyx_v_box_size);
+                            __PYX_XCLEAR_MEMVIEW(&__pyx_t_27, 0);
+                            __pyx_t_27.memview = NULL; __pyx_t_27.data = NULL;
                             __PYX_XCLEAR_MEMVIEW(&__pyx_t_26, 0);
                             __pyx_t_26.memview = NULL; __pyx_t_26.data = NULL;
                             __PYX_XCLEAR_MEMVIEW(&__pyx_t_22, 0);
@@ -50217,7 +50436,7 @@ __pyx_t_24 = __pyx_v_i;
         #endif
       }
 
-      /* "cosmomia/subgrid.pyx":1164
+      /* "cosmomia/subgrid.pyx":1191
  * 
  * 
  *     for i in prange(ids_view.shape[0], nogil = True):#, use_threads_if=ids_view.shape[0] > 1e6):             # <<<<<<<<<<<<<<
@@ -50243,24 +50462,24 @@ __pyx_t_24 = __pyx_v_i;
       }
   }
 
-  /* "cosmomia/subgrid.pyx":1171
+  /* "cosmomia/subgrid.pyx":1199
  *                                                       box_size)
  *     #print(f"Collapse in {time.time() - tic}s", flush=True)
  *     if debug:             # <<<<<<<<<<<<<<
  *         #print(dists[mask] - dist_corr)
  *         #tic = time.time()
  */
-  __pyx_t_28 = __Pyx_PyObject_IsTrue(__pyx_v_debug); if (unlikely((__pyx_t_28 < 0))) __PYX_ERR(0, 1171, __pyx_L1_error)
-  if (__pyx_t_28) {
+  __pyx_t_29 = __Pyx_PyObject_IsTrue(__pyx_v_debug); if (unlikely((__pyx_t_29 < 0))) __PYX_ERR(0, 1199, __pyx_L1_error)
+  if (__pyx_t_29) {
 
-    /* "cosmomia/subgrid.pyx":1174
+    /* "cosmomia/subgrid.pyx":1202
  *         #print(dists[mask] - dist_corr)
  *         #tic = time.time()
  *         tree = KDTree(attractors)#, boxsize = box_size)             # <<<<<<<<<<<<<<
  *         #print(f"Tree built in {time.time() - tic}s", flush=True)
  *         #tic = time.time()
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_KDTree); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1174, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_KDTree); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1202, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_14 = NULL;
     __pyx_t_13 = 0;
@@ -50280,34 +50499,34 @@ __pyx_t_24 = __pyx_v_i;
       PyObject *__pyx_callargs[2] = {__pyx_t_14, ((PyObject *)__pyx_v_attractors)};
       __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_13, 1+__pyx_t_13);
       __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1174, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1202, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
     __Pyx_DECREF_SET(__pyx_v_tree, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "cosmomia/subgrid.pyx":1177
+    /* "cosmomia/subgrid.pyx":1205
  *         #print(f"Tree built in {time.time() - tic}s", flush=True)
  *         #tic = time.time()
  *         dists, ids = tree.query(not_attractors, k = 1, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)             # <<<<<<<<<<<<<<
  *         mask = np.isfinite(dists)
  *         #dist_corr = (not_attractors[mask,3] - attractors[ids[mask],3])**2
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_tree, __pyx_n_s_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1177, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_tree, __pyx_n_s_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1205, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1177, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1205, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_INCREF((PyObject *)__pyx_v_not_attractors);
     __Pyx_GIVEREF((PyObject *)__pyx_v_not_attractors);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, ((PyObject *)__pyx_v_not_attractors))) __PYX_ERR(0, 1177, __pyx_L1_error);
-    __pyx_t_14 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1177, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, ((PyObject *)__pyx_v_not_attractors))) __PYX_ERR(0, 1205, __pyx_L1_error);
+    __pyx_t_14 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1205, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
-    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_k, __pyx_int_1) < 0) __PYX_ERR(0, 1177, __pyx_L1_error)
-    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_eps, __pyx_float_0_) < 0) __PYX_ERR(0, 1177, __pyx_L1_error)
-    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_distance_upper_bound, Py_None) < 0) __PYX_ERR(0, 1177, __pyx_L1_error)
-    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_sqr_dists, Py_True) < 0) __PYX_ERR(0, 1177, __pyx_L1_error)
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_5, __pyx_t_14); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1177, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_k, __pyx_int_1) < 0) __PYX_ERR(0, 1205, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_eps, __pyx_float_0_) < 0) __PYX_ERR(0, 1205, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_distance_upper_bound, Py_None) < 0) __PYX_ERR(0, 1205, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_sqr_dists, Py_True) < 0) __PYX_ERR(0, 1205, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_5, __pyx_t_14); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1205, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -50318,7 +50537,7 @@ __pyx_t_24 = __pyx_v_i;
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 1177, __pyx_L1_error)
+        __PYX_ERR(0, 1205, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -50331,15 +50550,15 @@ __pyx_t_24 = __pyx_v_i;
       __Pyx_INCREF(__pyx_t_14);
       __Pyx_INCREF(__pyx_t_5);
       #else
-      __pyx_t_14 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1177, __pyx_L1_error)
+      __pyx_t_14 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1205, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
-      __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1177, __pyx_L1_error)
+      __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1205, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       #endif
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_1 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1177, __pyx_L1_error)
+      __pyx_t_1 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1205, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __pyx_t_15 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_1);
@@ -50347,7 +50566,7 @@ __pyx_t_24 = __pyx_v_i;
       __Pyx_GOTREF(__pyx_t_14);
       index = 1; __pyx_t_5 = __pyx_t_15(__pyx_t_1); if (unlikely(!__pyx_t_5)) goto __pyx_L29_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_5);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_1), 2) < 0) __PYX_ERR(0, 1177, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_1), 2) < 0) __PYX_ERR(0, 1205, __pyx_L1_error)
       __pyx_t_15 = NULL;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       goto __pyx_L30_unpacking_done;
@@ -50355,7 +50574,7 @@ __pyx_t_24 = __pyx_v_i;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_15 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 1177, __pyx_L1_error)
+      __PYX_ERR(0, 1205, __pyx_L1_error)
       __pyx_L30_unpacking_done:;
     }
     __Pyx_DECREF_SET(__pyx_v_dists, __pyx_t_14);
@@ -50363,16 +50582,16 @@ __pyx_t_24 = __pyx_v_i;
     __Pyx_DECREF_SET(__pyx_v_ids, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "cosmomia/subgrid.pyx":1178
+    /* "cosmomia/subgrid.pyx":1206
  *         #tic = time.time()
  *         dists, ids = tree.query(not_attractors, k = 1, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)
  *         mask = np.isfinite(dists)             # <<<<<<<<<<<<<<
  *         #dist_corr = (not_attractors[mask,3] - attractors[ids[mask],3])**2
  *         #print(dists[mask] - dist_corr)
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1178, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1206, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_isfinite); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1178, __pyx_L1_error)
+    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_isfinite); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1206, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_5 = NULL;
@@ -50393,14 +50612,14 @@ __pyx_t_24 = __pyx_v_i;
       PyObject *__pyx_callargs[2] = {__pyx_t_5, __pyx_v_dists};
       __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_14, __pyx_callargs+1-__pyx_t_13, 1+__pyx_t_13);
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1178, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1206, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
     }
     __Pyx_DECREF_SET(__pyx_v_mask, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "cosmomia/subgrid.pyx":1171
+    /* "cosmomia/subgrid.pyx":1199
  *                                                       box_size)
  *     #print(f"Collapse in {time.time() - tic}s", flush=True)
  *     if debug:             # <<<<<<<<<<<<<<
@@ -50409,28 +50628,28 @@ __pyx_t_24 = __pyx_v_i;
  */
   }
 
-  /* "cosmomia/subgrid.pyx":1182
+  /* "cosmomia/subgrid.pyx":1210
  *         #print(dists[mask] - dist_corr)
  * 
  *     catalog['pos'] = np.vstack((attractors[:,:3], not_attractors[:,:3]))             # <<<<<<<<<<<<<<
  *     catalog['vel'] = np.vstack((vel_attractors[:,:3], vel_not_attractors[:,:3]))
  *     catalog['order'] = np.concatenate((attractors_ids, not_attractors_ids))
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_14, __pyx_n_s_np); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1182, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_14, __pyx_n_s_np); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_vstack); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1182, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_vstack); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-  __pyx_t_14 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1182, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
-  __pyx_t_1 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_not_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1182, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_not_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_31 = PyTuple_New(2); if (unlikely(!__pyx_t_31)) __PYX_ERR(0, 1182, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_31);
+  __pyx_t_32 = PyTuple_New(2); if (unlikely(!__pyx_t_32)) __PYX_ERR(0, 1210, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_32);
   __Pyx_GIVEREF(__pyx_t_14);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_31, 0, __pyx_t_14)) __PYX_ERR(0, 1182, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_32, 0, __pyx_t_14)) __PYX_ERR(0, 1210, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_1);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_31, 1, __pyx_t_1)) __PYX_ERR(0, 1182, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_32, 1, __pyx_t_1)) __PYX_ERR(0, 1210, __pyx_L1_error);
   __pyx_t_14 = 0;
   __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
@@ -50448,95 +50667,95 @@ __pyx_t_24 = __pyx_v_i;
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_1, __pyx_t_31};
+    PyObject *__pyx_callargs[2] = {__pyx_t_1, __pyx_t_32};
     __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_13, 1+__pyx_t_13);
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_31); __pyx_t_31 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1182, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_32); __pyx_t_32 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1210, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1182, __pyx_L1_error)
+    __PYX_ERR(0, 1210, __pyx_L1_error)
   }
-  if (unlikely((PyDict_SetItem(__pyx_v_catalog, __pyx_n_u_pos, __pyx_t_3) < 0))) __PYX_ERR(0, 1182, __pyx_L1_error)
+  if (unlikely((PyDict_SetItem(__pyx_v_catalog, __pyx_n_u_pos, __pyx_t_3) < 0))) __PYX_ERR(0, 1210, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "cosmomia/subgrid.pyx":1183
+  /* "cosmomia/subgrid.pyx":1211
  * 
  *     catalog['pos'] = np.vstack((attractors[:,:3], not_attractors[:,:3]))
  *     catalog['vel'] = np.vstack((vel_attractors[:,:3], vel_not_attractors[:,:3]))             # <<<<<<<<<<<<<<
  *     catalog['order'] = np.concatenate((attractors_ids, not_attractors_ids))
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1183, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_31 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_vstack); if (unlikely(!__pyx_t_31)) __PYX_ERR(0, 1183, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_31);
+  __pyx_t_32 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_vstack); if (unlikely(!__pyx_t_32)) __PYX_ERR(0, 1211, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_32);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_vel_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1183, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_vel_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_vel_not_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1183, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_vel_not_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_14 = PyTuple_New(2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1183, __pyx_L1_error)
+  __pyx_t_14 = PyTuple_New(2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
   __Pyx_GIVEREF(__pyx_t_5);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_5)) __PYX_ERR(0, 1183, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_5)) __PYX_ERR(0, 1211, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_1);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 1, __pyx_t_1)) __PYX_ERR(0, 1183, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 1, __pyx_t_1)) __PYX_ERR(0, 1211, __pyx_L1_error);
   __pyx_t_5 = 0;
   __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
   __pyx_t_13 = 0;
   #if CYTHON_UNPACK_METHODS
-  if (unlikely(PyMethod_Check(__pyx_t_31))) {
-    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_31);
+  if (unlikely(PyMethod_Check(__pyx_t_32))) {
+    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_32);
     if (likely(__pyx_t_1)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_31);
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_32);
       __Pyx_INCREF(__pyx_t_1);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_31, function);
+      __Pyx_DECREF_SET(__pyx_t_32, function);
       __pyx_t_13 = 1;
     }
   }
   #endif
   {
     PyObject *__pyx_callargs[2] = {__pyx_t_1, __pyx_t_14};
-    __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_31, __pyx_callargs+1-__pyx_t_13, 1+__pyx_t_13);
+    __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_32, __pyx_callargs+1-__pyx_t_13, 1+__pyx_t_13);
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1183, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1211, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_DECREF(__pyx_t_31); __pyx_t_31 = 0;
+    __Pyx_DECREF(__pyx_t_32); __pyx_t_32 = 0;
   }
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1183, __pyx_L1_error)
+    __PYX_ERR(0, 1211, __pyx_L1_error)
   }
-  if (unlikely((PyDict_SetItem(__pyx_v_catalog, __pyx_n_u_vel, __pyx_t_3) < 0))) __PYX_ERR(0, 1183, __pyx_L1_error)
+  if (unlikely((PyDict_SetItem(__pyx_v_catalog, __pyx_n_u_vel, __pyx_t_3) < 0))) __PYX_ERR(0, 1211, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "cosmomia/subgrid.pyx":1184
+  /* "cosmomia/subgrid.pyx":1212
  *     catalog['pos'] = np.vstack((attractors[:,:3], not_attractors[:,:3]))
  *     catalog['vel'] = np.vstack((vel_attractors[:,:3], vel_not_attractors[:,:3]))
  *     catalog['order'] = np.concatenate((attractors_ids, not_attractors_ids))             # <<<<<<<<<<<<<<
  * 
  *     return catalog
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_31, __pyx_n_s_np); if (unlikely(!__pyx_t_31)) __PYX_ERR(0, 1184, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_31);
-  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_31, __pyx_n_s_concatenate); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1184, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_32, __pyx_n_s_np); if (unlikely(!__pyx_t_32)) __PYX_ERR(0, 1212, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_32);
+  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_32, __pyx_n_s_concatenate); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1212, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
-  __Pyx_DECREF(__pyx_t_31); __pyx_t_31 = 0;
-  __pyx_t_31 = PyTuple_New(2); if (unlikely(!__pyx_t_31)) __PYX_ERR(0, 1184, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_31);
+  __Pyx_DECREF(__pyx_t_32); __pyx_t_32 = 0;
+  __pyx_t_32 = PyTuple_New(2); if (unlikely(!__pyx_t_32)) __PYX_ERR(0, 1212, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_32);
   __Pyx_INCREF((PyObject *)__pyx_v_attractors_ids);
   __Pyx_GIVEREF((PyObject *)__pyx_v_attractors_ids);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_31, 0, ((PyObject *)__pyx_v_attractors_ids))) __PYX_ERR(0, 1184, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_32, 0, ((PyObject *)__pyx_v_attractors_ids))) __PYX_ERR(0, 1212, __pyx_L1_error);
   __Pyx_INCREF((PyObject *)__pyx_v_not_attractors_ids);
   __Pyx_GIVEREF((PyObject *)__pyx_v_not_attractors_ids);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_31, 1, ((PyObject *)__pyx_v_not_attractors_ids))) __PYX_ERR(0, 1184, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_32, 1, ((PyObject *)__pyx_v_not_attractors_ids))) __PYX_ERR(0, 1212, __pyx_L1_error);
   __pyx_t_1 = NULL;
   __pyx_t_13 = 0;
   #if CYTHON_UNPACK_METHODS
@@ -50552,22 +50771,22 @@ __pyx_t_24 = __pyx_v_i;
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_1, __pyx_t_31};
+    PyObject *__pyx_callargs[2] = {__pyx_t_1, __pyx_t_32};
     __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_14, __pyx_callargs+1-__pyx_t_13, 1+__pyx_t_13);
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_31); __pyx_t_31 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1184, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_32); __pyx_t_32 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1212, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
   }
   if (unlikely(__pyx_v_catalog == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 1184, __pyx_L1_error)
+    __PYX_ERR(0, 1212, __pyx_L1_error)
   }
-  if (unlikely((PyDict_SetItem(__pyx_v_catalog, __pyx_n_u_order, __pyx_t_3) < 0))) __PYX_ERR(0, 1184, __pyx_L1_error)
+  if (unlikely((PyDict_SetItem(__pyx_v_catalog, __pyx_n_u_order, __pyx_t_3) < 0))) __PYX_ERR(0, 1212, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "cosmomia/subgrid.pyx":1186
+  /* "cosmomia/subgrid.pyx":1214
  *     catalog['order'] = np.concatenate((attractors_ids, not_attractors_ids))
  * 
  *     return catalog             # <<<<<<<<<<<<<<
@@ -50579,7 +50798,7 @@ __pyx_t_24 = __pyx_v_i;
   __pyx_r = __pyx_v_catalog;
   goto __pyx_L0;
 
-  /* "cosmomia/subgrid.pyx":1050
+  /* "cosmomia/subgrid.pyx":1076
  * 
  * 
  * cpdef dict subgrid_collapse(dict catalog, floating[:] params, floating[:] box_size, is_attractor_mask, size_t seed, size_t num_threads, debug = False):             # <<<<<<<<<<<<<<
@@ -50599,7 +50818,8 @@ __pyx_t_24 = __pyx_v_i;
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_21, 1);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_22, 1);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_26, 1);
-  __Pyx_XDECREF(__pyx_t_31);
+  __PYX_XCLEAR_MEMVIEW(&__pyx_t_27, 1);
+  __Pyx_XDECREF(__pyx_t_32);
   { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
     __Pyx_PyThreadState_declare
     __Pyx_PyThreadState_assign
@@ -50705,7 +50925,7 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_57__pyx_fuse_1subgrid_collapse(PyO
           (void)__Pyx_Arg_NewRef_VARARGS(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -50713,9 +50933,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_57__pyx_fuse_1subgrid_collapse(PyO
           (void)__Pyx_Arg_NewRef_VARARGS(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1subgrid_collapse", 0, 6, 7, 1); __PYX_ERR(0, 1050, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1subgrid_collapse", 0, 6, 7, 1); __PYX_ERR(0, 1076, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -50723,9 +50943,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_57__pyx_fuse_1subgrid_collapse(PyO
           (void)__Pyx_Arg_NewRef_VARARGS(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1subgrid_collapse", 0, 6, 7, 2); __PYX_ERR(0, 1050, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1subgrid_collapse", 0, 6, 7, 2); __PYX_ERR(0, 1076, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -50733,9 +50953,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_57__pyx_fuse_1subgrid_collapse(PyO
           (void)__Pyx_Arg_NewRef_VARARGS(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1subgrid_collapse", 0, 6, 7, 3); __PYX_ERR(0, 1050, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1subgrid_collapse", 0, 6, 7, 3); __PYX_ERR(0, 1076, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
@@ -50743,9 +50963,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_57__pyx_fuse_1subgrid_collapse(PyO
           (void)__Pyx_Arg_NewRef_VARARGS(values[4]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1subgrid_collapse", 0, 6, 7, 4); __PYX_ERR(0, 1050, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1subgrid_collapse", 0, 6, 7, 4); __PYX_ERR(0, 1076, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
@@ -50753,21 +50973,21 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_57__pyx_fuse_1subgrid_collapse(PyO
           (void)__Pyx_Arg_NewRef_VARARGS(values[5]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1subgrid_collapse", 0, 6, 7, 5); __PYX_ERR(0, 1050, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1subgrid_collapse", 0, 6, 7, 5); __PYX_ERR(0, 1076, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  6:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_debug);
           if (value) { values[6] = __Pyx_Arg_NewRef_VARARGS(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__pyx_fuse_1subgrid_collapse") < 0)) __PYX_ERR(0, 1050, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__pyx_fuse_1subgrid_collapse") < 0)) __PYX_ERR(0, 1076, __pyx_L3_error)
       }
     } else {
       switch (__pyx_nargs) {
@@ -50784,16 +51004,16 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_57__pyx_fuse_1subgrid_collapse(PyO
       }
     }
     __pyx_v_catalog = ((PyObject*)values[0]);
-    __pyx_v_params = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_params.memview)) __PYX_ERR(0, 1050, __pyx_L3_error)
-    __pyx_v_box_size = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[2], PyBUF_WRITABLE); if (unlikely(!__pyx_v_box_size.memview)) __PYX_ERR(0, 1050, __pyx_L3_error)
+    __pyx_v_params = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_params.memview)) __PYX_ERR(0, 1076, __pyx_L3_error)
+    __pyx_v_box_size = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[2], PyBUF_WRITABLE); if (unlikely(!__pyx_v_box_size.memview)) __PYX_ERR(0, 1076, __pyx_L3_error)
     __pyx_v_is_attractor_mask = values[3];
-    __pyx_v_seed = __Pyx_PyInt_As_size_t(values[4]); if (unlikely((__pyx_v_seed == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
-    __pyx_v_num_threads = __Pyx_PyInt_As_size_t(values[5]); if (unlikely((__pyx_v_num_threads == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1050, __pyx_L3_error)
+    __pyx_v_seed = __Pyx_PyInt_As_size_t(values[4]); if (unlikely((__pyx_v_seed == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
+    __pyx_v_num_threads = __Pyx_PyInt_As_size_t(values[5]); if (unlikely((__pyx_v_num_threads == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1076, __pyx_L3_error)
     __pyx_v_debug = values[6];
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1subgrid_collapse", 0, 6, 7, __pyx_nargs); __PYX_ERR(0, 1050, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1subgrid_collapse", 0, 6, 7, __pyx_nargs); __PYX_ERR(0, 1076, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -50809,7 +51029,7 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_57__pyx_fuse_1subgrid_collapse(PyO
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_catalog), (&PyDict_Type), 1, "catalog", 1))) __PYX_ERR(0, 1050, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_catalog), (&PyDict_Type), 1, "catalog", 1))) __PYX_ERR(0, 1076, __pyx_L1_error)
   __pyx_r = __pyx_pf_8cosmomia_8cosmomia_56__pyx_fuse_1subgrid_collapse(__pyx_self, __pyx_v_catalog, __pyx_v_params, __pyx_v_box_size, __pyx_v_is_attractor_mask, __pyx_v_seed, __pyx_v_num_threads, __pyx_v_debug);
 
   /* function exit code */
@@ -50839,11 +51059,11 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_56__pyx_fuse_1subgrid_collapse(CYT
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__pyx_fuse_1subgrid_collapse", 1);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_params.memview)) { __Pyx_RaiseUnboundLocalError("params"); __PYX_ERR(0, 1050, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_box_size.memview)) { __Pyx_RaiseUnboundLocalError("box_size"); __PYX_ERR(0, 1050, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_params.memview)) { __Pyx_RaiseUnboundLocalError("params"); __PYX_ERR(0, 1076, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_box_size.memview)) { __Pyx_RaiseUnboundLocalError("box_size"); __PYX_ERR(0, 1076, __pyx_L1_error) }
   __pyx_t_2.__pyx_n = 1;
   __pyx_t_2.debug = __pyx_v_debug;
-  __pyx_t_1 = __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(__pyx_v_catalog, __pyx_v_params, __pyx_v_box_size, __pyx_v_is_attractor_mask, __pyx_v_seed, __pyx_v_num_threads, 0, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_t_1 = __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_subgrid_collapse(__pyx_v_catalog, __pyx_v_params, __pyx_v_box_size, __pyx_v_is_attractor_mask, __pyx_v_seed, __pyx_v_num_threads, 0, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -50860,7 +51080,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_56__pyx_fuse_1subgrid_collapse(CYT
   return __pyx_r;
 }
 
-/* "cosmomia/subgrid.pyx":1189
+/* "cosmomia/subgrid.pyx":1217
  * 
  * 
  * cpdef dict single_collapse_step(cnp.ndarray[floating, ndim=2] attractors, cnp.ndarray[floating, ndim=2] vel_attractors, cnp.ndarray[floating, ndim=1] dm,             # <<<<<<<<<<<<<<
@@ -50919,7 +51139,7 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_17single_collapse_step(PyObject *_
           (void)__Pyx_Arg_NewRef_VARARGS(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -50927,9 +51147,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_17single_collapse_step(PyObject *_
           (void)__Pyx_Arg_NewRef_VARARGS(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fused_cpdef", 0, 4, 5, 1); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fused_cpdef", 0, 4, 5, 1); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -50937,9 +51157,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_17single_collapse_step(PyObject *_
           (void)__Pyx_Arg_NewRef_VARARGS(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fused_cpdef", 0, 4, 5, 2); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fused_cpdef", 0, 4, 5, 2); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -50947,21 +51167,21 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_17single_collapse_step(PyObject *_
           (void)__Pyx_Arg_NewRef_VARARGS(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fused_cpdef", 0, 4, 5, 3); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fused_cpdef", 0, 4, 5, 3); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_fused_sigindex);
           if (value) { values[4] = __Pyx_Arg_NewRef_VARARGS(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__pyx_fused_cpdef") < 0)) __PYX_ERR(0, 1189, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__pyx_fused_cpdef") < 0)) __PYX_ERR(0, 1217, __pyx_L3_error)
       }
     } else {
       switch (__pyx_nargs) {
@@ -50983,7 +51203,7 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_17single_collapse_step(PyObject *_
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__pyx_fused_cpdef", 0, 4, 5, __pyx_nargs); __PYX_ERR(0, 1189, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__pyx_fused_cpdef", 0, 4, 5, __pyx_nargs); __PYX_ERR(0, 1217, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -51061,11 +51281,11 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("single_collapse_step", 0);
   __Pyx_INCREF(__pyx_v_kwargs);
-  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(Py_None);
   __Pyx_GIVEREF(Py_None);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_1, 0, Py_None)) __PYX_ERR(0, 1189, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_1, 0, Py_None)) __PYX_ERR(0, 1217, __pyx_L1_error);
   __pyx_v_dest_sig = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
   __pyx_t_3 = (__pyx_v_kwargs != Py_None);
@@ -51074,7 +51294,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
     __pyx_t_2 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_v_kwargs); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_v_kwargs); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
   __pyx_t_4 = (!__pyx_t_3);
   __pyx_t_2 = __pyx_t_4;
   __pyx_L4_bool_binop_done:;
@@ -51082,21 +51302,21 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
     __Pyx_INCREF(Py_None);
     __Pyx_DECREF_SET(__pyx_v_kwargs, Py_None);
   }
-  __pyx_t_1 = ((PyObject *)__Pyx_ImportNumPyArrayTypeIfAvailable()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)__Pyx_ImportNumPyArrayTypeIfAvailable()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_ndarray = ((PyTypeObject*)__pyx_t_1);
   __pyx_t_1 = 0;
   __pyx_v_itemsize = -1L;
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 1189, __pyx_L1_error)
+    __PYX_ERR(0, 1217, __pyx_L1_error)
   }
-  __pyx_t_5 = __Pyx_PyTuple_GET_SIZE(((PyObject*)__pyx_v_args)); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyTuple_GET_SIZE(((PyObject*)__pyx_v_args)); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 1217, __pyx_L1_error)
   __pyx_t_2 = (0 < __pyx_t_5);
   if (__pyx_t_2) {
     if (unlikely(__pyx_v_args == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 1189, __pyx_L1_error)
+      __PYX_ERR(0, 1217, __pyx_L1_error)
     }
     __pyx_t_1 = PyTuple_GET_ITEM(((PyObject*)__pyx_v_args), 0);
     __Pyx_INCREF(__pyx_t_1);
@@ -51112,17 +51332,17 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
   }
   if (unlikely(__pyx_v_kwargs == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-    __PYX_ERR(0, 1189, __pyx_L1_error)
+    __PYX_ERR(0, 1217, __pyx_L1_error)
   }
-  __pyx_t_4 = (__Pyx_PyDict_ContainsTF(__pyx_n_s_attractors, ((PyObject*)__pyx_v_kwargs), Py_EQ)); if (unlikely((__pyx_t_4 < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_t_4 = (__Pyx_PyDict_ContainsTF(__pyx_n_s_attractors, ((PyObject*)__pyx_v_kwargs), Py_EQ)); if (unlikely((__pyx_t_4 < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
   __pyx_t_2 = __pyx_t_4;
   __pyx_L7_bool_binop_done:;
   if (likely(__pyx_t_2)) {
     if (unlikely(__pyx_v_kwargs == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 1189, __pyx_L1_error)
+      __PYX_ERR(0, 1217, __pyx_L1_error)
     }
-    __pyx_t_1 = __Pyx_PyDict_GetItem(((PyObject*)__pyx_v_kwargs), __pyx_n_s_attractors); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyDict_GetItem(((PyObject*)__pyx_v_kwargs), __pyx_n_s_attractors); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1217, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_arg = __pyx_t_1;
     __pyx_t_1 = 0;
@@ -51131,31 +51351,31 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
   /*else*/ {
     if (unlikely(__pyx_v_args == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-      __PYX_ERR(0, 1189, __pyx_L1_error)
+      __PYX_ERR(0, 1217, __pyx_L1_error)
     }
-    __pyx_t_5 = __Pyx_PyTuple_GET_SIZE(((PyObject*)__pyx_v_args)); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 1189, __pyx_L1_error)
-    __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyTuple_GET_SIZE(((PyObject*)__pyx_v_args)); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 1217, __pyx_L1_error)
+    __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1217, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = PyTuple_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1217, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_int_10);
     __Pyx_GIVEREF(__pyx_int_10);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_int_10)) __PYX_ERR(0, 1189, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_int_10)) __PYX_ERR(0, 1217, __pyx_L1_error);
     __Pyx_INCREF(__pyx_n_s_s);
     __Pyx_GIVEREF(__pyx_n_s_s);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_n_s_s)) __PYX_ERR(0, 1189, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_n_s_s)) __PYX_ERR(0, 1217, __pyx_L1_error);
     __Pyx_GIVEREF(__pyx_t_1);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 2, __pyx_t_1)) __PYX_ERR(0, 1189, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 2, __pyx_t_1)) __PYX_ERR(0, 1217, __pyx_L1_error);
     __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyString_Format(__pyx_kp_s_Expected_at_least_d_argument_s_g, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyString_Format(__pyx_kp_s_Expected_at_least_d_argument_s_g, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1217, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_builtin_TypeError, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_builtin_TypeError, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1217, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_Raise(__pyx_t_6, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __PYX_ERR(0, 1189, __pyx_L1_error)
+    __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_L6:;
   while (1) {
@@ -51163,7 +51383,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
     if (__pyx_t_2) {
       __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_arg, __pyx_v_ndarray); 
       if (__pyx_t_2) {
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_arg, __pyx_n_s_dtype); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1189, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_arg, __pyx_n_s_dtype); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1217, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __pyx_v_dtype = __pyx_t_6;
         __pyx_t_6 = 0;
@@ -51171,13 +51391,13 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
       }
       __pyx_t_2 = __pyx_memoryview_check(__pyx_v_arg); 
       if (__pyx_t_2) {
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_arg, __pyx_n_s_base); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1189, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_arg, __pyx_n_s_base); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1217, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __pyx_v_arg_base = __pyx_t_6;
         __pyx_t_6 = 0;
         __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_arg_base, __pyx_v_ndarray); 
         if (__pyx_t_2) {
-          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_arg_base, __pyx_n_s_dtype); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1189, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_arg_base, __pyx_n_s_dtype); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1217, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           __pyx_v_dtype = __pyx_t_6;
           __pyx_t_6 = 0;
@@ -51198,14 +51418,14 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
       __pyx_v_itemsize = -1L;
       __pyx_t_2 = (__pyx_v_dtype != Py_None);
       if (__pyx_t_2) {
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_dtype, __pyx_n_s_itemsize); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1189, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_dtype, __pyx_n_s_itemsize); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1217, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_6); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_6); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __pyx_v_itemsize = __pyx_t_5;
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_dtype, __pyx_n_s_kind); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1189, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_dtype, __pyx_n_s_kind); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1217, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_7 = __Pyx_PyObject_Ord(__pyx_t_6); if (unlikely(__pyx_t_7 == ((long)(long)(Py_UCS4)-1))) __PYX_ERR(0, 1189, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_Ord(__pyx_t_6); if (unlikely(__pyx_t_7 == ((long)(long)(Py_UCS4)-1))) __PYX_ERR(0, 1217, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __pyx_v_kind = __pyx_t_7;
         __pyx_v_dtype_signed = (__pyx_v_kind == 0x69);
@@ -51220,15 +51440,15 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
             __pyx_t_2 = __pyx_t_4;
             goto __pyx_L16_bool_binop_done;
           }
-          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_arg, __pyx_n_s_ndim); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1189, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_arg, __pyx_n_s_ndim); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1217, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
-          __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_6); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L1_error)
+          __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_6); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
           __pyx_t_4 = (((Py_ssize_t)__pyx_t_5) == 2);
           __pyx_t_2 = __pyx_t_4;
           __pyx_L16_bool_binop_done:;
           if (__pyx_t_2) {
-            if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, __pyx_n_s_float, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+            if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, __pyx_n_s_float, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
             goto __pyx_L10_break;
           }
           __pyx_t_4 = ((sizeof(double)) == __pyx_v_itemsize);
@@ -51237,15 +51457,15 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
             __pyx_t_2 = __pyx_t_4;
             goto __pyx_L19_bool_binop_done;
           }
-          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_arg, __pyx_n_s_ndim); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1189, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_arg, __pyx_n_s_ndim); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1217, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
-          __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_6); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L1_error)
+          __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_6); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
           __pyx_t_4 = (((Py_ssize_t)__pyx_t_5) == 2);
           __pyx_t_2 = __pyx_t_4;
           __pyx_L19_bool_binop_done:;
           if (__pyx_t_2) {
-            if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, __pyx_n_s_double, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+            if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, __pyx_n_s_double, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
             goto __pyx_L10_break;
           }
           break;
@@ -51259,7 +51479,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
     }
     __pyx_t_2 = (__pyx_v_arg == Py_None);
     if (__pyx_t_2) {
-      if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, __pyx_n_s_float, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+      if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, __pyx_n_s_float, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
       goto __pyx_L10_break;
     }
     {
@@ -51270,7 +51490,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
       __Pyx_XGOTREF(__pyx_t_9);
       __Pyx_XGOTREF(__pyx_t_10);
       /*try:*/ {
-        __pyx_t_6 = PyMemoryView_FromObject(__pyx_v_arg); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1189, __pyx_L22_error)
+        __pyx_t_6 = PyMemoryView_FromObject(__pyx_v_arg); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1217, __pyx_L22_error)
         __Pyx_GOTREF(__pyx_t_6);
         __pyx_v_arg_as_memoryview = ((PyObject*)__pyx_t_6);
         __pyx_t_6 = 0;
@@ -51281,7 +51501,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
           goto __pyx_L33_next_or;
         } else {
         }
-        __pyx_t_5 = __Pyx_PyMemoryView_Get_itemsize(__pyx_v_arg_as_memoryview); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L24_except_error)
+        __pyx_t_5 = __Pyx_PyMemoryView_Get_itemsize(__pyx_v_arg_as_memoryview); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L24_except_error)
         __pyx_t_4 = (__pyx_t_5 == (sizeof(float)));
         if (!__pyx_t_4) {
         } else {
@@ -51295,7 +51515,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
           goto __pyx_L31_bool_binop_done;
         }
         __pyx_L32_next_and:;
-        __pyx_t_11 = __Pyx_PyMemoryView_Get_ndim(__pyx_v_arg_as_memoryview); if (unlikely(__pyx_t_11 == ((int)-1) && PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L24_except_error)
+        __pyx_t_11 = __Pyx_PyMemoryView_Get_ndim(__pyx_v_arg_as_memoryview); if (unlikely(__pyx_t_11 == ((int)-1) && PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L24_except_error)
         __pyx_t_4 = (__pyx_t_11 == 2);
         __pyx_t_2 = __pyx_t_4;
         __pyx_L31_bool_binop_done:;
@@ -51305,7 +51525,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
           __pyx_t_2 = (__pyx_v_memslice.memview != 0);
           if (__pyx_t_2) {
             __PYX_XCLEAR_MEMVIEW((&__pyx_v_memslice), 1); 
-            if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, __pyx_n_s_float, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1189, __pyx_L24_except_error)
+            if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, __pyx_n_s_float, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1217, __pyx_L24_except_error)
             goto __pyx_L27_try_break;
           }
           /*else*/ {
@@ -51317,7 +51537,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
           goto __pyx_L39_next_or;
         } else {
         }
-        __pyx_t_5 = __Pyx_PyMemoryView_Get_itemsize(__pyx_v_arg_as_memoryview); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L24_except_error)
+        __pyx_t_5 = __Pyx_PyMemoryView_Get_itemsize(__pyx_v_arg_as_memoryview); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L24_except_error)
         __pyx_t_4 = (__pyx_t_5 == (sizeof(double)));
         if (!__pyx_t_4) {
         } else {
@@ -51331,7 +51551,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
           goto __pyx_L37_bool_binop_done;
         }
         __pyx_L38_next_and:;
-        __pyx_t_11 = __Pyx_PyMemoryView_Get_ndim(__pyx_v_arg_as_memoryview); if (unlikely(__pyx_t_11 == ((int)-1) && PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L24_except_error)
+        __pyx_t_11 = __Pyx_PyMemoryView_Get_ndim(__pyx_v_arg_as_memoryview); if (unlikely(__pyx_t_11 == ((int)-1) && PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L24_except_error)
         __pyx_t_4 = (__pyx_t_11 == 2);
         __pyx_t_2 = __pyx_t_4;
         __pyx_L37_bool_binop_done:;
@@ -51341,7 +51561,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
           __pyx_t_2 = (__pyx_v_memslice.memview != 0);
           if (__pyx_t_2) {
             __PYX_XCLEAR_MEMVIEW((&__pyx_v_memslice), 1); 
-            if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, __pyx_n_s_double, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1189, __pyx_L24_except_error)
+            if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, __pyx_n_s_double, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1217, __pyx_L24_except_error)
             goto __pyx_L27_try_break;
           }
           /*else*/ {
@@ -51359,7 +51579,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
       __pyx_t_11 = __Pyx_PyErr_ExceptionMatches2(__pyx_builtin_ValueError, __pyx_builtin_TypeError);
       if (__pyx_t_11) {
         __Pyx_AddTraceback("cosmomia.cosmomia.__pyx_fused_cpdef", __pyx_clineno, __pyx_lineno, __pyx_filename);
-        if (__Pyx_GetException(&__pyx_t_6, &__pyx_t_1, &__pyx_t_13) < 0) __PYX_ERR(0, 1189, __pyx_L24_except_error)
+        if (__Pyx_GetException(&__pyx_t_6, &__pyx_t_1, &__pyx_t_13) < 0) __PYX_ERR(0, 1217, __pyx_L24_except_error)
         __Pyx_XGOTREF(__pyx_t_6);
         __Pyx_XGOTREF(__pyx_t_1);
         __Pyx_XGOTREF(__pyx_t_13);
@@ -51388,19 +51608,19 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
       __Pyx_ExceptionReset(__pyx_t_8, __pyx_t_9, __pyx_t_10);
       __pyx_L29_try_end:;
     }
-    if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, Py_None, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely((__Pyx_SetItemInt(__pyx_v_dest_sig, 0, Py_None, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
     goto __pyx_L10_break;
   }
   __pyx_L10_break:;
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v__fused_sigindex); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v__fused_sigindex); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
   __pyx_t_4 = (!__pyx_t_2);
   if (__pyx_t_4) {
     __pyx_t_5 = 0;
     if (unlikely(__pyx_v_signatures == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-      __PYX_ERR(0, 1189, __pyx_L1_error)
+      __PYX_ERR(0, 1217, __pyx_L1_error)
     }
-    __pyx_t_1 = __Pyx_dict_iterator(((PyObject*)__pyx_v_signatures), 1, ((PyObject *)NULL), (&__pyx_t_14), (&__pyx_t_11)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_dict_iterator(((PyObject*)__pyx_v_signatures), 1, ((PyObject *)NULL), (&__pyx_t_14), (&__pyx_t_11)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1217, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_XDECREF(__pyx_t_13);
     __pyx_t_13 = __pyx_t_1;
@@ -51408,7 +51628,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
     while (1) {
       __pyx_t_15 = __Pyx_dict_iter_next(__pyx_t_13, __pyx_t_14, &__pyx_t_5, &__pyx_t_1, NULL, NULL, __pyx_t_11);
       if (unlikely(__pyx_t_15 == 0)) break;
-      if (unlikely(__pyx_t_15 == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+      if (unlikely(__pyx_t_15 == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_sig, __pyx_t_1);
       __pyx_t_1 = 0;
@@ -51416,7 +51636,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
       __Pyx_INCREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_sigindex_node, ((PyObject*)__pyx_t_1));
       __pyx_t_1 = 0;
-      __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_v_sig, __pyx_n_s_strip); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1189, __pyx_L1_error)
+      __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_v_sig, __pyx_n_s_strip); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1217, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_16);
       __pyx_t_17 = NULL;
       __pyx_t_15 = 0;
@@ -51436,11 +51656,11 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
         PyObject *__pyx_callargs[2] = {__pyx_t_17, __pyx_kp_s__11};
         __pyx_t_6 = __Pyx_PyObject_FastCall(__pyx_t_16, __pyx_callargs+1-__pyx_t_15, 1+__pyx_t_15);
         __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-        if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1189, __pyx_L1_error)
+        if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1217, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
       }
-      __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_split); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1189, __pyx_L1_error)
+      __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_split); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1217, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_16);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __pyx_t_6 = NULL;
@@ -51461,16 +51681,16 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
         PyObject *__pyx_callargs[2] = {__pyx_t_6, __pyx_kp_s__12};
         __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_16, __pyx_callargs+1-__pyx_t_15, 1+__pyx_t_15);
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-        if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+        if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1217, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
       }
-      __pyx_t_16 = __Pyx_PySequence_ListKeepNew(__pyx_t_1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1189, __pyx_L1_error)
+      __pyx_t_16 = __Pyx_PySequence_ListKeepNew(__pyx_t_1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1217, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_16);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_18 = PyList_GET_SIZE(__pyx_t_16);
       if (unlikely(__pyx_t_18 < 1)) {
-        __Pyx_RaiseNeedMoreValuesError(0+__pyx_t_18); __PYX_ERR(0, 1189, __pyx_L1_error)
+        __Pyx_RaiseNeedMoreValuesError(0+__pyx_t_18); __PYX_ERR(0, 1217, __pyx_L1_error)
       }
       #if CYTHON_COMPILING_IN_CPYTHON
       __pyx_t_6 = PyList_GET_ITEM(__pyx_t_16, __pyx_t_18-1); 
@@ -51480,7 +51700,7 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
       #endif
       __Pyx_GOTREF(__pyx_t_6);
       #if !CYTHON_COMPILING_IN_CPYTHON
-      __pyx_t_17 = PySequence_GetSlice(__pyx_t_16, 0, __pyx_t_18-1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1189, __pyx_L1_error)
+      __pyx_t_17 = PySequence_GetSlice(__pyx_t_16, 0, __pyx_t_18-1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1217, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_17);
       __Pyx_DECREF(__pyx_t_16);
       __pyx_t_16 = __pyx_t_17; __pyx_t_17 = NULL;
@@ -51497,31 +51717,31 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
         {
           Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_1);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
           #endif
           if (__pyx_t_18 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_6 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_18); __Pyx_INCREF(__pyx_t_6); __pyx_t_18++; if (unlikely((0 < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+        __pyx_t_6 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_18); __Pyx_INCREF(__pyx_t_6); __pyx_t_18++; if (unlikely((0 < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
         #else
-        __pyx_t_6 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_18); __pyx_t_18++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1189, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_18); __pyx_t_18++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1217, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         #endif
         __Pyx_XDECREF_SET(__pyx_v_sig_type, __pyx_t_6);
         __pyx_t_6 = 0;
         if (unlikely(__pyx_v_sigindex_node == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-          __PYX_ERR(0, 1189, __pyx_L1_error)
+          __PYX_ERR(0, 1217, __pyx_L1_error)
         }
-        __pyx_t_4 = (__Pyx_PyDict_ContainsTF(__pyx_v_sig_type, __pyx_v_sigindex_node, Py_NE)); if (unlikely((__pyx_t_4 < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+        __pyx_t_4 = (__Pyx_PyDict_ContainsTF(__pyx_v_sig_type, __pyx_v_sigindex_node, Py_NE)); if (unlikely((__pyx_t_4 < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
         if (__pyx_t_4) {
-          __pyx_t_6 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1189, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1217, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           if (unlikely(__pyx_v_sigindex_node == Py_None)) {
             PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-            __PYX_ERR(0, 1189, __pyx_L1_error)
+            __PYX_ERR(0, 1217, __pyx_L1_error)
           }
-          if (unlikely((PyDict_SetItem(__pyx_v_sigindex_node, __pyx_v_sig_type, __pyx_t_6) < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+          if (unlikely((PyDict_SetItem(__pyx_v_sigindex_node, __pyx_v_sig_type, __pyx_t_6) < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
           __Pyx_INCREF(__pyx_t_6);
           __Pyx_DECREF_SET(__pyx_v_sigindex_node, __pyx_t_6);
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -51530,9 +51750,9 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
         /*else*/ {
           if (unlikely(__pyx_v_sigindex_node == Py_None)) {
             PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-            __PYX_ERR(0, 1189, __pyx_L1_error)
+            __PYX_ERR(0, 1217, __pyx_L1_error)
           }
-          __pyx_t_6 = __Pyx_PyDict_GetItem(__pyx_v_sigindex_node, __pyx_v_sig_type); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1189, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyDict_GetItem(__pyx_v_sigindex_node, __pyx_v_sig_type); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1217, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           __pyx_t_16 = __pyx_t_6;
           __Pyx_INCREF(__pyx_t_16);
@@ -51545,21 +51765,21 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (unlikely(__pyx_v_sigindex_node == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 1189, __pyx_L1_error)
+        __PYX_ERR(0, 1217, __pyx_L1_error)
       }
-      if (unlikely((PyDict_SetItem(__pyx_v_sigindex_node, __pyx_v_last_type, __pyx_v_sig) < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+      if (unlikely((PyDict_SetItem(__pyx_v_sigindex_node, __pyx_v_last_type, __pyx_v_sig) < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
   }
-  __pyx_t_13 = PyList_New(0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_t_13 = PyList_New(0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
   __pyx_v_sigindex_matches = ((PyObject*)__pyx_t_13);
   __pyx_t_13 = 0;
-  __pyx_t_13 = PyList_New(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_t_13 = PyList_New(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
   __Pyx_INCREF(__pyx_v__fused_sigindex);
   __Pyx_GIVEREF(__pyx_v__fused_sigindex);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_13, 0, __pyx_v__fused_sigindex)) __PYX_ERR(0, 1189, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_13, 0, __pyx_v__fused_sigindex)) __PYX_ERR(0, 1217, __pyx_L1_error);
   __pyx_v_sigindex_candidates = ((PyObject*)__pyx_t_13);
   __pyx_t_13 = 0;
   __pyx_t_13 = __pyx_v_dest_sig; __Pyx_INCREF(__pyx_t_13);
@@ -51568,23 +51788,23 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
     {
       Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_13);
       #if !CYTHON_ASSUME_SAFE_MACROS
-      if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+      if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
       #endif
       if (__pyx_t_14 >= __pyx_temp) break;
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_1 = PyList_GET_ITEM(__pyx_t_13, __pyx_t_14); __Pyx_INCREF(__pyx_t_1); __pyx_t_14++; if (unlikely((0 < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+    __pyx_t_1 = PyList_GET_ITEM(__pyx_t_13, __pyx_t_14); __Pyx_INCREF(__pyx_t_1); __pyx_t_14++; if (unlikely((0 < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
     #else
-    __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_13, __pyx_t_14); __pyx_t_14++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_13, __pyx_t_14); __pyx_t_14++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1217, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     #endif
     __Pyx_XDECREF_SET(__pyx_v_dst_type, __pyx_t_1);
     __pyx_t_1 = 0;
-    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1217, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_XDECREF_SET(__pyx_v_found_matches, ((PyObject*)__pyx_t_1));
     __pyx_t_1 = 0;
-    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1217, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_XDECREF_SET(__pyx_v_found_candidates, ((PyObject*)__pyx_t_1));
     __pyx_t_1 = 0;
@@ -51596,25 +51816,25 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
         {
           Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_1);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
           #endif
           if (__pyx_t_5 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_16 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_5); __Pyx_INCREF(__pyx_t_16); __pyx_t_5++; if (unlikely((0 < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+        __pyx_t_16 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_5); __Pyx_INCREF(__pyx_t_16); __pyx_t_5++; if (unlikely((0 < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
         #else
-        __pyx_t_16 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1189, __pyx_L1_error)
+        __pyx_t_16 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1217, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
         #endif
         __Pyx_XDECREF_SET(__pyx_v_sn, __pyx_t_16);
         __pyx_t_16 = 0;
         if (unlikely(__pyx_v_sn == Py_None)) {
           PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "values");
-          __PYX_ERR(0, 1189, __pyx_L1_error)
+          __PYX_ERR(0, 1217, __pyx_L1_error)
         }
-        __pyx_t_16 = __Pyx_PyDict_Values(((PyObject*)__pyx_v_sn)); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1189, __pyx_L1_error)
+        __pyx_t_16 = __Pyx_PyDict_Values(((PyObject*)__pyx_v_sn)); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1217, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
-        __pyx_t_19 = __Pyx_PyList_Extend(__pyx_v_found_matches, __pyx_t_16); if (unlikely(__pyx_t_19 == ((int)-1))) __PYX_ERR(0, 1189, __pyx_L1_error)
+        __pyx_t_19 = __Pyx_PyList_Extend(__pyx_v_found_matches, __pyx_t_16); if (unlikely(__pyx_t_19 == ((int)-1))) __PYX_ERR(0, 1217, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -51624,55 +51844,55 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
         {
           Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_1);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
           #endif
           if (__pyx_t_5 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_16 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_5); __Pyx_INCREF(__pyx_t_16); __pyx_t_5++; if (unlikely((0 < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+        __pyx_t_16 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_5); __Pyx_INCREF(__pyx_t_16); __pyx_t_5++; if (unlikely((0 < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
         #else
-        __pyx_t_16 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1189, __pyx_L1_error)
+        __pyx_t_16 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1217, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
         #endif
         __Pyx_XDECREF_SET(__pyx_v_sn, __pyx_t_16);
         __pyx_t_16 = 0;
         if (unlikely(__pyx_v_sn == Py_None)) {
           PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "values");
-          __PYX_ERR(0, 1189, __pyx_L1_error)
+          __PYX_ERR(0, 1217, __pyx_L1_error)
         }
-        __pyx_t_16 = __Pyx_PyDict_Values(((PyObject*)__pyx_v_sn)); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1189, __pyx_L1_error)
+        __pyx_t_16 = __Pyx_PyDict_Values(((PyObject*)__pyx_v_sn)); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1217, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
-        __pyx_t_19 = __Pyx_PyList_Extend(__pyx_v_found_candidates, __pyx_t_16); if (unlikely(__pyx_t_19 == ((int)-1))) __PYX_ERR(0, 1189, __pyx_L1_error)
+        __pyx_t_19 = __Pyx_PyList_Extend(__pyx_v_found_candidates, __pyx_t_16); if (unlikely(__pyx_t_19 == ((int)-1))) __PYX_ERR(0, 1217, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       goto __pyx_L53;
     }
     /*else*/ {
-      __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1217, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_v_sigindex_matches);
       __Pyx_GIVEREF(__pyx_v_sigindex_matches);
-      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_sigindex_matches)) __PYX_ERR(0, 1189, __pyx_L1_error);
+      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_sigindex_matches)) __PYX_ERR(0, 1217, __pyx_L1_error);
       __Pyx_INCREF(__pyx_v_sigindex_candidates);
       __Pyx_GIVEREF(__pyx_v_sigindex_candidates);
-      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_sigindex_candidates)) __PYX_ERR(0, 1189, __pyx_L1_error);
+      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_sigindex_candidates)) __PYX_ERR(0, 1217, __pyx_L1_error);
       __pyx_t_16 = __pyx_t_1; __Pyx_INCREF(__pyx_t_16);
       __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       for (;;) {
         if (__pyx_t_5 >= 2) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_16, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely((0 < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_16, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely((0 < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
         #else
-        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_16, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_16, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1217, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
         __Pyx_XDECREF_SET(__pyx_v_search_list, ((PyObject*)__pyx_t_1));
         __pyx_t_1 = 0;
         if (unlikely(__pyx_v_search_list == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-          __PYX_ERR(0, 1189, __pyx_L1_error)
+          __PYX_ERR(0, 1217, __pyx_L1_error)
         }
         __pyx_t_1 = __pyx_v_search_list; __Pyx_INCREF(__pyx_t_1);
         __pyx_t_18 = 0;
@@ -51680,29 +51900,29 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
           {
             Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_1);
             #if !CYTHON_ASSUME_SAFE_MACROS
-            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
             #endif
             if (__pyx_t_18 >= __pyx_temp) break;
           }
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_6 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_18); __Pyx_INCREF(__pyx_t_6); __pyx_t_18++; if (unlikely((0 < 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
+          __pyx_t_6 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_18); __Pyx_INCREF(__pyx_t_6); __pyx_t_18++; if (unlikely((0 < 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
           #else
-          __pyx_t_6 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_18); __pyx_t_18++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1189, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_18); __pyx_t_18++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1217, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           #endif
           __Pyx_XDECREF_SET(__pyx_v_sn, __pyx_t_6);
           __pyx_t_6 = 0;
           if (unlikely(__pyx_v_sn == Py_None)) {
             PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "get");
-            __PYX_ERR(0, 1189, __pyx_L1_error)
+            __PYX_ERR(0, 1217, __pyx_L1_error)
           }
-          __pyx_t_6 = __Pyx_PyDict_GetItemDefault(((PyObject*)__pyx_v_sn), __pyx_v_dst_type, Py_None); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1189, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyDict_GetItemDefault(((PyObject*)__pyx_v_sn), __pyx_v_dst_type, Py_None); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1217, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           __Pyx_XDECREF_SET(__pyx_v_type_match, __pyx_t_6);
           __pyx_t_6 = 0;
           __pyx_t_4 = (__pyx_v_type_match != Py_None);
           if (__pyx_t_4) {
-            __pyx_t_19 = __Pyx_PyList_Append(__pyx_v_found_matches, __pyx_v_type_match); if (unlikely(__pyx_t_19 == ((int)-1))) __PYX_ERR(0, 1189, __pyx_L1_error)
+            __pyx_t_19 = __Pyx_PyList_Append(__pyx_v_found_matches, __pyx_v_type_match); if (unlikely(__pyx_t_19 == ((int)-1))) __PYX_ERR(0, 1217, __pyx_L1_error)
           }
         }
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -51739,28 +51959,28 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_16single_collapse_step(CYTHON_UNUS
   __pyx_t_2 = (PyList_GET_SIZE(__pyx_v_candidates) != 0);
   __pyx_t_4 = (!__pyx_t_2);
   if (unlikely(__pyx_t_4)) {
-    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__13, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__13, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1217, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __Pyx_Raise(__pyx_t_13, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __PYX_ERR(0, 1189, __pyx_L1_error)
+    __PYX_ERR(0, 1217, __pyx_L1_error)
   }
-  __pyx_t_14 = __Pyx_PyList_GET_SIZE(__pyx_v_candidates); if (unlikely(__pyx_t_14 == ((Py_ssize_t)-1))) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyList_GET_SIZE(__pyx_v_candidates); if (unlikely(__pyx_t_14 == ((Py_ssize_t)-1))) __PYX_ERR(0, 1217, __pyx_L1_error)
   __pyx_t_4 = (__pyx_t_14 > 1);
   if (unlikely(__pyx_t_4)) {
-    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1217, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __Pyx_Raise(__pyx_t_13, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __PYX_ERR(0, 1189, __pyx_L1_error)
+    __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
     if (unlikely(__pyx_v_signatures == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 1189, __pyx_L1_error)
+      __PYX_ERR(0, 1217, __pyx_L1_error)
     }
-    __pyx_t_13 = __Pyx_PyDict_GetItem(((PyObject*)__pyx_v_signatures), PyList_GET_ITEM(__pyx_v_candidates, 0)); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyDict_GetItem(((PyObject*)__pyx_v_signatures), PyList_GET_ITEM(__pyx_v_candidates, 0)); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1217, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __pyx_r = __pyx_t_13;
     __pyx_t_13 = 0;
@@ -51810,7 +52030,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
   std::normal_distribution<float>  __pyx_v_dist_gauss;
   __Pyx_memviewslice __pyx_v_attractors_view = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_memviewslice __pyx_v_not_attractors_view = { 0, 0, { 0 }, { 0 }, { 0 } };
-  CYTHON_UNUSED __Pyx_memviewslice __pyx_v_vel_attractors_view = { 0, 0, { 0 }, { 0 }, { 0 } };
+  __Pyx_memviewslice __pyx_v_vel_attractors_view = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_memviewslice __pyx_v_vel_not_attractors_view = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_memviewslice __pyx_v_dm_view = { 0, 0, { 0 }, { 0 }, { 0 } };
   PyObject *__pyx_v_tree = NULL;
@@ -51852,9 +52072,10 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
   Py_ssize_t __pyx_t_18;
   __Pyx_memviewslice __pyx_t_19 = { 0, 0, { 0 }, { 0 }, { 0 } };
   Py_ssize_t __pyx_t_20;
-  size_t __pyx_t_21;
-  Py_ssize_t __pyx_t_22;
-  PyObject *__pyx_t_23 = NULL;
+  __Pyx_memviewslice __pyx_t_21 = { 0, 0, { 0 }, { 0 }, { 0 } };
+  size_t __pyx_t_22;
+  Py_ssize_t __pyx_t_23;
+  PyObject *__pyx_t_24 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -51883,31 +52104,31 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
   __pyx_pybuffernd_vel_not_attractors.rcbuffer = &__pyx_pybuffer_vel_not_attractors;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_attractors, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_attractors, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_pybuffernd_attractors.diminfo[0].strides = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_attractors.diminfo[0].shape = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_attractors.diminfo[1].strides = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_attractors.diminfo[1].shape = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_vel_attractors, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_vel_attractors, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_pybuffernd_vel_attractors.diminfo[0].strides = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_vel_attractors.diminfo[0].shape = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_vel_attractors.diminfo[1].strides = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_vel_attractors.diminfo[1].shape = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_dm.rcbuffer->pybuffer, (PyObject*)__pyx_v_dm, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_dm.rcbuffer->pybuffer, (PyObject*)__pyx_v_dm, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_pybuffernd_dm.diminfo[0].strides = __pyx_pybuffernd_dm.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_dm.diminfo[0].shape = __pyx_pybuffernd_dm.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_not_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_not_attractors, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_not_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_not_attractors, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_pybuffernd_not_attractors.diminfo[0].strides = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_not_attractors.diminfo[0].shape = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_not_attractors.diminfo[1].strides = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_not_attractors.diminfo[1].shape = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_vel_not_attractors, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_vel_not_attractors, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_pybuffernd_vel_not_attractors.diminfo[0].strides = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_vel_not_attractors.diminfo[0].shape = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_vel_not_attractors.diminfo[1].strides = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_vel_not_attractors.diminfo[1].shape = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.shape[1];
 
-  /* "cosmomia/subgrid.pyx":1196
+  /* "cosmomia/subgrid.pyx":1224
  *     #params = (collapse_frac, collapse_radius, velocity_dispersion)
  * 
  *     cdef mt19937 gen = mt19937(seed)             # <<<<<<<<<<<<<<
@@ -51916,7 +52137,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
  */
   __pyx_v_gen = std::mt19937(__pyx_v_seed);
 
-  /* "cosmomia/subgrid.pyx":1197
+  /* "cosmomia/subgrid.pyx":1225
  * 
  *     cdef mt19937 gen = mt19937(seed)
  *     cdef normal_distribution[floating] dist_gauss = normal_distribution[floating](0., 1.)             # <<<<<<<<<<<<<<
@@ -51925,74 +52146,74 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
  */
   __pyx_v_dist_gauss = std::normal_distribution<float> (0., 1.);
 
-  /* "cosmomia/subgrid.pyx":1204
+  /* "cosmomia/subgrid.pyx":1232
  * 
  *     cdef floating[:,:] attractors_view, not_attractors_view, vel_attractors_view, vel_not_attractors_view#, attractors_copy_view, not_attractors_copy_view
  *     attractors_view = attractors             # <<<<<<<<<<<<<<
  *     not_attractors_view = not_attractors
  *     vel_attractors_view = vel_attractors
  */
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(((PyObject *)__pyx_v_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1204, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(((PyObject *)__pyx_v_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1232, __pyx_L1_error)
   __pyx_v_attractors_view = __pyx_t_1;
   __pyx_t_1.memview = NULL;
   __pyx_t_1.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1205
+  /* "cosmomia/subgrid.pyx":1233
  *     cdef floating[:,:] attractors_view, not_attractors_view, vel_attractors_view, vel_not_attractors_view#, attractors_copy_view, not_attractors_copy_view
  *     attractors_view = attractors
  *     not_attractors_view = not_attractors             # <<<<<<<<<<<<<<
  *     vel_attractors_view = vel_attractors
  *     vel_not_attractors_view = vel_not_attractors
  */
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(((PyObject *)__pyx_v_not_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1205, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(((PyObject *)__pyx_v_not_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1233, __pyx_L1_error)
   __pyx_v_not_attractors_view = __pyx_t_1;
   __pyx_t_1.memview = NULL;
   __pyx_t_1.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1206
+  /* "cosmomia/subgrid.pyx":1234
  *     attractors_view = attractors
  *     not_attractors_view = not_attractors
  *     vel_attractors_view = vel_attractors             # <<<<<<<<<<<<<<
  *     vel_not_attractors_view = vel_not_attractors
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(((PyObject *)__pyx_v_vel_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1206, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(((PyObject *)__pyx_v_vel_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1234, __pyx_L1_error)
   __pyx_v_vel_attractors_view = __pyx_t_1;
   __pyx_t_1.memview = NULL;
   __pyx_t_1.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1207
+  /* "cosmomia/subgrid.pyx":1235
  *     not_attractors_view = not_attractors
  *     vel_attractors_view = vel_attractors
  *     vel_not_attractors_view = vel_not_attractors             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(((PyObject *)__pyx_v_vel_not_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1207, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(((PyObject *)__pyx_v_vel_not_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1235, __pyx_L1_error)
   __pyx_v_vel_not_attractors_view = __pyx_t_1;
   __pyx_t_1.memview = NULL;
   __pyx_t_1.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1210
+  /* "cosmomia/subgrid.pyx":1238
  * 
  * 
  *     cdef floating[:] dm_view = dm             # <<<<<<<<<<<<<<
  *     #attractors_copy_view = attractors_copy
  *     #not_attractors_copy_view = not_attractors_copy
  */
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_float(((PyObject *)__pyx_v_dm), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1210, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_float(((PyObject *)__pyx_v_dm), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1238, __pyx_L1_error)
   __pyx_v_dm_view = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1216
+  /* "cosmomia/subgrid.pyx":1244
  *     #tic = time.time()
  *     #tree = pybosque.Tree(not_attractors, idxs)
  *     tree = KDTree(attractors)#, boxsize = box_size)             # <<<<<<<<<<<<<<
  *     #print(f"Tree built in {time.time() - tic}s", flush=True)
  *     #tic = time.time()
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_KDTree); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1216, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_KDTree); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1244, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -52012,37 +52233,37 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
     PyObject *__pyx_callargs[2] = {__pyx_t_5, ((PyObject *)__pyx_v_attractors)};
     __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1216, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1244, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_v_tree = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "cosmomia/subgrid.pyx":1221
+  /* "cosmomia/subgrid.pyx":1249
  *     #r, ids = tree.query(attractors, 2, [0,1])
  *     #r, ids = tree.query(not_attractors, k = 2)
  *     dists, ids = tree.query(not_attractors, k = k_neighbour, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)             # <<<<<<<<<<<<<<
  *     cdef floating[:] dists_view
  *     cdef unsigned[:] ids_view
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_tree, __pyx_n_s_query); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1221, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_tree, __pyx_n_s_query); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1249, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1221, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1249, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF((PyObject *)__pyx_v_not_attractors);
   __Pyx_GIVEREF((PyObject *)__pyx_v_not_attractors);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, ((PyObject *)__pyx_v_not_attractors))) __PYX_ERR(0, 1221, __pyx_L1_error);
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1221, __pyx_L1_error)
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, ((PyObject *)__pyx_v_not_attractors))) __PYX_ERR(0, 1249, __pyx_L1_error);
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1249, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyInt_FromSize_t(__pyx_v_k_neighbour); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1221, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_FromSize_t(__pyx_v_k_neighbour); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1249, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_k, __pyx_t_7) < 0) __PYX_ERR(0, 1221, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_k, __pyx_t_7) < 0) __PYX_ERR(0, 1249, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_eps, __pyx_float_0_) < 0) __PYX_ERR(0, 1221, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_distance_upper_bound, Py_None) < 0) __PYX_ERR(0, 1221, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_sqr_dists, Py_True) < 0) __PYX_ERR(0, 1221, __pyx_L1_error)
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1221, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_eps, __pyx_float_0_) < 0) __PYX_ERR(0, 1249, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_distance_upper_bound, Py_None) < 0) __PYX_ERR(0, 1249, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_sqr_dists, Py_True) < 0) __PYX_ERR(0, 1249, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1249, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -52053,7 +52274,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
     if (unlikely(size != 2)) {
       if (size > 2) __Pyx_RaiseTooManyValuesError(2);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 1221, __pyx_L1_error)
+      __PYX_ERR(0, 1249, __pyx_L1_error)
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -52066,15 +52287,15 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
     __Pyx_INCREF(__pyx_t_5);
     __Pyx_INCREF(__pyx_t_4);
     #else
-    __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1221, __pyx_L1_error)
+    __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1221, __pyx_L1_error)
+    __pyx_t_4 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     #endif
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_3 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1221, __pyx_L1_error)
+    __pyx_t_3 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_t_8 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_3);
@@ -52082,7 +52303,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
     __Pyx_GOTREF(__pyx_t_5);
     index = 1; __pyx_t_4 = __pyx_t_8(__pyx_t_3); if (unlikely(!__pyx_t_4)) goto __pyx_L3_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_4);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_3), 2) < 0) __PYX_ERR(0, 1221, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_3), 2) < 0) __PYX_ERR(0, 1249, __pyx_L1_error)
     __pyx_t_8 = NULL;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     goto __pyx_L4_unpacking_done;
@@ -52090,7 +52311,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_8 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 1221, __pyx_L1_error)
+    __PYX_ERR(0, 1249, __pyx_L1_error)
     __pyx_L4_unpacking_done:;
   }
   __pyx_v_dists = __pyx_t_5;
@@ -52098,7 +52319,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
   __pyx_v_ids = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "cosmomia/subgrid.pyx":1224
+  /* "cosmomia/subgrid.pyx":1252
  *     cdef floating[:] dists_view
  *     cdef unsigned[:] ids_view
  *     if k_neighbour > 1:             # <<<<<<<<<<<<<<
@@ -52108,59 +52329,59 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
   __pyx_t_9 = (__pyx_v_k_neighbour > 1);
   if (__pyx_t_9) {
 
-    /* "cosmomia/subgrid.pyx":1225
+    /* "cosmomia/subgrid.pyx":1253
  *     cdef unsigned[:] ids_view
  *     if k_neighbour > 1:
  *         dists_view = dists[:,k_neighbour-1]             # <<<<<<<<<<<<<<
  *         ids_view = ids[:,k_neighbour-1]
  *     else:
  */
-    __pyx_t_7 = __Pyx_PyInt_FromSize_t((__pyx_v_k_neighbour - 1)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1225, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyInt_FromSize_t((__pyx_v_k_neighbour - 1)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1225, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_INCREF(__pyx_slice__23);
     __Pyx_GIVEREF(__pyx_slice__23);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_slice__23)) __PYX_ERR(0, 1225, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_slice__23)) __PYX_ERR(0, 1253, __pyx_L1_error);
     __Pyx_GIVEREF(__pyx_t_7);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_7)) __PYX_ERR(0, 1225, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_7)) __PYX_ERR(0, 1253, __pyx_L1_error);
     __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_v_dists, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1225, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_v_dists, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_float(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1225, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_float(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1253, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_v_dists_view = __pyx_t_2;
     __pyx_t_2.memview = NULL;
     __pyx_t_2.data = NULL;
 
-    /* "cosmomia/subgrid.pyx":1226
+    /* "cosmomia/subgrid.pyx":1254
  *     if k_neighbour > 1:
  *         dists_view = dists[:,k_neighbour-1]
  *         ids_view = ids[:,k_neighbour-1]             # <<<<<<<<<<<<<<
  *     else:
  *         dists_view = dists
  */
-    __pyx_t_7 = __Pyx_PyInt_FromSize_t((__pyx_v_k_neighbour - 1)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1226, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyInt_FromSize_t((__pyx_v_k_neighbour - 1)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1226, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_INCREF(__pyx_slice__24);
     __Pyx_GIVEREF(__pyx_slice__24);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_slice__24)) __PYX_ERR(0, 1226, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_slice__24)) __PYX_ERR(0, 1254, __pyx_L1_error);
     __Pyx_GIVEREF(__pyx_t_7);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_7)) __PYX_ERR(0, 1226, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_7)) __PYX_ERR(0, 1254, __pyx_L1_error);
     __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_v_ids, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1226, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_v_ids, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_10 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_int(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_10.memview)) __PYX_ERR(0, 1226, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_int(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_10.memview)) __PYX_ERR(0, 1254, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_v_ids_view = __pyx_t_10;
     __pyx_t_10.memview = NULL;
     __pyx_t_10.data = NULL;
 
-    /* "cosmomia/subgrid.pyx":1224
+    /* "cosmomia/subgrid.pyx":1252
  *     cdef floating[:] dists_view
  *     cdef unsigned[:] ids_view
  *     if k_neighbour > 1:             # <<<<<<<<<<<<<<
@@ -52170,7 +52391,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
     goto __pyx_L5;
   }
 
-  /* "cosmomia/subgrid.pyx":1228
+  /* "cosmomia/subgrid.pyx":1256
  *         ids_view = ids[:,k_neighbour-1]
  *     else:
  *         dists_view = dists             # <<<<<<<<<<<<<<
@@ -52178,31 +52399,31 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
  *     #ids is the array of ids in not_attractors that are closest to eah attractor
  */
   /*else*/ {
-    __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_float(__pyx_v_dists, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1228, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_float(__pyx_v_dists, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1256, __pyx_L1_error)
     __pyx_v_dists_view = __pyx_t_2;
     __pyx_t_2.memview = NULL;
     __pyx_t_2.data = NULL;
 
-    /* "cosmomia/subgrid.pyx":1229
+    /* "cosmomia/subgrid.pyx":1257
  *     else:
  *         dists_view = dists
  *         ids_view = ids             # <<<<<<<<<<<<<<
  *     #ids is the array of ids in not_attractors that are closest to eah attractor
  *     #print(f"Tree query in {time.time() - tic}s", flush=True)
  */
-    __pyx_t_10 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_int(__pyx_v_ids, PyBUF_WRITABLE); if (unlikely(!__pyx_t_10.memview)) __PYX_ERR(0, 1229, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_int(__pyx_v_ids, PyBUF_WRITABLE); if (unlikely(!__pyx_t_10.memview)) __PYX_ERR(0, 1257, __pyx_L1_error)
     __pyx_v_ids_view = __pyx_t_10;
     __pyx_t_10.memview = NULL;
     __pyx_t_10.data = NULL;
   }
   __pyx_L5:;
 
-  /* "cosmomia/subgrid.pyx":1235
+  /* "cosmomia/subgrid.pyx":1263
  *     cdef floating collapse_frac, gauss_rand
  * 
  *     for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):             # <<<<<<<<<<<<<<
  *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], params[0] , params[1],
- *                                                       vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[2],
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],
  */
   {
       #ifdef WITH_THREAD
@@ -52212,7 +52433,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
       __Pyx_FastGIL_Remember();
       #endif
       /*try:*/ {
-        if (unlikely(!__pyx_v_ids_view.memview)) { __Pyx_RaiseUnboundMemoryviewSliceNogil("ids_view"); __PYX_ERR(0, 1235, __pyx_L7_error) }
+        if (unlikely(!__pyx_v_ids_view.memview)) { __Pyx_RaiseUnboundMemoryviewSliceNogil("ids_view"); __PYX_ERR(0, 1263, __pyx_L7_error) }
         __pyx_t_11 = (__pyx_v_ids_view.shape[0]);
         {
             #if ((defined(__APPLE__) || defined(__OSX__)) && (defined(__GNUC__) && (__GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95)))))
@@ -52225,7 +52446,7 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
             if (__pyx_t_13 > 0)
             {
                 #ifdef _OPENMP
-                #pragma omp parallel num_threads(__pyx_v_num_threads) private(__pyx_t_15, __pyx_t_17, __pyx_t_18, __pyx_t_20, __pyx_t_21, __pyx_t_22) firstprivate(__pyx_t_14, __pyx_t_16, __pyx_t_19, __pyx_t_2)
+                #pragma omp parallel num_threads(__pyx_v_num_threads) private(__pyx_t_15, __pyx_t_17, __pyx_t_18, __pyx_t_20, __pyx_t_22, __pyx_t_23) firstprivate(__pyx_t_14, __pyx_t_16, __pyx_t_19, __pyx_t_2, __pyx_t_21)
                 #endif /* _OPENMP */
                 {
                     #ifdef _OPENMP
@@ -52235,12 +52456,12 @@ static PyObject *__pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
                         {
                             __pyx_v_i = (Py_ssize_t)(0 + 1 * __pyx_t_12);
 
-                            /* "cosmomia/subgrid.pyx":1236
+                            /* "cosmomia/subgrid.pyx":1264
  * 
  *     for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):
  *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], params[0] , params[1],             # <<<<<<<<<<<<<<
- *                                                       vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[2],
- *                                                       box_size)
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],
+ *                                                       dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[2],
  */
                             __pyx_t_2.data = __pyx_v_not_attractors_view.data;
                             __pyx_t_2.memview = __pyx_v_not_attractors_view.memview;
@@ -52286,12 +52507,12 @@ __pyx_t_15 = __pyx_v_i;
                             __pyx_t_17 = 0;
                             __pyx_t_18 = 1;
 
-                            /* "cosmomia/subgrid.pyx":1237
+                            /* "cosmomia/subgrid.pyx":1265
  *     for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):
  *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], params[0] , params[1],
- *                                                       vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[2],             # <<<<<<<<<<<<<<
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],             # <<<<<<<<<<<<<<
+ *                                                       dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[2],
  *                                                       box_size)
- * 
  */
                             __pyx_t_19.data = __pyx_v_vel_not_attractors_view.data;
                             __pyx_t_19.memview = __pyx_v_vel_not_attractors_view.memview;
@@ -52307,17 +52528,39 @@ __pyx_t_19.strides[0] = __pyx_v_vel_not_attractors_view.strides[1];
     __pyx_t_19.suboffsets[0] = -1;
 
 __pyx_t_20 = __pyx_v_i;
-                            __pyx_t_21 = (*((unsigned int *) ( /* dim=0 */ (__pyx_v_ids_view.data + __pyx_t_20 * __pyx_v_ids_view.strides[0]) )));
-                            __pyx_t_22 = 2;
+                            __pyx_t_21.data = __pyx_v_vel_attractors_view.data;
+                            __pyx_t_21.memview = __pyx_v_vel_attractors_view.memview;
+                            __PYX_INC_MEMVIEW(&__pyx_t_21, 0);
+                            {
+    Py_ssize_t __pyx_tmp_idx = (*((unsigned int *) ( /* dim=0 */ (__pyx_v_ids_view.data + __pyx_t_20 * __pyx_v_ids_view.strides[0]) )));
+    Py_ssize_t __pyx_tmp_stride = __pyx_v_vel_attractors_view.strides[0];
+        __pyx_t_21.data += __pyx_tmp_idx * __pyx_tmp_stride;
+}
 
-                            /* "cosmomia/subgrid.pyx":1236
+__pyx_t_21.shape[0] = __pyx_v_vel_attractors_view.shape[1];
+__pyx_t_21.strides[0] = __pyx_v_vel_attractors_view.strides[1];
+    __pyx_t_21.suboffsets[0] = -1;
+
+__pyx_t_20 = __pyx_v_i;
+
+                            /* "cosmomia/subgrid.pyx":1266
+ *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], params[0] , params[1],
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],
+ *                                                       dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[2],             # <<<<<<<<<<<<<<
+ *                                                       box_size)
+ * 
+ */
+                            __pyx_t_22 = (*((unsigned int *) ( /* dim=0 */ (__pyx_v_ids_view.data + __pyx_t_20 * __pyx_v_ids_view.strides[0]) )));
+                            __pyx_t_23 = 2;
+
+                            /* "cosmomia/subgrid.pyx":1264
  * 
  *     for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):
  *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], params[0] , params[1],             # <<<<<<<<<<<<<<
- *                                                       vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[2],
- *                                                       box_size)
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],
+ *                                                       dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[2],
  */
-                            __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__pyx_t_2, __pyx_t_14, __pyx_t_16, (*((float *) ( /* dim=0 */ (__pyx_v_dists_view.data + __pyx_t_15 * __pyx_v_dists_view.strides[0]) ))), (*((float *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_17 * __pyx_v_params.strides[0]) ))), (*((float *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_18 * __pyx_v_params.strides[0]) ))), __pyx_t_19, __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), (*((float *) ( /* dim=0 */ (__pyx_v_dm_view.data + __pyx_t_21 * __pyx_v_dm_view.strides[0]) ))), (*((float *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_22 * __pyx_v_params.strides[0]) ))), __pyx_v_box_size);
+                            __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_collapse(__pyx_t_2, __pyx_t_14, __pyx_t_16, (*((float *) ( /* dim=0 */ (__pyx_v_dists_view.data + __pyx_t_15 * __pyx_v_dists_view.strides[0]) ))), (*((float *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_17 * __pyx_v_params.strides[0]) ))), (*((float *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_18 * __pyx_v_params.strides[0]) ))), __pyx_t_19, __pyx_t_21, __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), (*((float *) ( /* dim=0 */ (__pyx_v_dm_view.data + __pyx_t_22 * __pyx_v_dm_view.strides[0]) ))), (*((float *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_23 * __pyx_v_params.strides[0]) ))), __pyx_v_box_size);
                             __PYX_XCLEAR_MEMVIEW(&__pyx_t_2, 0);
                             __pyx_t_2.memview = NULL; __pyx_t_2.data = NULL;
                             __PYX_XCLEAR_MEMVIEW(&__pyx_t_14, 0);
@@ -52326,6 +52569,8 @@ __pyx_t_20 = __pyx_v_i;
                             __pyx_t_16.memview = NULL; __pyx_t_16.data = NULL;
                             __PYX_XCLEAR_MEMVIEW(&__pyx_t_19, 0);
                             __pyx_t_19.memview = NULL; __pyx_t_19.data = NULL;
+                            __PYX_XCLEAR_MEMVIEW(&__pyx_t_21, 0);
+                            __pyx_t_21.memview = NULL; __pyx_t_21.data = NULL;
                         }
                     }
                 }
@@ -52339,12 +52584,12 @@ __pyx_t_20 = __pyx_v_i;
         #endif
       }
 
-      /* "cosmomia/subgrid.pyx":1235
+      /* "cosmomia/subgrid.pyx":1263
  *     cdef floating collapse_frac, gauss_rand
  * 
  *     for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):             # <<<<<<<<<<<<<<
  *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], params[0] , params[1],
- *                                                       vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[2],
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],
  */
       /*finally:*/ {
         /*normal exit:*/{
@@ -52365,40 +52610,40 @@ __pyx_t_20 = __pyx_v_i;
       }
   }
 
-  /* "cosmomia/subgrid.pyx":1247
+  /* "cosmomia/subgrid.pyx":1276
  *     #attractors_copy = attractors.copy()
  *     #not_attractors_copy = not_attractors.copy()
  *     catalog = {}             # <<<<<<<<<<<<<<
  *     catalog['pos'] = np.vstack((attractors[:,:3], not_attractors[:,:3]))
  *     catalog['vel'] = np.vstack((vel_attractors[:,:3], vel_not_attractors[:,:3]))
  */
-  __pyx_t_7 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1247, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_v_catalog = ((PyObject*)__pyx_t_7);
   __pyx_t_7 = 0;
 
-  /* "cosmomia/subgrid.pyx":1248
+  /* "cosmomia/subgrid.pyx":1277
  *     #not_attractors_copy = not_attractors.copy()
  *     catalog = {}
  *     catalog['pos'] = np.vstack((attractors[:,:3], not_attractors[:,:3]))             # <<<<<<<<<<<<<<
  *     catalog['vel'] = np.vstack((vel_attractors[:,:3], vel_not_attractors[:,:3]))
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1248, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_vstack); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1248, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_vstack); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1248, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_not_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1248, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_not_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_23 = PyTuple_New(2); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1248, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_23);
+  __pyx_t_24 = PyTuple_New(2); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 1277, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_24);
   __Pyx_GIVEREF(__pyx_t_4);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_23, 0, __pyx_t_4)) __PYX_ERR(0, 1248, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_24, 0, __pyx_t_4)) __PYX_ERR(0, 1277, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_3);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_23, 1, __pyx_t_3)) __PYX_ERR(0, 1248, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_24, 1, __pyx_t_3)) __PYX_ERR(0, 1277, __pyx_L1_error);
   __pyx_t_4 = 0;
   __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -52416,68 +52661,68 @@ __pyx_t_20 = __pyx_v_i;
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_t_23};
+    PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_t_24};
     __pyx_t_7 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1248, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
+    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1277, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
-  if (unlikely((PyDict_SetItem(__pyx_v_catalog, __pyx_n_u_pos, __pyx_t_7) < 0))) __PYX_ERR(0, 1248, __pyx_L1_error)
+  if (unlikely((PyDict_SetItem(__pyx_v_catalog, __pyx_n_u_pos, __pyx_t_7) < 0))) __PYX_ERR(0, 1277, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "cosmomia/subgrid.pyx":1249
+  /* "cosmomia/subgrid.pyx":1278
  *     catalog = {}
  *     catalog['pos'] = np.vstack((attractors[:,:3], not_attractors[:,:3]))
  *     catalog['vel'] = np.vstack((vel_attractors[:,:3], vel_not_attractors[:,:3]))             # <<<<<<<<<<<<<<
  * 
  *     return catalog
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1249, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1278, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_23 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_vstack); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1249, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_23);
+  __pyx_t_24 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_vstack); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 1278, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_24);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_vel_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1249, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_vel_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1278, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_vel_not_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1249, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_vel_not_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1278, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1249, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1278, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_5);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5)) __PYX_ERR(0, 1249, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5)) __PYX_ERR(0, 1278, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_3);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_3)) __PYX_ERR(0, 1249, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_3)) __PYX_ERR(0, 1278, __pyx_L1_error);
   __pyx_t_5 = 0;
   __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
   __pyx_t_6 = 0;
   #if CYTHON_UNPACK_METHODS
-  if (unlikely(PyMethod_Check(__pyx_t_23))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_23);
+  if (unlikely(PyMethod_Check(__pyx_t_24))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_24);
     if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_23);
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_24);
       __Pyx_INCREF(__pyx_t_3);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_23, function);
+      __Pyx_DECREF_SET(__pyx_t_24, function);
       __pyx_t_6 = 1;
     }
   }
   #endif
   {
     PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_t_4};
-    __pyx_t_7 = __Pyx_PyObject_FastCall(__pyx_t_23, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
+    __pyx_t_7 = __Pyx_PyObject_FastCall(__pyx_t_24, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1249, __pyx_L1_error)
+    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1278, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
+    __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
   }
-  if (unlikely((PyDict_SetItem(__pyx_v_catalog, __pyx_n_u_vel, __pyx_t_7) < 0))) __PYX_ERR(0, 1249, __pyx_L1_error)
+  if (unlikely((PyDict_SetItem(__pyx_v_catalog, __pyx_n_u_vel, __pyx_t_7) < 0))) __PYX_ERR(0, 1278, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "cosmomia/subgrid.pyx":1251
+  /* "cosmomia/subgrid.pyx":1280
  *     catalog['vel'] = np.vstack((vel_attractors[:,:3], vel_not_attractors[:,:3]))
  * 
  *     return catalog             # <<<<<<<<<<<<<<
@@ -52489,7 +52734,7 @@ __pyx_t_20 = __pyx_v_i;
   __pyx_r = __pyx_v_catalog;
   goto __pyx_L0;
 
-  /* "cosmomia/subgrid.pyx":1189
+  /* "cosmomia/subgrid.pyx":1217
  * 
  * 
  * cpdef dict single_collapse_step(cnp.ndarray[floating, ndim=2] attractors, cnp.ndarray[floating, ndim=2] vel_attractors, cnp.ndarray[floating, ndim=1] dm,             # <<<<<<<<<<<<<<
@@ -52509,7 +52754,8 @@ __pyx_t_20 = __pyx_v_i;
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_14, 1);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_16, 1);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_19, 1);
-  __Pyx_XDECREF(__pyx_t_23);
+  __PYX_XCLEAR_MEMVIEW(&__pyx_t_21, 1);
+  __Pyx_XDECREF(__pyx_t_24);
   { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
     __Pyx_PyThreadState_declare
     __Pyx_PyThreadState_assign
@@ -52579,7 +52825,7 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_61__pyx_fuse_0single_collapse_step
   {
     PyObject **__pyx_pyargnames[] = {&__pyx_n_s_attractors,&__pyx_n_s_vel_attractors,&__pyx_n_s_dm,&__pyx_n_s_not_attractors,&__pyx_n_s_vel_not_attractors,&__pyx_n_s_params,&__pyx_n_s_k_neighbour,&__pyx_n_s_box_size,&__pyx_n_s_seed,&__pyx_n_s_num_threads,&__pyx_n_s_debug,0};
 
-    /* "cosmomia/subgrid.pyx":1193
+    /* "cosmomia/subgrid.pyx":1221
  *                                 floating[:] params,
  *                                 size_t k_neighbour,
  *                                 floating[:] box_size, size_t seed, size_t num_threads, debug = False):             # <<<<<<<<<<<<<<
@@ -52622,7 +52868,7 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_61__pyx_fuse_0single_collapse_step
           (void)__Pyx_Arg_NewRef_VARARGS(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -52630,9 +52876,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_61__pyx_fuse_0single_collapse_step
           (void)__Pyx_Arg_NewRef_VARARGS(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0single_collapse_step", 0, 10, 11, 1); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0single_collapse_step", 0, 10, 11, 1); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -52640,9 +52886,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_61__pyx_fuse_0single_collapse_step
           (void)__Pyx_Arg_NewRef_VARARGS(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0single_collapse_step", 0, 10, 11, 2); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0single_collapse_step", 0, 10, 11, 2); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -52650,9 +52896,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_61__pyx_fuse_0single_collapse_step
           (void)__Pyx_Arg_NewRef_VARARGS(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0single_collapse_step", 0, 10, 11, 3); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0single_collapse_step", 0, 10, 11, 3); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
@@ -52660,9 +52906,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_61__pyx_fuse_0single_collapse_step
           (void)__Pyx_Arg_NewRef_VARARGS(values[4]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0single_collapse_step", 0, 10, 11, 4); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0single_collapse_step", 0, 10, 11, 4); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
@@ -52670,9 +52916,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_61__pyx_fuse_0single_collapse_step
           (void)__Pyx_Arg_NewRef_VARARGS(values[5]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0single_collapse_step", 0, 10, 11, 5); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0single_collapse_step", 0, 10, 11, 5); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  6:
@@ -52680,9 +52926,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_61__pyx_fuse_0single_collapse_step
           (void)__Pyx_Arg_NewRef_VARARGS(values[6]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0single_collapse_step", 0, 10, 11, 6); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0single_collapse_step", 0, 10, 11, 6); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  7:
@@ -52690,9 +52936,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_61__pyx_fuse_0single_collapse_step
           (void)__Pyx_Arg_NewRef_VARARGS(values[7]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0single_collapse_step", 0, 10, 11, 7); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0single_collapse_step", 0, 10, 11, 7); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  8:
@@ -52700,9 +52946,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_61__pyx_fuse_0single_collapse_step
           (void)__Pyx_Arg_NewRef_VARARGS(values[8]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0single_collapse_step", 0, 10, 11, 8); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0single_collapse_step", 0, 10, 11, 8); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  9:
@@ -52710,21 +52956,21 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_61__pyx_fuse_0single_collapse_step
           (void)__Pyx_Arg_NewRef_VARARGS(values[9]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0single_collapse_step", 0, 10, 11, 9); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0single_collapse_step", 0, 10, 11, 9); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case 10:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_debug);
           if (value) { values[10] = __Pyx_Arg_NewRef_VARARGS(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__pyx_fuse_0single_collapse_step") < 0)) __PYX_ERR(0, 1189, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__pyx_fuse_0single_collapse_step") < 0)) __PYX_ERR(0, 1217, __pyx_L3_error)
       }
     } else {
       switch (__pyx_nargs) {
@@ -52749,16 +52995,16 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_61__pyx_fuse_0single_collapse_step
     __pyx_v_dm = ((PyArrayObject *)values[2]);
     __pyx_v_not_attractors = ((PyArrayObject *)values[3]);
     __pyx_v_vel_not_attractors = ((PyArrayObject *)values[4]);
-    __pyx_v_params = __Pyx_PyObject_to_MemoryviewSlice_ds_float(values[5], PyBUF_WRITABLE); if (unlikely(!__pyx_v_params.memview)) __PYX_ERR(0, 1191, __pyx_L3_error)
-    __pyx_v_k_neighbour = __Pyx_PyInt_As_size_t(values[6]); if (unlikely((__pyx_v_k_neighbour == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1192, __pyx_L3_error)
-    __pyx_v_box_size = __Pyx_PyObject_to_MemoryviewSlice_ds_float(values[7], PyBUF_WRITABLE); if (unlikely(!__pyx_v_box_size.memview)) __PYX_ERR(0, 1193, __pyx_L3_error)
-    __pyx_v_seed = __Pyx_PyInt_As_size_t(values[8]); if (unlikely((__pyx_v_seed == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1193, __pyx_L3_error)
-    __pyx_v_num_threads = __Pyx_PyInt_As_size_t(values[9]); if (unlikely((__pyx_v_num_threads == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1193, __pyx_L3_error)
+    __pyx_v_params = __Pyx_PyObject_to_MemoryviewSlice_ds_float(values[5], PyBUF_WRITABLE); if (unlikely(!__pyx_v_params.memview)) __PYX_ERR(0, 1219, __pyx_L3_error)
+    __pyx_v_k_neighbour = __Pyx_PyInt_As_size_t(values[6]); if (unlikely((__pyx_v_k_neighbour == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1220, __pyx_L3_error)
+    __pyx_v_box_size = __Pyx_PyObject_to_MemoryviewSlice_ds_float(values[7], PyBUF_WRITABLE); if (unlikely(!__pyx_v_box_size.memview)) __PYX_ERR(0, 1221, __pyx_L3_error)
+    __pyx_v_seed = __Pyx_PyInt_As_size_t(values[8]); if (unlikely((__pyx_v_seed == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1221, __pyx_L3_error)
+    __pyx_v_num_threads = __Pyx_PyInt_As_size_t(values[9]); if (unlikely((__pyx_v_num_threads == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1221, __pyx_L3_error)
     __pyx_v_debug = values[10];
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0single_collapse_step", 0, 10, 11, __pyx_nargs); __PYX_ERR(0, 1189, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__pyx_fuse_0single_collapse_step", 0, 10, 11, __pyx_nargs); __PYX_ERR(0, 1217, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -52774,14 +53020,14 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_61__pyx_fuse_0single_collapse_step
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_attractors), __pyx_ptype_5numpy_ndarray, 1, "attractors", 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vel_attractors), __pyx_ptype_5numpy_ndarray, 1, "vel_attractors", 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dm), __pyx_ptype_5numpy_ndarray, 1, "dm", 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_not_attractors), __pyx_ptype_5numpy_ndarray, 1, "not_attractors", 0))) __PYX_ERR(0, 1190, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vel_not_attractors), __pyx_ptype_5numpy_ndarray, 1, "vel_not_attractors", 0))) __PYX_ERR(0, 1190, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_attractors), __pyx_ptype_5numpy_ndarray, 1, "attractors", 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vel_attractors), __pyx_ptype_5numpy_ndarray, 1, "vel_attractors", 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dm), __pyx_ptype_5numpy_ndarray, 1, "dm", 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_not_attractors), __pyx_ptype_5numpy_ndarray, 1, "not_attractors", 0))) __PYX_ERR(0, 1218, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vel_not_attractors), __pyx_ptype_5numpy_ndarray, 1, "vel_not_attractors", 0))) __PYX_ERR(0, 1218, __pyx_L1_error)
   __pyx_r = __pyx_pf_8cosmomia_8cosmomia_60__pyx_fuse_0single_collapse_step(__pyx_self, __pyx_v_attractors, __pyx_v_vel_attractors, __pyx_v_dm, __pyx_v_not_attractors, __pyx_v_vel_not_attractors, __pyx_v_params, __pyx_v_k_neighbour, __pyx_v_box_size, __pyx_v_seed, __pyx_v_num_threads, __pyx_v_debug);
 
-  /* "cosmomia/subgrid.pyx":1189
+  /* "cosmomia/subgrid.pyx":1217
  * 
  * 
  * cpdef dict single_collapse_step(cnp.ndarray[floating, ndim=2] attractors, cnp.ndarray[floating, ndim=2] vel_attractors, cnp.ndarray[floating, ndim=1] dm,             # <<<<<<<<<<<<<<
@@ -52847,35 +53093,35 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_60__pyx_fuse_0single_collapse_step
   __pyx_pybuffernd_vel_not_attractors.rcbuffer = &__pyx_pybuffer_vel_not_attractors;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_attractors, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_attractors, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_pybuffernd_attractors.diminfo[0].strides = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_attractors.diminfo[0].shape = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_attractors.diminfo[1].strides = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_attractors.diminfo[1].shape = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_vel_attractors, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_vel_attractors, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_pybuffernd_vel_attractors.diminfo[0].strides = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_vel_attractors.diminfo[0].shape = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_vel_attractors.diminfo[1].strides = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_vel_attractors.diminfo[1].shape = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_dm.rcbuffer->pybuffer, (PyObject*)__pyx_v_dm, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_dm.rcbuffer->pybuffer, (PyObject*)__pyx_v_dm, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_pybuffernd_dm.diminfo[0].strides = __pyx_pybuffernd_dm.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_dm.diminfo[0].shape = __pyx_pybuffernd_dm.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_not_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_not_attractors, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_not_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_not_attractors, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_pybuffernd_not_attractors.diminfo[0].strides = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_not_attractors.diminfo[0].shape = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_not_attractors.diminfo[1].strides = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_not_attractors.diminfo[1].shape = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_vel_not_attractors, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_vel_not_attractors, &__Pyx_TypeInfo_float, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_pybuffernd_vel_not_attractors.diminfo[0].strides = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_vel_not_attractors.diminfo[0].shape = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_vel_not_attractors.diminfo[1].strides = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_vel_not_attractors.diminfo[1].shape = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.shape[1];
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_params.memview)) { __Pyx_RaiseUnboundLocalError("params"); __PYX_ERR(0, 1189, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_box_size.memview)) { __Pyx_RaiseUnboundLocalError("box_size"); __PYX_ERR(0, 1189, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_params.memview)) { __Pyx_RaiseUnboundLocalError("params"); __PYX_ERR(0, 1217, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_box_size.memview)) { __Pyx_RaiseUnboundLocalError("box_size"); __PYX_ERR(0, 1217, __pyx_L1_error) }
   __pyx_t_2.__pyx_n = 1;
   __pyx_t_2.debug = __pyx_v_debug;
-  __pyx_t_1 = __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_single_collapse_step(((PyArrayObject *)__pyx_v_attractors), ((PyArrayObject *)__pyx_v_vel_attractors), ((PyArrayObject *)__pyx_v_dm), ((PyArrayObject *)__pyx_v_not_attractors), ((PyArrayObject *)__pyx_v_vel_not_attractors), __pyx_v_params, __pyx_v_k_neighbour, __pyx_v_box_size, __pyx_v_seed, __pyx_v_num_threads, 0, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_t_1 = __pyx_fuse_0__pyx_f_8cosmomia_8cosmomia_single_collapse_step(((PyArrayObject *)__pyx_v_attractors), ((PyArrayObject *)__pyx_v_vel_attractors), ((PyArrayObject *)__pyx_v_dm), ((PyArrayObject *)__pyx_v_not_attractors), ((PyArrayObject *)__pyx_v_vel_not_attractors), __pyx_v_params, __pyx_v_k_neighbour, __pyx_v_box_size, __pyx_v_seed, __pyx_v_num_threads, 0, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -52916,7 +53162,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
   std::normal_distribution<double>  __pyx_v_dist_gauss;
   __Pyx_memviewslice __pyx_v_attractors_view = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_memviewslice __pyx_v_not_attractors_view = { 0, 0, { 0 }, { 0 }, { 0 } };
-  CYTHON_UNUSED __Pyx_memviewslice __pyx_v_vel_attractors_view = { 0, 0, { 0 }, { 0 }, { 0 } };
+  __Pyx_memviewslice __pyx_v_vel_attractors_view = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_memviewslice __pyx_v_vel_not_attractors_view = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_memviewslice __pyx_v_dm_view = { 0, 0, { 0 }, { 0 }, { 0 } };
   PyObject *__pyx_v_tree = NULL;
@@ -52958,9 +53204,10 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
   Py_ssize_t __pyx_t_18;
   __Pyx_memviewslice __pyx_t_19 = { 0, 0, { 0 }, { 0 }, { 0 } };
   Py_ssize_t __pyx_t_20;
-  size_t __pyx_t_21;
-  Py_ssize_t __pyx_t_22;
-  PyObject *__pyx_t_23 = NULL;
+  __Pyx_memviewslice __pyx_t_21 = { 0, 0, { 0 }, { 0 }, { 0 } };
+  size_t __pyx_t_22;
+  Py_ssize_t __pyx_t_23;
+  PyObject *__pyx_t_24 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -52989,31 +53236,31 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
   __pyx_pybuffernd_vel_not_attractors.rcbuffer = &__pyx_pybuffer_vel_not_attractors;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_attractors, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_attractors, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_pybuffernd_attractors.diminfo[0].strides = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_attractors.diminfo[0].shape = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_attractors.diminfo[1].strides = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_attractors.diminfo[1].shape = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_vel_attractors, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_vel_attractors, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_pybuffernd_vel_attractors.diminfo[0].strides = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_vel_attractors.diminfo[0].shape = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_vel_attractors.diminfo[1].strides = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_vel_attractors.diminfo[1].shape = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_dm.rcbuffer->pybuffer, (PyObject*)__pyx_v_dm, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_dm.rcbuffer->pybuffer, (PyObject*)__pyx_v_dm, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_pybuffernd_dm.diminfo[0].strides = __pyx_pybuffernd_dm.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_dm.diminfo[0].shape = __pyx_pybuffernd_dm.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_not_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_not_attractors, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_not_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_not_attractors, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_pybuffernd_not_attractors.diminfo[0].strides = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_not_attractors.diminfo[0].shape = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_not_attractors.diminfo[1].strides = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_not_attractors.diminfo[1].shape = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_vel_not_attractors, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_vel_not_attractors, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_pybuffernd_vel_not_attractors.diminfo[0].strides = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_vel_not_attractors.diminfo[0].shape = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_vel_not_attractors.diminfo[1].strides = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_vel_not_attractors.diminfo[1].shape = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.shape[1];
 
-  /* "cosmomia/subgrid.pyx":1196
+  /* "cosmomia/subgrid.pyx":1224
  *     #params = (collapse_frac, collapse_radius, velocity_dispersion)
  * 
  *     cdef mt19937 gen = mt19937(seed)             # <<<<<<<<<<<<<<
@@ -53022,7 +53269,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
  */
   __pyx_v_gen = std::mt19937(__pyx_v_seed);
 
-  /* "cosmomia/subgrid.pyx":1197
+  /* "cosmomia/subgrid.pyx":1225
  * 
  *     cdef mt19937 gen = mt19937(seed)
  *     cdef normal_distribution[floating] dist_gauss = normal_distribution[floating](0., 1.)             # <<<<<<<<<<<<<<
@@ -53031,74 +53278,74 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
  */
   __pyx_v_dist_gauss = std::normal_distribution<double> (0., 1.);
 
-  /* "cosmomia/subgrid.pyx":1204
+  /* "cosmomia/subgrid.pyx":1232
  * 
  *     cdef floating[:,:] attractors_view, not_attractors_view, vel_attractors_view, vel_not_attractors_view#, attractors_copy_view, not_attractors_copy_view
  *     attractors_view = attractors             # <<<<<<<<<<<<<<
  *     not_attractors_view = not_attractors
  *     vel_attractors_view = vel_attractors
  */
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(((PyObject *)__pyx_v_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1204, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(((PyObject *)__pyx_v_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1232, __pyx_L1_error)
   __pyx_v_attractors_view = __pyx_t_1;
   __pyx_t_1.memview = NULL;
   __pyx_t_1.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1205
+  /* "cosmomia/subgrid.pyx":1233
  *     cdef floating[:,:] attractors_view, not_attractors_view, vel_attractors_view, vel_not_attractors_view#, attractors_copy_view, not_attractors_copy_view
  *     attractors_view = attractors
  *     not_attractors_view = not_attractors             # <<<<<<<<<<<<<<
  *     vel_attractors_view = vel_attractors
  *     vel_not_attractors_view = vel_not_attractors
  */
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(((PyObject *)__pyx_v_not_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1205, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(((PyObject *)__pyx_v_not_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1233, __pyx_L1_error)
   __pyx_v_not_attractors_view = __pyx_t_1;
   __pyx_t_1.memview = NULL;
   __pyx_t_1.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1206
+  /* "cosmomia/subgrid.pyx":1234
  *     attractors_view = attractors
  *     not_attractors_view = not_attractors
  *     vel_attractors_view = vel_attractors             # <<<<<<<<<<<<<<
  *     vel_not_attractors_view = vel_not_attractors
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(((PyObject *)__pyx_v_vel_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1206, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(((PyObject *)__pyx_v_vel_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1234, __pyx_L1_error)
   __pyx_v_vel_attractors_view = __pyx_t_1;
   __pyx_t_1.memview = NULL;
   __pyx_t_1.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1207
+  /* "cosmomia/subgrid.pyx":1235
  *     not_attractors_view = not_attractors
  *     vel_attractors_view = vel_attractors
  *     vel_not_attractors_view = vel_not_attractors             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(((PyObject *)__pyx_v_vel_not_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1207, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(((PyObject *)__pyx_v_vel_not_attractors), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1235, __pyx_L1_error)
   __pyx_v_vel_not_attractors_view = __pyx_t_1;
   __pyx_t_1.memview = NULL;
   __pyx_t_1.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1210
+  /* "cosmomia/subgrid.pyx":1238
  * 
  * 
  *     cdef floating[:] dm_view = dm             # <<<<<<<<<<<<<<
  *     #attractors_copy_view = attractors_copy
  *     #not_attractors_copy_view = not_attractors_copy
  */
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(((PyObject *)__pyx_v_dm), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1210, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(((PyObject *)__pyx_v_dm), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1238, __pyx_L1_error)
   __pyx_v_dm_view = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "cosmomia/subgrid.pyx":1216
+  /* "cosmomia/subgrid.pyx":1244
  *     #tic = time.time()
  *     #tree = pybosque.Tree(not_attractors, idxs)
  *     tree = KDTree(attractors)#, boxsize = box_size)             # <<<<<<<<<<<<<<
  *     #print(f"Tree built in {time.time() - tic}s", flush=True)
  *     #tic = time.time()
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_KDTree); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1216, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_KDTree); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1244, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -53118,37 +53365,37 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
     PyObject *__pyx_callargs[2] = {__pyx_t_5, ((PyObject *)__pyx_v_attractors)};
     __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1216, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1244, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_v_tree = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "cosmomia/subgrid.pyx":1221
+  /* "cosmomia/subgrid.pyx":1249
  *     #r, ids = tree.query(attractors, 2, [0,1])
  *     #r, ids = tree.query(not_attractors, k = 2)
  *     dists, ids = tree.query(not_attractors, k = k_neighbour, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)             # <<<<<<<<<<<<<<
  *     cdef floating[:] dists_view
  *     cdef unsigned[:] ids_view
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_tree, __pyx_n_s_query); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1221, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_tree, __pyx_n_s_query); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1249, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1221, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1249, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF((PyObject *)__pyx_v_not_attractors);
   __Pyx_GIVEREF((PyObject *)__pyx_v_not_attractors);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, ((PyObject *)__pyx_v_not_attractors))) __PYX_ERR(0, 1221, __pyx_L1_error);
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1221, __pyx_L1_error)
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, ((PyObject *)__pyx_v_not_attractors))) __PYX_ERR(0, 1249, __pyx_L1_error);
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1249, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyInt_FromSize_t(__pyx_v_k_neighbour); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1221, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_FromSize_t(__pyx_v_k_neighbour); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1249, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_k, __pyx_t_7) < 0) __PYX_ERR(0, 1221, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_k, __pyx_t_7) < 0) __PYX_ERR(0, 1249, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_eps, __pyx_float_0_) < 0) __PYX_ERR(0, 1221, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_distance_upper_bound, Py_None) < 0) __PYX_ERR(0, 1221, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_sqr_dists, Py_True) < 0) __PYX_ERR(0, 1221, __pyx_L1_error)
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1221, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_eps, __pyx_float_0_) < 0) __PYX_ERR(0, 1249, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_distance_upper_bound, Py_None) < 0) __PYX_ERR(0, 1249, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_sqr_dists, Py_True) < 0) __PYX_ERR(0, 1249, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1249, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -53159,7 +53406,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
     if (unlikely(size != 2)) {
       if (size > 2) __Pyx_RaiseTooManyValuesError(2);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 1221, __pyx_L1_error)
+      __PYX_ERR(0, 1249, __pyx_L1_error)
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -53172,15 +53419,15 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
     __Pyx_INCREF(__pyx_t_5);
     __Pyx_INCREF(__pyx_t_4);
     #else
-    __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1221, __pyx_L1_error)
+    __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1221, __pyx_L1_error)
+    __pyx_t_4 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     #endif
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_3 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1221, __pyx_L1_error)
+    __pyx_t_3 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_t_8 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_3);
@@ -53188,7 +53435,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
     __Pyx_GOTREF(__pyx_t_5);
     index = 1; __pyx_t_4 = __pyx_t_8(__pyx_t_3); if (unlikely(!__pyx_t_4)) goto __pyx_L3_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_4);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_3), 2) < 0) __PYX_ERR(0, 1221, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_3), 2) < 0) __PYX_ERR(0, 1249, __pyx_L1_error)
     __pyx_t_8 = NULL;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     goto __pyx_L4_unpacking_done;
@@ -53196,7 +53443,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_8 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 1221, __pyx_L1_error)
+    __PYX_ERR(0, 1249, __pyx_L1_error)
     __pyx_L4_unpacking_done:;
   }
   __pyx_v_dists = __pyx_t_5;
@@ -53204,7 +53451,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
   __pyx_v_ids = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "cosmomia/subgrid.pyx":1224
+  /* "cosmomia/subgrid.pyx":1252
  *     cdef floating[:] dists_view
  *     cdef unsigned[:] ids_view
  *     if k_neighbour > 1:             # <<<<<<<<<<<<<<
@@ -53214,59 +53461,59 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
   __pyx_t_9 = (__pyx_v_k_neighbour > 1);
   if (__pyx_t_9) {
 
-    /* "cosmomia/subgrid.pyx":1225
+    /* "cosmomia/subgrid.pyx":1253
  *     cdef unsigned[:] ids_view
  *     if k_neighbour > 1:
  *         dists_view = dists[:,k_neighbour-1]             # <<<<<<<<<<<<<<
  *         ids_view = ids[:,k_neighbour-1]
  *     else:
  */
-    __pyx_t_7 = __Pyx_PyInt_FromSize_t((__pyx_v_k_neighbour - 1)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1225, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyInt_FromSize_t((__pyx_v_k_neighbour - 1)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1225, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_INCREF(__pyx_slice__25);
     __Pyx_GIVEREF(__pyx_slice__25);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_slice__25)) __PYX_ERR(0, 1225, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_slice__25)) __PYX_ERR(0, 1253, __pyx_L1_error);
     __Pyx_GIVEREF(__pyx_t_7);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_7)) __PYX_ERR(0, 1225, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_7)) __PYX_ERR(0, 1253, __pyx_L1_error);
     __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_v_dists, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1225, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_v_dists, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1225, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1253, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_v_dists_view = __pyx_t_2;
     __pyx_t_2.memview = NULL;
     __pyx_t_2.data = NULL;
 
-    /* "cosmomia/subgrid.pyx":1226
+    /* "cosmomia/subgrid.pyx":1254
  *     if k_neighbour > 1:
  *         dists_view = dists[:,k_neighbour-1]
  *         ids_view = ids[:,k_neighbour-1]             # <<<<<<<<<<<<<<
  *     else:
  *         dists_view = dists
  */
-    __pyx_t_7 = __Pyx_PyInt_FromSize_t((__pyx_v_k_neighbour - 1)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1226, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyInt_FromSize_t((__pyx_v_k_neighbour - 1)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1226, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_INCREF(__pyx_slice__26);
     __Pyx_GIVEREF(__pyx_slice__26);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_slice__26)) __PYX_ERR(0, 1226, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_slice__26)) __PYX_ERR(0, 1254, __pyx_L1_error);
     __Pyx_GIVEREF(__pyx_t_7);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_7)) __PYX_ERR(0, 1226, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_7)) __PYX_ERR(0, 1254, __pyx_L1_error);
     __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_v_ids, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1226, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_v_ids, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_10 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_int(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_10.memview)) __PYX_ERR(0, 1226, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_int(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_10.memview)) __PYX_ERR(0, 1254, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_v_ids_view = __pyx_t_10;
     __pyx_t_10.memview = NULL;
     __pyx_t_10.data = NULL;
 
-    /* "cosmomia/subgrid.pyx":1224
+    /* "cosmomia/subgrid.pyx":1252
  *     cdef floating[:] dists_view
  *     cdef unsigned[:] ids_view
  *     if k_neighbour > 1:             # <<<<<<<<<<<<<<
@@ -53276,7 +53523,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
     goto __pyx_L5;
   }
 
-  /* "cosmomia/subgrid.pyx":1228
+  /* "cosmomia/subgrid.pyx":1256
  *         ids_view = ids[:,k_neighbour-1]
  *     else:
  *         dists_view = dists             # <<<<<<<<<<<<<<
@@ -53284,31 +53531,31 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
  *     #ids is the array of ids in not_attractors that are closest to eah attractor
  */
   /*else*/ {
-    __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_dists, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1228, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_dists, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1256, __pyx_L1_error)
     __pyx_v_dists_view = __pyx_t_2;
     __pyx_t_2.memview = NULL;
     __pyx_t_2.data = NULL;
 
-    /* "cosmomia/subgrid.pyx":1229
+    /* "cosmomia/subgrid.pyx":1257
  *     else:
  *         dists_view = dists
  *         ids_view = ids             # <<<<<<<<<<<<<<
  *     #ids is the array of ids in not_attractors that are closest to eah attractor
  *     #print(f"Tree query in {time.time() - tic}s", flush=True)
  */
-    __pyx_t_10 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_int(__pyx_v_ids, PyBUF_WRITABLE); if (unlikely(!__pyx_t_10.memview)) __PYX_ERR(0, 1229, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_int(__pyx_v_ids, PyBUF_WRITABLE); if (unlikely(!__pyx_t_10.memview)) __PYX_ERR(0, 1257, __pyx_L1_error)
     __pyx_v_ids_view = __pyx_t_10;
     __pyx_t_10.memview = NULL;
     __pyx_t_10.data = NULL;
   }
   __pyx_L5:;
 
-  /* "cosmomia/subgrid.pyx":1235
+  /* "cosmomia/subgrid.pyx":1263
  *     cdef floating collapse_frac, gauss_rand
  * 
  *     for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):             # <<<<<<<<<<<<<<
  *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], params[0] , params[1],
- *                                                       vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[2],
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],
  */
   {
       #ifdef WITH_THREAD
@@ -53318,7 +53565,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
       __Pyx_FastGIL_Remember();
       #endif
       /*try:*/ {
-        if (unlikely(!__pyx_v_ids_view.memview)) { __Pyx_RaiseUnboundMemoryviewSliceNogil("ids_view"); __PYX_ERR(0, 1235, __pyx_L7_error) }
+        if (unlikely(!__pyx_v_ids_view.memview)) { __Pyx_RaiseUnboundMemoryviewSliceNogil("ids_view"); __PYX_ERR(0, 1263, __pyx_L7_error) }
         __pyx_t_11 = (__pyx_v_ids_view.shape[0]);
         {
             #if ((defined(__APPLE__) || defined(__OSX__)) && (defined(__GNUC__) && (__GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95)))))
@@ -53331,7 +53578,7 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
             if (__pyx_t_13 > 0)
             {
                 #ifdef _OPENMP
-                #pragma omp parallel num_threads(__pyx_v_num_threads) private(__pyx_t_15, __pyx_t_17, __pyx_t_18, __pyx_t_20, __pyx_t_21, __pyx_t_22) firstprivate(__pyx_t_14, __pyx_t_16, __pyx_t_19, __pyx_t_2)
+                #pragma omp parallel num_threads(__pyx_v_num_threads) private(__pyx_t_15, __pyx_t_17, __pyx_t_18, __pyx_t_20, __pyx_t_22, __pyx_t_23) firstprivate(__pyx_t_14, __pyx_t_16, __pyx_t_19, __pyx_t_2, __pyx_t_21)
                 #endif /* _OPENMP */
                 {
                     #ifdef _OPENMP
@@ -53341,12 +53588,12 @@ static PyObject *__pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_single_collapse_step(Py
                         {
                             __pyx_v_i = (Py_ssize_t)(0 + 1 * __pyx_t_12);
 
-                            /* "cosmomia/subgrid.pyx":1236
+                            /* "cosmomia/subgrid.pyx":1264
  * 
  *     for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):
  *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], params[0] , params[1],             # <<<<<<<<<<<<<<
- *                                                       vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[2],
- *                                                       box_size)
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],
+ *                                                       dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[2],
  */
                             __pyx_t_2.data = __pyx_v_not_attractors_view.data;
                             __pyx_t_2.memview = __pyx_v_not_attractors_view.memview;
@@ -53392,12 +53639,12 @@ __pyx_t_15 = __pyx_v_i;
                             __pyx_t_17 = 0;
                             __pyx_t_18 = 1;
 
-                            /* "cosmomia/subgrid.pyx":1237
+                            /* "cosmomia/subgrid.pyx":1265
  *     for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):
  *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], params[0] , params[1],
- *                                                       vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[2],             # <<<<<<<<<<<<<<
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],             # <<<<<<<<<<<<<<
+ *                                                       dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[2],
  *                                                       box_size)
- * 
  */
                             __pyx_t_19.data = __pyx_v_vel_not_attractors_view.data;
                             __pyx_t_19.memview = __pyx_v_vel_not_attractors_view.memview;
@@ -53413,17 +53660,39 @@ __pyx_t_19.strides[0] = __pyx_v_vel_not_attractors_view.strides[1];
     __pyx_t_19.suboffsets[0] = -1;
 
 __pyx_t_20 = __pyx_v_i;
-                            __pyx_t_21 = (*((unsigned int *) ( /* dim=0 */ (__pyx_v_ids_view.data + __pyx_t_20 * __pyx_v_ids_view.strides[0]) )));
-                            __pyx_t_22 = 2;
+                            __pyx_t_21.data = __pyx_v_vel_attractors_view.data;
+                            __pyx_t_21.memview = __pyx_v_vel_attractors_view.memview;
+                            __PYX_INC_MEMVIEW(&__pyx_t_21, 0);
+                            {
+    Py_ssize_t __pyx_tmp_idx = (*((unsigned int *) ( /* dim=0 */ (__pyx_v_ids_view.data + __pyx_t_20 * __pyx_v_ids_view.strides[0]) )));
+    Py_ssize_t __pyx_tmp_stride = __pyx_v_vel_attractors_view.strides[0];
+        __pyx_t_21.data += __pyx_tmp_idx * __pyx_tmp_stride;
+}
 
-                            /* "cosmomia/subgrid.pyx":1236
+__pyx_t_21.shape[0] = __pyx_v_vel_attractors_view.shape[1];
+__pyx_t_21.strides[0] = __pyx_v_vel_attractors_view.strides[1];
+    __pyx_t_21.suboffsets[0] = -1;
+
+__pyx_t_20 = __pyx_v_i;
+
+                            /* "cosmomia/subgrid.pyx":1266
+ *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], params[0] , params[1],
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],
+ *                                                       dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[2],             # <<<<<<<<<<<<<<
+ *                                                       box_size)
+ * 
+ */
+                            __pyx_t_22 = (*((unsigned int *) ( /* dim=0 */ (__pyx_v_ids_view.data + __pyx_t_20 * __pyx_v_ids_view.strides[0]) )));
+                            __pyx_t_23 = 2;
+
+                            /* "cosmomia/subgrid.pyx":1264
  * 
  *     for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):
  *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], params[0] , params[1],             # <<<<<<<<<<<<<<
- *                                                       vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[2],
- *                                                       box_size)
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],
+ *                                                       dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[2],
  */
-                            __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__pyx_t_2, __pyx_t_14, __pyx_t_16, (*((double *) ( /* dim=0 */ (__pyx_v_dists_view.data + __pyx_t_15 * __pyx_v_dists_view.strides[0]) ))), (*((double *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_17 * __pyx_v_params.strides[0]) ))), (*((double *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_18 * __pyx_v_params.strides[0]) ))), __pyx_t_19, __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), (*((double *) ( /* dim=0 */ (__pyx_v_dm_view.data + __pyx_t_21 * __pyx_v_dm_view.strides[0]) ))), (*((double *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_22 * __pyx_v_params.strides[0]) ))), __pyx_v_box_size);
+                            __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_collapse(__pyx_t_2, __pyx_t_14, __pyx_t_16, (*((double *) ( /* dim=0 */ (__pyx_v_dists_view.data + __pyx_t_15 * __pyx_v_dists_view.strides[0]) ))), (*((double *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_17 * __pyx_v_params.strides[0]) ))), (*((double *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_18 * __pyx_v_params.strides[0]) ))), __pyx_t_19, __pyx_t_21, __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), __pyx_v_dist_gauss(__pyx_v_gen), (*((double *) ( /* dim=0 */ (__pyx_v_dm_view.data + __pyx_t_22 * __pyx_v_dm_view.strides[0]) ))), (*((double *) ( /* dim=0 */ (__pyx_v_params.data + __pyx_t_23 * __pyx_v_params.strides[0]) ))), __pyx_v_box_size);
                             __PYX_XCLEAR_MEMVIEW(&__pyx_t_2, 0);
                             __pyx_t_2.memview = NULL; __pyx_t_2.data = NULL;
                             __PYX_XCLEAR_MEMVIEW(&__pyx_t_14, 0);
@@ -53432,6 +53701,8 @@ __pyx_t_20 = __pyx_v_i;
                             __pyx_t_16.memview = NULL; __pyx_t_16.data = NULL;
                             __PYX_XCLEAR_MEMVIEW(&__pyx_t_19, 0);
                             __pyx_t_19.memview = NULL; __pyx_t_19.data = NULL;
+                            __PYX_XCLEAR_MEMVIEW(&__pyx_t_21, 0);
+                            __pyx_t_21.memview = NULL; __pyx_t_21.data = NULL;
                         }
                     }
                 }
@@ -53445,12 +53716,12 @@ __pyx_t_20 = __pyx_v_i;
         #endif
       }
 
-      /* "cosmomia/subgrid.pyx":1235
+      /* "cosmomia/subgrid.pyx":1263
  *     cdef floating collapse_frac, gauss_rand
  * 
  *     for i in prange(ids_view.shape[0], nogil = True, num_threads = num_threads):#, use_threads_if=ids_view.shape[0] > 1e6):             # <<<<<<<<<<<<<<
  *         collapse[floating](not_attractors_view[i,:], not_attractors_view[i,:], attractors_view[ids_view[i],:], dists_view[i], params[0] , params[1],
- *                                                       vel_not_attractors_view[i,:], dist_gauss(gen), dist_gauss(gen), dist_gauss(gen), dm_view[ids_view[i]], params[2],
+ *                                                       vel_not_attractors_view[i,:], vel_attractors_view[ids_view[i],:],
  */
       /*finally:*/ {
         /*normal exit:*/{
@@ -53471,40 +53742,40 @@ __pyx_t_20 = __pyx_v_i;
       }
   }
 
-  /* "cosmomia/subgrid.pyx":1247
+  /* "cosmomia/subgrid.pyx":1276
  *     #attractors_copy = attractors.copy()
  *     #not_attractors_copy = not_attractors.copy()
  *     catalog = {}             # <<<<<<<<<<<<<<
  *     catalog['pos'] = np.vstack((attractors[:,:3], not_attractors[:,:3]))
  *     catalog['vel'] = np.vstack((vel_attractors[:,:3], vel_not_attractors[:,:3]))
  */
-  __pyx_t_7 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1247, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_v_catalog = ((PyObject*)__pyx_t_7);
   __pyx_t_7 = 0;
 
-  /* "cosmomia/subgrid.pyx":1248
+  /* "cosmomia/subgrid.pyx":1277
  *     #not_attractors_copy = not_attractors.copy()
  *     catalog = {}
  *     catalog['pos'] = np.vstack((attractors[:,:3], not_attractors[:,:3]))             # <<<<<<<<<<<<<<
  *     catalog['vel'] = np.vstack((vel_attractors[:,:3], vel_not_attractors[:,:3]))
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1248, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_vstack); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1248, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_vstack); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1248, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_not_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1248, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_not_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_23 = PyTuple_New(2); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1248, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_23);
+  __pyx_t_24 = PyTuple_New(2); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 1277, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_24);
   __Pyx_GIVEREF(__pyx_t_4);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_23, 0, __pyx_t_4)) __PYX_ERR(0, 1248, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_24, 0, __pyx_t_4)) __PYX_ERR(0, 1277, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_3);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_23, 1, __pyx_t_3)) __PYX_ERR(0, 1248, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_24, 1, __pyx_t_3)) __PYX_ERR(0, 1277, __pyx_L1_error);
   __pyx_t_4 = 0;
   __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -53522,68 +53793,68 @@ __pyx_t_20 = __pyx_v_i;
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_t_23};
+    PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_t_24};
     __pyx_t_7 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1248, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
+    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1277, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
-  if (unlikely((PyDict_SetItem(__pyx_v_catalog, __pyx_n_u_pos, __pyx_t_7) < 0))) __PYX_ERR(0, 1248, __pyx_L1_error)
+  if (unlikely((PyDict_SetItem(__pyx_v_catalog, __pyx_n_u_pos, __pyx_t_7) < 0))) __PYX_ERR(0, 1277, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "cosmomia/subgrid.pyx":1249
+  /* "cosmomia/subgrid.pyx":1278
  *     catalog = {}
  *     catalog['pos'] = np.vstack((attractors[:,:3], not_attractors[:,:3]))
  *     catalog['vel'] = np.vstack((vel_attractors[:,:3], vel_not_attractors[:,:3]))             # <<<<<<<<<<<<<<
  * 
  *     return catalog
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1249, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1278, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_23 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_vstack); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1249, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_23);
+  __pyx_t_24 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_vstack); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 1278, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_24);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_vel_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1249, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_vel_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1278, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_vel_not_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1249, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_vel_not_attractors), __pyx_tuple__22); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1278, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1249, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1278, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_5);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5)) __PYX_ERR(0, 1249, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5)) __PYX_ERR(0, 1278, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_3);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_3)) __PYX_ERR(0, 1249, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_3)) __PYX_ERR(0, 1278, __pyx_L1_error);
   __pyx_t_5 = 0;
   __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
   __pyx_t_6 = 0;
   #if CYTHON_UNPACK_METHODS
-  if (unlikely(PyMethod_Check(__pyx_t_23))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_23);
+  if (unlikely(PyMethod_Check(__pyx_t_24))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_24);
     if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_23);
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_24);
       __Pyx_INCREF(__pyx_t_3);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_23, function);
+      __Pyx_DECREF_SET(__pyx_t_24, function);
       __pyx_t_6 = 1;
     }
   }
   #endif
   {
     PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_t_4};
-    __pyx_t_7 = __Pyx_PyObject_FastCall(__pyx_t_23, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
+    __pyx_t_7 = __Pyx_PyObject_FastCall(__pyx_t_24, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1249, __pyx_L1_error)
+    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1278, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
+    __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
   }
-  if (unlikely((PyDict_SetItem(__pyx_v_catalog, __pyx_n_u_vel, __pyx_t_7) < 0))) __PYX_ERR(0, 1249, __pyx_L1_error)
+  if (unlikely((PyDict_SetItem(__pyx_v_catalog, __pyx_n_u_vel, __pyx_t_7) < 0))) __PYX_ERR(0, 1278, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "cosmomia/subgrid.pyx":1251
+  /* "cosmomia/subgrid.pyx":1280
  *     catalog['vel'] = np.vstack((vel_attractors[:,:3], vel_not_attractors[:,:3]))
  * 
  *     return catalog             # <<<<<<<<<<<<<<
@@ -53595,7 +53866,7 @@ __pyx_t_20 = __pyx_v_i;
   __pyx_r = __pyx_v_catalog;
   goto __pyx_L0;
 
-  /* "cosmomia/subgrid.pyx":1189
+  /* "cosmomia/subgrid.pyx":1217
  * 
  * 
  * cpdef dict single_collapse_step(cnp.ndarray[floating, ndim=2] attractors, cnp.ndarray[floating, ndim=2] vel_attractors, cnp.ndarray[floating, ndim=1] dm,             # <<<<<<<<<<<<<<
@@ -53615,7 +53886,8 @@ __pyx_t_20 = __pyx_v_i;
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_14, 1);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_16, 1);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_19, 1);
-  __Pyx_XDECREF(__pyx_t_23);
+  __PYX_XCLEAR_MEMVIEW(&__pyx_t_21, 1);
+  __Pyx_XDECREF(__pyx_t_24);
   { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
     __Pyx_PyThreadState_declare
     __Pyx_PyThreadState_assign
@@ -53685,7 +53957,7 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_63__pyx_fuse_1single_collapse_step
   {
     PyObject **__pyx_pyargnames[] = {&__pyx_n_s_attractors,&__pyx_n_s_vel_attractors,&__pyx_n_s_dm,&__pyx_n_s_not_attractors,&__pyx_n_s_vel_not_attractors,&__pyx_n_s_params,&__pyx_n_s_k_neighbour,&__pyx_n_s_box_size,&__pyx_n_s_seed,&__pyx_n_s_num_threads,&__pyx_n_s_debug,0};
 
-    /* "cosmomia/subgrid.pyx":1193
+    /* "cosmomia/subgrid.pyx":1221
  *                                 floating[:] params,
  *                                 size_t k_neighbour,
  *                                 floating[:] box_size, size_t seed, size_t num_threads, debug = False):             # <<<<<<<<<<<<<<
@@ -53728,7 +54000,7 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_63__pyx_fuse_1single_collapse_step
           (void)__Pyx_Arg_NewRef_VARARGS(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -53736,9 +54008,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_63__pyx_fuse_1single_collapse_step
           (void)__Pyx_Arg_NewRef_VARARGS(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1single_collapse_step", 0, 10, 11, 1); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1single_collapse_step", 0, 10, 11, 1); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -53746,9 +54018,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_63__pyx_fuse_1single_collapse_step
           (void)__Pyx_Arg_NewRef_VARARGS(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1single_collapse_step", 0, 10, 11, 2); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1single_collapse_step", 0, 10, 11, 2); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -53756,9 +54028,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_63__pyx_fuse_1single_collapse_step
           (void)__Pyx_Arg_NewRef_VARARGS(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1single_collapse_step", 0, 10, 11, 3); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1single_collapse_step", 0, 10, 11, 3); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
@@ -53766,9 +54038,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_63__pyx_fuse_1single_collapse_step
           (void)__Pyx_Arg_NewRef_VARARGS(values[4]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1single_collapse_step", 0, 10, 11, 4); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1single_collapse_step", 0, 10, 11, 4); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
@@ -53776,9 +54048,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_63__pyx_fuse_1single_collapse_step
           (void)__Pyx_Arg_NewRef_VARARGS(values[5]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1single_collapse_step", 0, 10, 11, 5); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1single_collapse_step", 0, 10, 11, 5); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  6:
@@ -53786,9 +54058,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_63__pyx_fuse_1single_collapse_step
           (void)__Pyx_Arg_NewRef_VARARGS(values[6]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1single_collapse_step", 0, 10, 11, 6); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1single_collapse_step", 0, 10, 11, 6); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  7:
@@ -53796,9 +54068,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_63__pyx_fuse_1single_collapse_step
           (void)__Pyx_Arg_NewRef_VARARGS(values[7]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1single_collapse_step", 0, 10, 11, 7); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1single_collapse_step", 0, 10, 11, 7); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  8:
@@ -53806,9 +54078,9 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_63__pyx_fuse_1single_collapse_step
           (void)__Pyx_Arg_NewRef_VARARGS(values[8]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1single_collapse_step", 0, 10, 11, 8); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1single_collapse_step", 0, 10, 11, 8); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  9:
@@ -53816,21 +54088,21 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_63__pyx_fuse_1single_collapse_step
           (void)__Pyx_Arg_NewRef_VARARGS(values[9]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1single_collapse_step", 0, 10, 11, 9); __PYX_ERR(0, 1189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1single_collapse_step", 0, 10, 11, 9); __PYX_ERR(0, 1217, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case 10:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_debug);
           if (value) { values[10] = __Pyx_Arg_NewRef_VARARGS(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1189, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1217, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__pyx_fuse_1single_collapse_step") < 0)) __PYX_ERR(0, 1189, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__pyx_fuse_1single_collapse_step") < 0)) __PYX_ERR(0, 1217, __pyx_L3_error)
       }
     } else {
       switch (__pyx_nargs) {
@@ -53855,16 +54127,16 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_63__pyx_fuse_1single_collapse_step
     __pyx_v_dm = ((PyArrayObject *)values[2]);
     __pyx_v_not_attractors = ((PyArrayObject *)values[3]);
     __pyx_v_vel_not_attractors = ((PyArrayObject *)values[4]);
-    __pyx_v_params = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[5], PyBUF_WRITABLE); if (unlikely(!__pyx_v_params.memview)) __PYX_ERR(0, 1191, __pyx_L3_error)
-    __pyx_v_k_neighbour = __Pyx_PyInt_As_size_t(values[6]); if (unlikely((__pyx_v_k_neighbour == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1192, __pyx_L3_error)
-    __pyx_v_box_size = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[7], PyBUF_WRITABLE); if (unlikely(!__pyx_v_box_size.memview)) __PYX_ERR(0, 1193, __pyx_L3_error)
-    __pyx_v_seed = __Pyx_PyInt_As_size_t(values[8]); if (unlikely((__pyx_v_seed == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1193, __pyx_L3_error)
-    __pyx_v_num_threads = __Pyx_PyInt_As_size_t(values[9]); if (unlikely((__pyx_v_num_threads == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1193, __pyx_L3_error)
+    __pyx_v_params = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[5], PyBUF_WRITABLE); if (unlikely(!__pyx_v_params.memview)) __PYX_ERR(0, 1219, __pyx_L3_error)
+    __pyx_v_k_neighbour = __Pyx_PyInt_As_size_t(values[6]); if (unlikely((__pyx_v_k_neighbour == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1220, __pyx_L3_error)
+    __pyx_v_box_size = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[7], PyBUF_WRITABLE); if (unlikely(!__pyx_v_box_size.memview)) __PYX_ERR(0, 1221, __pyx_L3_error)
+    __pyx_v_seed = __Pyx_PyInt_As_size_t(values[8]); if (unlikely((__pyx_v_seed == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1221, __pyx_L3_error)
+    __pyx_v_num_threads = __Pyx_PyInt_As_size_t(values[9]); if (unlikely((__pyx_v_num_threads == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1221, __pyx_L3_error)
     __pyx_v_debug = values[10];
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1single_collapse_step", 0, 10, 11, __pyx_nargs); __PYX_ERR(0, 1189, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__pyx_fuse_1single_collapse_step", 0, 10, 11, __pyx_nargs); __PYX_ERR(0, 1217, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -53880,14 +54152,14 @@ static PyObject *__pyx_pw_8cosmomia_8cosmomia_63__pyx_fuse_1single_collapse_step
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_attractors), __pyx_ptype_5numpy_ndarray, 1, "attractors", 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vel_attractors), __pyx_ptype_5numpy_ndarray, 1, "vel_attractors", 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dm), __pyx_ptype_5numpy_ndarray, 1, "dm", 0))) __PYX_ERR(0, 1189, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_not_attractors), __pyx_ptype_5numpy_ndarray, 1, "not_attractors", 0))) __PYX_ERR(0, 1190, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vel_not_attractors), __pyx_ptype_5numpy_ndarray, 1, "vel_not_attractors", 0))) __PYX_ERR(0, 1190, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_attractors), __pyx_ptype_5numpy_ndarray, 1, "attractors", 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vel_attractors), __pyx_ptype_5numpy_ndarray, 1, "vel_attractors", 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dm), __pyx_ptype_5numpy_ndarray, 1, "dm", 0))) __PYX_ERR(0, 1217, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_not_attractors), __pyx_ptype_5numpy_ndarray, 1, "not_attractors", 0))) __PYX_ERR(0, 1218, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vel_not_attractors), __pyx_ptype_5numpy_ndarray, 1, "vel_not_attractors", 0))) __PYX_ERR(0, 1218, __pyx_L1_error)
   __pyx_r = __pyx_pf_8cosmomia_8cosmomia_62__pyx_fuse_1single_collapse_step(__pyx_self, __pyx_v_attractors, __pyx_v_vel_attractors, __pyx_v_dm, __pyx_v_not_attractors, __pyx_v_vel_not_attractors, __pyx_v_params, __pyx_v_k_neighbour, __pyx_v_box_size, __pyx_v_seed, __pyx_v_num_threads, __pyx_v_debug);
 
-  /* "cosmomia/subgrid.pyx":1189
+  /* "cosmomia/subgrid.pyx":1217
  * 
  * 
  * cpdef dict single_collapse_step(cnp.ndarray[floating, ndim=2] attractors, cnp.ndarray[floating, ndim=2] vel_attractors, cnp.ndarray[floating, ndim=1] dm,             # <<<<<<<<<<<<<<
@@ -53953,35 +54225,35 @@ static PyObject *__pyx_pf_8cosmomia_8cosmomia_62__pyx_fuse_1single_collapse_step
   __pyx_pybuffernd_vel_not_attractors.rcbuffer = &__pyx_pybuffer_vel_not_attractors;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_attractors, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_attractors, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_pybuffernd_attractors.diminfo[0].strides = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_attractors.diminfo[0].shape = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_attractors.diminfo[1].strides = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_attractors.diminfo[1].shape = __pyx_pybuffernd_attractors.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_vel_attractors, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_vel_attractors, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_pybuffernd_vel_attractors.diminfo[0].strides = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_vel_attractors.diminfo[0].shape = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_vel_attractors.diminfo[1].strides = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_vel_attractors.diminfo[1].shape = __pyx_pybuffernd_vel_attractors.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_dm.rcbuffer->pybuffer, (PyObject*)__pyx_v_dm, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_dm.rcbuffer->pybuffer, (PyObject*)__pyx_v_dm, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_pybuffernd_dm.diminfo[0].strides = __pyx_pybuffernd_dm.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_dm.diminfo[0].shape = __pyx_pybuffernd_dm.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_not_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_not_attractors, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_not_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_not_attractors, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_pybuffernd_not_attractors.diminfo[0].strides = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_not_attractors.diminfo[0].shape = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_not_attractors.diminfo[1].strides = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_not_attractors.diminfo[1].shape = __pyx_pybuffernd_not_attractors.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_vel_not_attractors, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer, (PyObject*)__pyx_v_vel_not_attractors, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   }
   __pyx_pybuffernd_vel_not_attractors.diminfo[0].strides = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_vel_not_attractors.diminfo[0].shape = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_vel_not_attractors.diminfo[1].strides = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_vel_not_attractors.diminfo[1].shape = __pyx_pybuffernd_vel_not_attractors.rcbuffer->pybuffer.shape[1];
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_params.memview)) { __Pyx_RaiseUnboundLocalError("params"); __PYX_ERR(0, 1189, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_box_size.memview)) { __Pyx_RaiseUnboundLocalError("box_size"); __PYX_ERR(0, 1189, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_params.memview)) { __Pyx_RaiseUnboundLocalError("params"); __PYX_ERR(0, 1217, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_box_size.memview)) { __Pyx_RaiseUnboundLocalError("box_size"); __PYX_ERR(0, 1217, __pyx_L1_error) }
   __pyx_t_2.__pyx_n = 1;
   __pyx_t_2.debug = __pyx_v_debug;
-  __pyx_t_1 = __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_single_collapse_step(((PyArrayObject *)__pyx_v_attractors), ((PyArrayObject *)__pyx_v_vel_attractors), ((PyArrayObject *)__pyx_v_dm), ((PyArrayObject *)__pyx_v_not_attractors), ((PyArrayObject *)__pyx_v_vel_not_attractors), __pyx_v_params, __pyx_v_k_neighbour, __pyx_v_box_size, __pyx_v_seed, __pyx_v_num_threads, 0, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_t_1 = __pyx_fuse_1__pyx_f_8cosmomia_8cosmomia_single_collapse_step(((PyArrayObject *)__pyx_v_attractors), ((PyArrayObject *)__pyx_v_vel_attractors), ((PyArrayObject *)__pyx_v_dm), ((PyArrayObject *)__pyx_v_not_attractors), ((PyArrayObject *)__pyx_v_vel_not_attractors), __pyx_v_params, __pyx_v_k_neighbour, __pyx_v_box_size, __pyx_v_seed, __pyx_v_num_threads, 0, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -55384,72 +55656,72 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__19);
   __Pyx_GIVEREF(__pyx_tuple__19);
 
-  /* "cosmomia/subgrid.pyx":1110
+  /* "cosmomia/subgrid.pyx":1136
  *     dists, ids = tree.query(attractors, k = 2, eps = 0., distance_upper_bound = None, sqr_dists = True)#, workers = -1)
  *     cdef floating[:] dists_view
  *     dists_view = dists[:,1]             # <<<<<<<<<<<<<<
  *     cdef unsigned[:] ids_view
  *     ids_view = ids[:,1]
  */
-  __pyx_tuple__20 = PyTuple_Pack(2, __pyx_slice__5, __pyx_int_1); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 1110, __pyx_L1_error)
+  __pyx_tuple__20 = PyTuple_Pack(2, __pyx_slice__5, __pyx_int_1); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 1136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__20);
   __Pyx_GIVEREF(__pyx_tuple__20);
 
-  /* "cosmomia/subgrid.pyx":1182
+  /* "cosmomia/subgrid.pyx":1210
  *         #print(dists[mask] - dist_corr)
  * 
  *     catalog['pos'] = np.vstack((attractors[:,:3], not_attractors[:,:3]))             # <<<<<<<<<<<<<<
  *     catalog['vel'] = np.vstack((vel_attractors[:,:3], vel_not_attractors[:,:3]))
  *     catalog['order'] = np.concatenate((attractors_ids, not_attractors_ids))
  */
-  __pyx_slice__21 = PySlice_New(Py_None, __pyx_int_3, Py_None); if (unlikely(!__pyx_slice__21)) __PYX_ERR(0, 1182, __pyx_L1_error)
+  __pyx_slice__21 = PySlice_New(Py_None, __pyx_int_3, Py_None); if (unlikely(!__pyx_slice__21)) __PYX_ERR(0, 1210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__21);
   __Pyx_GIVEREF(__pyx_slice__21);
-  __pyx_tuple__22 = PyTuple_Pack(2, __pyx_slice__5, __pyx_slice__21); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 1182, __pyx_L1_error)
+  __pyx_tuple__22 = PyTuple_Pack(2, __pyx_slice__5, __pyx_slice__21); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 1210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__22);
   __Pyx_GIVEREF(__pyx_tuple__22);
 
-  /* "cosmomia/subgrid.pyx":1225
+  /* "cosmomia/subgrid.pyx":1253
  *     cdef unsigned[:] ids_view
  *     if k_neighbour > 1:
  *         dists_view = dists[:,k_neighbour-1]             # <<<<<<<<<<<<<<
  *         ids_view = ids[:,k_neighbour-1]
  *     else:
  */
-  __pyx_slice__23 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__23)) __PYX_ERR(0, 1225, __pyx_L1_error)
+  __pyx_slice__23 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__23)) __PYX_ERR(0, 1253, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__23);
   __Pyx_GIVEREF(__pyx_slice__23);
 
-  /* "cosmomia/subgrid.pyx":1226
+  /* "cosmomia/subgrid.pyx":1254
  *     if k_neighbour > 1:
  *         dists_view = dists[:,k_neighbour-1]
  *         ids_view = ids[:,k_neighbour-1]             # <<<<<<<<<<<<<<
  *     else:
  *         dists_view = dists
  */
-  __pyx_slice__24 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__24)) __PYX_ERR(0, 1226, __pyx_L1_error)
+  __pyx_slice__24 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__24)) __PYX_ERR(0, 1254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__24);
   __Pyx_GIVEREF(__pyx_slice__24);
 
-  /* "cosmomia/subgrid.pyx":1225
+  /* "cosmomia/subgrid.pyx":1253
  *     cdef unsigned[:] ids_view
  *     if k_neighbour > 1:
  *         dists_view = dists[:,k_neighbour-1]             # <<<<<<<<<<<<<<
  *         ids_view = ids[:,k_neighbour-1]
  *     else:
  */
-  __pyx_slice__25 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__25)) __PYX_ERR(0, 1225, __pyx_L1_error)
+  __pyx_slice__25 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__25)) __PYX_ERR(0, 1253, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__25);
   __Pyx_GIVEREF(__pyx_slice__25);
 
-  /* "cosmomia/subgrid.pyx":1226
+  /* "cosmomia/subgrid.pyx":1254
  *     if k_neighbour > 1:
  *         dists_view = dists[:,k_neighbour-1]
  *         ids_view = ids[:,k_neighbour-1]             # <<<<<<<<<<<<<<
  *     else:
  *         dists_view = dists
  */
-  __pyx_slice__26 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__26)) __PYX_ERR(0, 1226, __pyx_L1_error)
+  __pyx_slice__26 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__26)) __PYX_ERR(0, 1254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__26);
   __Pyx_GIVEREF(__pyx_slice__26);
 
@@ -55656,49 +55928,49 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_codeobj__64 = (PyObject*)__Pyx_PyCode_New(12, 0, 0, 12, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__62, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cosmomia_subgrid_pyx, __pyx_n_s_pyx_fuse_0par_py_assign_partic, 691, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__64)) __PYX_ERR(0, 691, __pyx_L1_error)
   __pyx_codeobj__65 = (PyObject*)__Pyx_PyCode_New(12, 0, 0, 12, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__62, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cosmomia_subgrid_pyx, __pyx_n_s_pyx_fuse_1par_py_assign_partic, 691, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__65)) __PYX_ERR(0, 691, __pyx_L1_error)
 
-  /* "cosmomia/subgrid.pyx":1050
+  /* "cosmomia/subgrid.pyx":1076
  * 
  * 
  * cpdef dict subgrid_collapse(dict catalog, floating[:] params, floating[:] box_size, is_attractor_mask, size_t seed, size_t num_threads, debug = False):             # <<<<<<<<<<<<<<
  * 
  *     cdef mt19937 gen = mt19937(seed)
  */
-  __pyx_tuple__66 = PyTuple_Pack(1, Py_False); if (unlikely(!__pyx_tuple__66)) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_tuple__66 = PyTuple_Pack(1, Py_False); if (unlikely(!__pyx_tuple__66)) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__66);
   __Pyx_GIVEREF(__pyx_tuple__66);
-  __pyx_tuple__67 = PyTuple_Pack(7, __pyx_n_s_catalog, __pyx_n_s_params, __pyx_n_s_box_size, __pyx_n_s_is_attractor_mask, __pyx_n_s_seed, __pyx_n_s_num_threads, __pyx_n_s_debug); if (unlikely(!__pyx_tuple__67)) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_tuple__67 = PyTuple_Pack(7, __pyx_n_s_catalog, __pyx_n_s_params, __pyx_n_s_box_size, __pyx_n_s_is_attractor_mask, __pyx_n_s_seed, __pyx_n_s_num_threads, __pyx_n_s_debug); if (unlikely(!__pyx_tuple__67)) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__67);
   __Pyx_GIVEREF(__pyx_tuple__67);
-  __pyx_codeobj__68 = (PyObject*)__Pyx_PyCode_New(7, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__67, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cosmomia_subgrid_pyx, __pyx_n_s_pyx_fuse_0subgrid_collapse, 1050, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__68)) __PYX_ERR(0, 1050, __pyx_L1_error)
-  __pyx_codeobj__69 = (PyObject*)__Pyx_PyCode_New(7, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__67, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cosmomia_subgrid_pyx, __pyx_n_s_pyx_fuse_0subgrid_collapse, 1050, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__69)) __PYX_ERR(0, 1050, __pyx_L1_error)
-  __pyx_tuple__70 = PyTuple_Pack(1, Py_False); if (unlikely(!__pyx_tuple__70)) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_codeobj__68 = (PyObject*)__Pyx_PyCode_New(7, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__67, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cosmomia_subgrid_pyx, __pyx_n_s_pyx_fuse_0subgrid_collapse, 1076, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__68)) __PYX_ERR(0, 1076, __pyx_L1_error)
+  __pyx_codeobj__69 = (PyObject*)__Pyx_PyCode_New(7, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__67, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cosmomia_subgrid_pyx, __pyx_n_s_pyx_fuse_0subgrid_collapse, 1076, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__69)) __PYX_ERR(0, 1076, __pyx_L1_error)
+  __pyx_tuple__70 = PyTuple_Pack(1, Py_False); if (unlikely(!__pyx_tuple__70)) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__70);
   __Pyx_GIVEREF(__pyx_tuple__70);
-  __pyx_codeobj__71 = (PyObject*)__Pyx_PyCode_New(7, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__67, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cosmomia_subgrid_pyx, __pyx_n_s_pyx_fuse_1subgrid_collapse, 1050, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__71)) __PYX_ERR(0, 1050, __pyx_L1_error)
-  __pyx_tuple__72 = PyTuple_Pack(1, Py_False); if (unlikely(!__pyx_tuple__72)) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_codeobj__71 = (PyObject*)__Pyx_PyCode_New(7, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__67, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cosmomia_subgrid_pyx, __pyx_n_s_pyx_fuse_1subgrid_collapse, 1076, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__71)) __PYX_ERR(0, 1076, __pyx_L1_error)
+  __pyx_tuple__72 = PyTuple_Pack(1, Py_False); if (unlikely(!__pyx_tuple__72)) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__72);
   __Pyx_GIVEREF(__pyx_tuple__72);
 
-  /* "cosmomia/subgrid.pyx":1189
+  /* "cosmomia/subgrid.pyx":1217
  * 
  * 
  * cpdef dict single_collapse_step(cnp.ndarray[floating, ndim=2] attractors, cnp.ndarray[floating, ndim=2] vel_attractors, cnp.ndarray[floating, ndim=1] dm,             # <<<<<<<<<<<<<<
  *                                 cnp.ndarray[floating, ndim=2] not_attractors, cnp.ndarray[floating, ndim=2] vel_not_attractors,
  *                                 floating[:] params,
  */
-  __pyx_tuple__73 = PyTuple_Pack(1, Py_False); if (unlikely(!__pyx_tuple__73)) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_tuple__73 = PyTuple_Pack(1, Py_False); if (unlikely(!__pyx_tuple__73)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__73);
   __Pyx_GIVEREF(__pyx_tuple__73);
-  __pyx_tuple__74 = PyTuple_Pack(11, __pyx_n_s_attractors, __pyx_n_s_vel_attractors, __pyx_n_s_dm, __pyx_n_s_not_attractors, __pyx_n_s_vel_not_attractors, __pyx_n_s_params, __pyx_n_s_k_neighbour, __pyx_n_s_box_size, __pyx_n_s_seed, __pyx_n_s_num_threads, __pyx_n_s_debug); if (unlikely(!__pyx_tuple__74)) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_tuple__74 = PyTuple_Pack(11, __pyx_n_s_attractors, __pyx_n_s_vel_attractors, __pyx_n_s_dm, __pyx_n_s_not_attractors, __pyx_n_s_vel_not_attractors, __pyx_n_s_params, __pyx_n_s_k_neighbour, __pyx_n_s_box_size, __pyx_n_s_seed, __pyx_n_s_num_threads, __pyx_n_s_debug); if (unlikely(!__pyx_tuple__74)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__74);
   __Pyx_GIVEREF(__pyx_tuple__74);
-  __pyx_codeobj__75 = (PyObject*)__Pyx_PyCode_New(11, 0, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__74, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cosmomia_subgrid_pyx, __pyx_n_s_pyx_fuse_0single_collapse_step, 1189, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__75)) __PYX_ERR(0, 1189, __pyx_L1_error)
-  __pyx_codeobj__76 = (PyObject*)__Pyx_PyCode_New(11, 0, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__74, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cosmomia_subgrid_pyx, __pyx_n_s_pyx_fuse_0single_collapse_step, 1189, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__76)) __PYX_ERR(0, 1189, __pyx_L1_error)
-  __pyx_tuple__77 = PyTuple_Pack(1, Py_False); if (unlikely(!__pyx_tuple__77)) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_codeobj__75 = (PyObject*)__Pyx_PyCode_New(11, 0, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__74, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cosmomia_subgrid_pyx, __pyx_n_s_pyx_fuse_0single_collapse_step, 1217, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__75)) __PYX_ERR(0, 1217, __pyx_L1_error)
+  __pyx_codeobj__76 = (PyObject*)__Pyx_PyCode_New(11, 0, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__74, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cosmomia_subgrid_pyx, __pyx_n_s_pyx_fuse_0single_collapse_step, 1217, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__76)) __PYX_ERR(0, 1217, __pyx_L1_error)
+  __pyx_tuple__77 = PyTuple_Pack(1, Py_False); if (unlikely(!__pyx_tuple__77)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__77);
   __Pyx_GIVEREF(__pyx_tuple__77);
-  __pyx_codeobj__78 = (PyObject*)__Pyx_PyCode_New(11, 0, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__74, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cosmomia_subgrid_pyx, __pyx_n_s_pyx_fuse_1single_collapse_step, 1189, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__78)) __PYX_ERR(0, 1189, __pyx_L1_error)
-  __pyx_tuple__79 = PyTuple_Pack(1, Py_False); if (unlikely(!__pyx_tuple__79)) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_codeobj__78 = (PyObject*)__Pyx_PyCode_New(11, 0, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__74, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cosmomia_subgrid_pyx, __pyx_n_s_pyx_fuse_1single_collapse_step, 1217, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__78)) __PYX_ERR(0, 1217, __pyx_L1_error)
+  __pyx_tuple__79 = PyTuple_Pack(1, Py_False); if (unlikely(!__pyx_tuple__79)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__79);
   __Pyx_GIVEREF(__pyx_tuple__79);
   __Pyx_RefNannyFinishContext();
@@ -57179,39 +57451,39 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_par_py_assign_particles_to_gals, __pyx_t_4) < 0) __PYX_ERR(0, 691, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "cosmomia/subgrid.pyx":1050
+  /* "cosmomia/subgrid.pyx":1076
  * 
  * 
  * cpdef dict subgrid_collapse(dict catalog, floating[:] params, floating[:] box_size, is_attractor_mask, size_t seed, size_t num_threads, debug = False):             # <<<<<<<<<<<<<<
  * 
  *     cdef mt19937 gen = mt19937(seed)
  */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_fuse_0__pyx_mdef_8cosmomia_8cosmomia_55__pyx_fuse_0subgrid_collapse, 0, __pyx_n_s_pyx_fuse_0subgrid_collapse, NULL, __pyx_n_s_cosmomia_cosmomia, __pyx_d, ((PyObject *)__pyx_codeobj__69)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_fuse_0__pyx_mdef_8cosmomia_8cosmomia_55__pyx_fuse_0subgrid_collapse, 0, __pyx_n_s_pyx_fuse_0subgrid_collapse, NULL, __pyx_n_s_cosmomia_cosmomia, __pyx_d, ((PyObject *)__pyx_codeobj__69)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__70);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_subgrid_collapse, __pyx_t_4) < 0) __PYX_ERR(0, 1050, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_subgrid_collapse, __pyx_t_4) < 0) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_fuse_1__pyx_mdef_8cosmomia_8cosmomia_57__pyx_fuse_1subgrid_collapse, 0, __pyx_n_s_pyx_fuse_1subgrid_collapse, NULL, __pyx_n_s_cosmomia_cosmomia, __pyx_d, ((PyObject *)__pyx_codeobj__71)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_fuse_1__pyx_mdef_8cosmomia_8cosmomia_57__pyx_fuse_1subgrid_collapse, 0, __pyx_n_s_pyx_fuse_1subgrid_collapse, NULL, __pyx_n_s_cosmomia_cosmomia, __pyx_d, ((PyObject *)__pyx_codeobj__71)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__72);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_subgrid_collapse, __pyx_t_4) < 0) __PYX_ERR(0, 1050, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_subgrid_collapse, __pyx_t_4) < 0) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_7 = __pyx_FusedFunction_New(&__pyx_fuse_0__pyx_mdef_8cosmomia_8cosmomia_55__pyx_fuse_0subgrid_collapse, 0, __pyx_n_s_pyx_fuse_0subgrid_collapse, NULL, __pyx_n_s_cosmomia_cosmomia, __pyx_d, ((PyObject *)__pyx_codeobj__68)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_t_7 = __pyx_FusedFunction_New(&__pyx_fuse_0__pyx_mdef_8cosmomia_8cosmomia_55__pyx_fuse_0subgrid_collapse, 0, __pyx_n_s_pyx_fuse_0subgrid_collapse, NULL, __pyx_n_s_cosmomia_cosmomia, __pyx_d, ((PyObject *)__pyx_codeobj__68)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_7, __pyx_tuple__66);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_float, __pyx_t_7) < 0) __PYX_ERR(0, 1050, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_float, __pyx_t_7) < 0) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __pyx_FusedFunction_New(&__pyx_fuse_1__pyx_mdef_8cosmomia_8cosmomia_57__pyx_fuse_1subgrid_collapse, 0, __pyx_n_s_pyx_fuse_1subgrid_collapse, NULL, __pyx_n_s_cosmomia_cosmomia, __pyx_d, ((PyObject *)__pyx_codeobj__68)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_t_7 = __pyx_FusedFunction_New(&__pyx_fuse_1__pyx_mdef_8cosmomia_8cosmomia_57__pyx_fuse_1subgrid_collapse, 0, __pyx_n_s_pyx_fuse_1subgrid_collapse, NULL, __pyx_n_s_cosmomia_cosmomia, __pyx_d, ((PyObject *)__pyx_codeobj__68)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_7, __pyx_tuple__66);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_double, __pyx_t_7) < 0) __PYX_ERR(0, 1050, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_double, __pyx_t_7) < 0) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __pyx_FusedFunction_New(&__pyx_mdef_8cosmomia_8cosmomia_15subgrid_collapse, 0, __pyx_n_s_subgrid_collapse, NULL, __pyx_n_s_cosmomia_cosmomia, __pyx_d, ((PyObject *)__pyx_codeobj__68)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1050, __pyx_L1_error)
+  __pyx_t_7 = __pyx_FusedFunction_New(&__pyx_mdef_8cosmomia_8cosmomia_15subgrid_collapse, 0, __pyx_n_s_subgrid_collapse, NULL, __pyx_n_s_cosmomia_cosmomia, __pyx_d, ((PyObject *)__pyx_codeobj__68)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (!__Pyx_CyFunction_InitDefaults(__pyx_t_7, sizeof(__pyx_defaults6), 1)) __PYX_ERR(0, 1050, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1050, __pyx_L1_error)
+  if (!__Pyx_CyFunction_InitDefaults(__pyx_t_7, sizeof(__pyx_defaults6), 1)) __PYX_ERR(0, 1076, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_CyFunction_Defaults(__pyx_defaults6, __pyx_t_7)->__pyx_arg__fused_sigindex = __pyx_t_5;
   __Pyx_GIVEREF(__pyx_t_5);
@@ -57220,58 +57492,58 @@ if (!__Pyx_RefNanny) {
   ((__pyx_FusedFunctionObject *) __pyx_t_7)->__signatures__ = __pyx_t_4;
   __Pyx_GIVEREF(__pyx_t_4);
   __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_subgrid_collapse, __pyx_t_7) < 0) __PYX_ERR(0, 1050, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_subgrid_collapse, __pyx_t_7) < 0) __PYX_ERR(0, 1076, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "cosmomia/subgrid.pyx":1189
+  /* "cosmomia/subgrid.pyx":1217
  * 
  * 
  * cpdef dict single_collapse_step(cnp.ndarray[floating, ndim=2] attractors, cnp.ndarray[floating, ndim=2] vel_attractors, cnp.ndarray[floating, ndim=1] dm,             # <<<<<<<<<<<<<<
  *                                 cnp.ndarray[floating, ndim=2] not_attractors, cnp.ndarray[floating, ndim=2] vel_not_attractors,
  *                                 floating[:] params,
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_fuse_0__pyx_mdef_8cosmomia_8cosmomia_61__pyx_fuse_0single_collapse_step, 0, __pyx_n_s_pyx_fuse_0single_collapse_step, NULL, __pyx_n_s_cosmomia_cosmomia, __pyx_d, ((PyObject *)__pyx_codeobj__76)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_fuse_0__pyx_mdef_8cosmomia_8cosmomia_61__pyx_fuse_0single_collapse_step, 0, __pyx_n_s_pyx_fuse_0single_collapse_step, NULL, __pyx_n_s_cosmomia_cosmomia, __pyx_d, ((PyObject *)__pyx_codeobj__76)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_7, __pyx_tuple__77);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_single_collapse_step, __pyx_t_7) < 0) __PYX_ERR(0, 1189, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_single_collapse_step, __pyx_t_7) < 0) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "cosmomia/subgrid.pyx":1193
+  /* "cosmomia/subgrid.pyx":1221
  *                                 floating[:] params,
  *                                 size_t k_neighbour,
  *                                 floating[:] box_size, size_t seed, size_t num_threads, debug = False):             # <<<<<<<<<<<<<<
  *     #params = (collapse_frac, collapse_radius, velocity_dispersion)
  * 
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_fuse_1__pyx_mdef_8cosmomia_8cosmomia_63__pyx_fuse_1single_collapse_step, 0, __pyx_n_s_pyx_fuse_1single_collapse_step, NULL, __pyx_n_s_cosmomia_cosmomia, __pyx_d, ((PyObject *)__pyx_codeobj__78)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_fuse_1__pyx_mdef_8cosmomia_8cosmomia_63__pyx_fuse_1single_collapse_step, 0, __pyx_n_s_pyx_fuse_1single_collapse_step, NULL, __pyx_n_s_cosmomia_cosmomia, __pyx_d, ((PyObject *)__pyx_codeobj__78)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_7, __pyx_tuple__79);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_single_collapse_step, __pyx_t_7) < 0) __PYX_ERR(0, 1189, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_single_collapse_step, __pyx_t_7) < 0) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "cosmomia/subgrid.pyx":1189
+  /* "cosmomia/subgrid.pyx":1217
  * 
  * 
  * cpdef dict single_collapse_step(cnp.ndarray[floating, ndim=2] attractors, cnp.ndarray[floating, ndim=2] vel_attractors, cnp.ndarray[floating, ndim=1] dm,             # <<<<<<<<<<<<<<
  *                                 cnp.ndarray[floating, ndim=2] not_attractors, cnp.ndarray[floating, ndim=2] vel_not_attractors,
  *                                 floating[:] params,
  */
-  __pyx_t_7 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_4 = __pyx_FusedFunction_New(&__pyx_fuse_0__pyx_mdef_8cosmomia_8cosmomia_61__pyx_fuse_0single_collapse_step, 0, __pyx_n_s_pyx_fuse_0single_collapse_step, NULL, __pyx_n_s_cosmomia_cosmomia, __pyx_d, ((PyObject *)__pyx_codeobj__75)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_t_4 = __pyx_FusedFunction_New(&__pyx_fuse_0__pyx_mdef_8cosmomia_8cosmomia_61__pyx_fuse_0single_collapse_step, 0, __pyx_n_s_pyx_fuse_0single_collapse_step, NULL, __pyx_n_s_cosmomia_cosmomia, __pyx_d, ((PyObject *)__pyx_codeobj__75)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__73);
-  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_float, __pyx_t_4) < 0) __PYX_ERR(0, 1189, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_float, __pyx_t_4) < 0) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __pyx_FusedFunction_New(&__pyx_fuse_1__pyx_mdef_8cosmomia_8cosmomia_63__pyx_fuse_1single_collapse_step, 0, __pyx_n_s_pyx_fuse_1single_collapse_step, NULL, __pyx_n_s_cosmomia_cosmomia, __pyx_d, ((PyObject *)__pyx_codeobj__75)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_t_4 = __pyx_FusedFunction_New(&__pyx_fuse_1__pyx_mdef_8cosmomia_8cosmomia_63__pyx_fuse_1single_collapse_step, 0, __pyx_n_s_pyx_fuse_1single_collapse_step, NULL, __pyx_n_s_cosmomia_cosmomia, __pyx_d, ((PyObject *)__pyx_codeobj__75)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__73);
-  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_double, __pyx_t_4) < 0) __PYX_ERR(0, 1189, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_double, __pyx_t_4) < 0) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __pyx_FusedFunction_New(&__pyx_mdef_8cosmomia_8cosmomia_17single_collapse_step, 0, __pyx_n_s_single_collapse_step, NULL, __pyx_n_s_cosmomia_cosmomia, __pyx_d, ((PyObject *)__pyx_codeobj__75)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1189, __pyx_L1_error)
+  __pyx_t_4 = __pyx_FusedFunction_New(&__pyx_mdef_8cosmomia_8cosmomia_17single_collapse_step, 0, __pyx_n_s_single_collapse_step, NULL, __pyx_n_s_cosmomia_cosmomia, __pyx_d, ((PyObject *)__pyx_codeobj__75)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (!__Pyx_CyFunction_InitDefaults(__pyx_t_4, sizeof(__pyx_defaults7), 1)) __PYX_ERR(0, 1189, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1189, __pyx_L1_error)
+  if (!__Pyx_CyFunction_InitDefaults(__pyx_t_4, sizeof(__pyx_defaults7), 1)) __PYX_ERR(0, 1217, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_CyFunction_Defaults(__pyx_defaults7, __pyx_t_4)->__pyx_arg__fused_sigindex = __pyx_t_5;
   __Pyx_GIVEREF(__pyx_t_5);
@@ -57280,7 +57552,7 @@ if (!__Pyx_RefNanny) {
   ((__pyx_FusedFunctionObject *) __pyx_t_4)->__signatures__ = __pyx_t_7;
   __Pyx_GIVEREF(__pyx_t_7);
   __pyx_t_7 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_single_collapse_step, __pyx_t_4) < 0) __PYX_ERR(0, 1189, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_single_collapse_step, __pyx_t_4) < 0) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "cosmomia/subgrid.pyx":1
